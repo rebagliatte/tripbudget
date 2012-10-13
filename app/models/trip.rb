@@ -5,6 +5,5 @@ class Trip < ActiveRecord::Base
   belongs_to :owner, class_name: 'Traveller'
 
   validates :name, presence: true
-  validates :is_public, presence: true
 
 end

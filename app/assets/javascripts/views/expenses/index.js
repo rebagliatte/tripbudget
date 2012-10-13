@@ -47,8 +47,7 @@ TripBudget.Views.ExpensesHandler = (function () {
       totalDays: settings.totalDays,
       totalTravellers: settings.totalTravellers
     });
-    this.saver = new TripBudget.Helpers.ExpensesSaver({
-    });
+    this.saver = new TripBudget.Helpers.ExpensesSaver({});
 
     this.bindNewExpenseEvent();
     this.bindFormSubmitEvents();
