@@ -6,4 +6,6 @@ Tripbudget::Application.routes.draw do
   resources :destinations, only: %w(index new create show edit update destroy)
   resources :users, only: 'show'
 
+  match 'auth/twitter/callback', to: 'sessions#create'
+
 end
