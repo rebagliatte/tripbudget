@@ -1,4 +1,32 @@
 Tripbudget::Application.routes.draw do
+  get "home/index"
+
+  get "user/show"
+
+  get "destinations/index"
+
+  get "destinations/new"
+
+  get "destinations/create"
+
+  get "destinations/edit"
+
+  get "destinations/update"
+
+  get "destinations/destroy"
+
+  get "trips/index"
+
+  get "trips/new"
+
+  get "trips/create"
+
+  get "trips/edit"
+
+  get "trips/update"
+
+  get "trips/destroy"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
