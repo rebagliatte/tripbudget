@@ -14,13 +14,13 @@
 ActiveRecord::Schema.define(:version => 20121013004921) do
 
   create_table "alternatives", :force => true do |t|
-    t.decimal  "cost",       :default => 0.0,          :null => false
-    t.string   "person_gap", :default => "per_person", :null => false
-    t.string   "time_gap",   :default => "per_day",    :null => false
+    t.decimal  "cost",       :precision => 10, :scale => 0, :default => 0,            :null => false
+    t.string   "person_gap",                                :default => "per_person", :null => false
+    t.string   "time_gap",                                  :default => "per_day",    :null => false
     t.integer  "expense_id"
     t.boolean  "is_checked"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20121013004921) do
 
   create_table "trips", :force => true do |t|
     t.string   "name",        :default => "", :null => false
-    t.text     "description", :default => ""
+    t.text     "description"
     t.boolean  "is_public"
     t.integer  "owner_id",                    :null => false
     t.datetime "created_at",                  :null => false

@@ -1,2 +1,25 @@
-log
+# Ignore bundler config
+/.bundle
 
+# Ignore SASS cache
+.sass-cache
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+/logfile
+
+# Ignore system generated images
+public/system/
+
+# Ignore precomiled assets
+public/assets
+
+# Ignore local gemsets
+*.swp
+
+# Ignore mac generated files
+*.DS_Store
