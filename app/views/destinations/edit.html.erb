@@ -1,5 +1,4 @@
 <h1><%= @trip.name %></h1>
-<h2><%= @destination.name %></h2>
 <p><%= @trip.description %></p>
 
 <header>
@@ -13,7 +12,7 @@
   </h2>
 </header>
 
-<%= form_for :expenses, url: create_all_trip_destination_expenses_path(@trip, @destination, format: :json), html: { id: 'expenses-form' } do |f| %>
+<%= form_for @destination, url: trip_destination_path(@trip, @destination, format: :json), html: { id: 'expenses-form' } do |f| %>
 
   <div id="expenses-form-inner-wrapper"></div>
 

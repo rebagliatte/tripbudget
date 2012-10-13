@@ -27,17 +27,8 @@ class TripsController < ApplicationController
   def create_or_update_trip
     @trip.destinations.clear
 
-    invitees = params[:trip][:invitees].split(",").map{|i| i.strip }
-    invitees.each do |email|
-      invitee = if user = Traveller.find_by_email(email)
-                  UserMailer.notice_trip_invitation_email(user, trip).deliver!
-                  user
-                else
-                  user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
-                  UserMailer.invite_email(user, trip).deliver!
-                  user
-                end
-      trip.travellers << invitee
+    destinations = trip_params[:destinations].map do |destination_params|
+      @trip.destinations.new(destination_params)
     end
 
     any_destination = destinations.any?
@@ -49,7 +40,7 @@ class TripsController < ApplicationController
       notify_new_invitees
 
       # Success!
-      redirect_to edit_destination_path(destinations.first), flash: { success: 'Trip created successfully. Now edit your destination!' }
+      redirect_to edit_trip_destination_path(@trip, destinations.first), flash: { success: 'Trip created successfully. Now edit your destination!' }
     else
       errors = []
       errors << 'Invalid destinations' unless destinations_valid
