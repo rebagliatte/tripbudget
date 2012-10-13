@@ -1,0 +1,39 @@
+<h1><%= @trip.name %></h1>
+<h2><%= @destination.name %></h2>
+<p><%= @trip.description %></p>
+
+<header>
+  <h1><%= @destination.name %></h1>
+  <h2>
+    <%= pretty_date(@destination.from_date) %> -
+    <%= pretty_date(@destination.to_date) %>
+  </h2>
+</header>
+
+<%= form_for :expenses, url: create_all_trip_destination_expenses_path(@trip, @destination), id: 'expenses-form' do |f| %>
+   <div id="expenses-form"></div>
+<% end %>
+
+<script type="text/x-jquery-tmpl" id="expense-template">
+  <div class="expense">
+    <h1><%%= name %></h1>
+
+    <ul class="alternatives"></ul>
+  </div>
+</script>
+
+<script type="text/x-jquery-tmpl" id="alternative-template">
+  <li>
+    <span class="radio">
+      <input type="radio" />
+    </span>
+  </li>
+</script>
+
+<%= content_for :javascript do %>
+  window.testing = new TripPlanner.Views.ExpensesHandler(<%= {
+    destination: @destination,
+    expenses: @destination.expenses
+  }.to_json.html_safe %>);
+  window.testing.drawAll();
+<% end %>

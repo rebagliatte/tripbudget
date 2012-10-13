@@ -9,9 +9,12 @@ class TripsController < ApplicationController
   end
 
   def create
-    # TODO
-
-    redirect to new_destination_path
+    @trip = Trip.new(trip_params)
+    if @trip.save
+      redirect_to new_destination_path(@trip), flash: { success: 'Trip created successfully. Now add your destination!' }
+    else
+      render :new
+    end
   end
 
   def edit
@@ -21,5 +24,10 @@ class TripsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+  def trip_params
+    params[:trip].slice(:name, :description, :is_public)
   end
 end
