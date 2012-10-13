@@ -59,7 +59,7 @@
   $(function () {
     window.testing = new TripBudget.Views.ExpensesHandler(<%= {
       destination: @destination,
-      expenses: @destination.expenses,
+      expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives) },
       totalDays: @destination.total_days,
       totalTravellers: @destination.total_travellers
     }.to_json.html_safe %>);

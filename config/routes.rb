@@ -4,7 +4,7 @@ Tripbudget::Application.routes.draw do
 
   resources :trips, only: %w(index new create show edit update destroy) do
     resources :destinations, only: %w(index show edit update destroy) do
-      resources :expenses, only: %w(new) do
+      resources :expenses, only: %w(index) do
         collection do
           post :create_all
         end
