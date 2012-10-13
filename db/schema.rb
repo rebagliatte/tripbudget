@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013003537) do
+ActiveRecord::Schema.define(:version => 20121013004921) do
 
   create_table "alternatives", :force => true do |t|
     t.decimal  "cost",       :default => 0.0,          :null => false
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(:version => 20121013003537) do
     t.datetime "updated_at",                     :null => false
   end
 
+  create_table "expenses_travellers", :force => true do |t|
+    t.integer "traveller_id"
+    t.integer "expense_id"
+  end
+
+  add_index "expenses_travellers", ["expense_id"], :name => "index_expenses_travellers_on_expense_id"
+  add_index "expenses_travellers", ["traveller_id"], :name => "index_expenses_travellers_on_traveller_id"
+
   create_table "travellers", :force => true do |t|
     t.string   "nickname",    :default => "", :null => false
     t.string   "twitter_uid"
@@ -58,6 +66,14 @@ ActiveRecord::Schema.define(:version => 20121013003537) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
   end
+
+  create_table "travellers_trips", :force => true do |t|
+    t.integer "traveller_id"
+    t.integer "trip_id"
+  end
+
+  add_index "travellers_trips", ["traveller_id"], :name => "index_traveller_trips_on_traveller_id"
+  add_index "travellers_trips", ["trip_id"], :name => "index_traveller_trips_on_trip_id"
 
   create_table "trips", :force => true do |t|
     t.string   "name",        :default => "", :null => false

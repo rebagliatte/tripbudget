@@ -41,3 +41,112 @@ Migrating to CreateComments (20121013003537)
   [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("expenses")[0m
   [1m[35m (0.0ms)[0m  PRAGMA index_list("travellers")
   [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("trips")[0m
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateTrips (20121013002842)
+Migrating to CreateDestinations (20121013002851)
+Migrating to CreateExpenses (20121013002949)
+Migrating to CreateAlternatives (20121013003110)
+Migrating to CreateTravellers (20121013003351)
+Migrating to CreateComments (20121013003537)
+Migrating to AddTravellerTripTable (20121013004422)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "traveller_trips" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "traveller_id" integer, "trip_id" integer) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("traveller_trips")[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_traveller_trips_on_traveller_id" ON "traveller_trips" ("traveller_id")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("traveller_trips")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_traveller_trips_on_traveller_id')
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_traveller_trips_on_trip_id" ON "traveller_trips" ("trip_id")[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013004422')
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("alternatives")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("comments")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("destinations")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("expenses")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("traveller_trips")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('index_traveller_trips_on_trip_id')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_traveller_trips_on_traveller_id')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("travellers")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("trips")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to AddTravellerTripTable (20121013004422)
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("traveller_trips")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_traveller_trips_on_trip_id')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('index_traveller_trips_on_traveller_id')[0m
+  [1m[35m (37.1ms)[0m  DROP INDEX "index_traveller_trips_on_trip_id"
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("traveller_trips")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_traveller_trips_on_traveller_id')
+  [1m[36m (0.3ms)[0m  [1mDROP INDEX "index_traveller_trips_on_traveller_id"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "traveller_trips"
+  [1m[36m (0.1ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20121013004422'[0m
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("alternatives")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("comments")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("destinations")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("expenses")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("travellers")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("trips")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateTrips (20121013002842)
+Migrating to CreateDestinations (20121013002851)
+Migrating to CreateExpenses (20121013002949)
+Migrating to CreateAlternatives (20121013003110)
+Migrating to CreateTravellers (20121013003351)
+Migrating to CreateComments (20121013003537)
+Migrating to AddTravellerTripTable (20121013004422)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "travellers_trips" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "traveller_id" integer, "trip_id" integer) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("traveller_trips")[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_traveller_trips_on_traveller_id" ON "traveller_trips" ("traveller_id")
+SQLite3::SQLException: no such table: main.traveller_trips: CREATE  INDEX "index_traveller_trips_on_traveller_id" ON "traveller_trips" ("traveller_id")
+  [1m[36m (0.5ms)[0m  [1mrollback transaction[0m
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateTrips (20121013002842)
+Migrating to CreateDestinations (20121013002851)
+Migrating to CreateExpenses (20121013002949)
+Migrating to CreateAlternatives (20121013003110)
+Migrating to CreateTravellers (20121013003351)
+Migrating to CreateComments (20121013003537)
+Migrating to AddTravellerTripTable (20121013004422)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "travellers_trips" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "traveller_id" integer, "trip_id" integer) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("travellers_trips")[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_traveller_trips_on_traveller_id" ON "travellers_trips" ("traveller_id")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("travellers_trips")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_traveller_trips_on_traveller_id')
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_traveller_trips_on_trip_id" ON "travellers_trips" ("trip_id")[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013004422')
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddExpenseTravellerTable (20121013004921)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "expenses_travellers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "traveller_id" integer, "expense_id" integer) [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("expenses_travellers")
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_expenses_travellers_on_traveller_id" ON "expenses_travellers" ("traveller_id")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("expenses_travellers")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('index_expenses_travellers_on_traveller_id')[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_expenses_travellers_on_expense_id" ON "expenses_travellers" ("expense_id")
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121013004921')[0m
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("alternatives")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("comments")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("destinations")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("expenses")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("expenses_travellers")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_expenses_travellers_on_expense_id')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('index_expenses_travellers_on_traveller_id')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("travellers")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("travellers_trips")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('index_traveller_trips_on_trip_id')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('index_traveller_trips_on_traveller_id')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("trips")
