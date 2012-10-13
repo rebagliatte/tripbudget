@@ -17,7 +17,7 @@ class TripsController < ApplicationController
       invitee = if user = Traveller.find_by_email(email)
                   user
                 else
-                  user = Traveller.create!(email: email, invitation_url: '33333')
+                  user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
                   UserMailer.invite_email(user).deliver
                   user
                 end
