@@ -35,7 +35,7 @@
 
 <%= content_for :javascript do %>
   $(function () {
-    var view = new TripBudget.Views.NewTrip(<%= {
+    var view = new TripBudget.Views.EditTrip(<%= {
       destinations: @trip.destinations
     }.to_json.html_safe %>);
     view.appendAll();

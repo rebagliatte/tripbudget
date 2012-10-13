@@ -1,4 +1,4 @@
-TripBudget.Views.NewTrip = (function () {
+TripBudget.Views.EditTrip = (function () {
 
   var DEFAULT_DESTINATION = {
     "from_date": 1, // Today
@@ -9,7 +9,7 @@ TripBudget.Views.NewTrip = (function () {
   /**
    *
    */
-  var NewTrip = function (settings) {
+  var EditTrip = function (settings) {
     this.$destinationsContainer = $('#destinations-container');
     this.destinationIndex = 0;
     this.templates = {
@@ -26,7 +26,7 @@ TripBudget.Views.NewTrip = (function () {
   /**
    *
    */
-  NewTrip.prototype.appendAll = function () {
+  EditTrip.prototype.appendAll = function () {
     this.$destinationsContainer.empty();
     this.destinations.forEach(this.appendDestination.bind(this));
   };
@@ -34,7 +34,7 @@ TripBudget.Views.NewTrip = (function () {
   /**
    *
    */
-  NewTrip.prototype.appendDestination = function (destination) {
+  EditTrip.prototype.appendDestination = function (destination) {
     var destinationContent = $(this.templates.destination({
       destination: destination,
       index: this.destinationIndex
@@ -52,13 +52,13 @@ TripBudget.Views.NewTrip = (function () {
   /**
    *
    */
-  NewTrip.prototype.bindNewDestinationEvent = function () {
+  EditTrip.prototype.bindNewDestinationEvent = function () {
     $('#add-destination').click(function (event) {
       event.preventDefault();
       this.appendDestination(DEFAULT_DESTINATION);
     }.bind(this));
   };
 
-  return NewTrip;
+  return EditTrip;
 
 })();

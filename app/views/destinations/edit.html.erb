@@ -1,2 +1,76 @@
-<h1>Destinations#edit</h1>
-<p>Find me in app/views/destinations/edit.html.erb</p>
+<h1><%= @trip.name %></h1>
+<h2><%= @destination.name %></h2>
+<p><%= @trip.description %></p>
+
+<header>
+  <h1><%= @destination.name %></h1>
+  <h2>
+    <%= pretty_date(@destination.from_date) %> -
+    <%= pretty_date(@destination.to_date) %> -
+    <span class="days-diff">
+      <%= @destination.total_days %> day(s)
+    </span>
+  </h2>
+</header>
+
+<%= form_for :expenses, url: create_all_trip_destination_expenses_path(@trip, @destination, format: :json), html: { id: 'expenses-form' } do |f| %>
+
+  <div id="expenses-form-inner-wrapper"></div>
+
+  <p>
+    <a href="#" id="add-expense">Add new budget</a>
+    <span class="total-label">Total</span>
+    <strong id="total-price"></strong>
+  </p>
+
+  <p>
+    <a href="#" class="submit-expense">Go Back</a>
+    <%= f.submit 'Next Destination', class: 'submit-expense' %>
+  </p>
+<% end %>
+
+<script type="text/x-jquery-tmpl" id="expense-template">
+  <div class="expense">
+    <h1><%%= name %></h1>
+
+    <input type="hidden" name="expense[id]" value="<%%= id %>" class="expense-id" />
+
+    <ul class="alternatives"></ul>
+
+    <a href="#" class="add-alternative">Add an alternative</a>
+  </div>
+</script>
+
+<script type="text/x-jquery-tmpl" id="alternative-template">
+  <li>
+    <input type="hidden" name="alternative[id]" value="<%%= alternative.id %>" class="alternative-id" />
+    <span class="is_checked">
+      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
+    </span>
+    $ <input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" class="cost-input" />
+    <div class="btn-group person_gap" data-toggle="buttons-radio">
+      <button type="button" class="btn per_person">Per person</button>
+      <button type="button" class="btn per_group">Per Group</button>
+    </div>
+    <div class="btn-group time_gap" data-toggle="buttons-radio">
+      <button type="button" class="btn per_day">Per day</button>
+      <button type="button" class="btn per_stay">Per stay</button>
+    </div>
+    <span class="link-url">
+      <input type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link_url %>" />
+    </span>
+    <a href="#" class="remove-alternative">X</a>
+  </li>
+</script>
+
+<%= content_for :javascript do %>
+  $(function () {
+    window.testing = new TripBudget.Views.ExpensesHandler(<%= {
+      destination: @destination,
+      expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives) },
+      totalDays: @destination.total_days,
+      totalTravellers: @destination.total_travellers
+    }.to_json.html_safe %>);
+    window.testing.appendAll();
+  });
+<% end %>
