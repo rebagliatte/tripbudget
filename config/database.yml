@@ -5,4 +5,4 @@ development:
 production:
   adapter: mysql2
   database: tripbudget_production
-  password: 'codepathsk#jdfh10%28!!93'
+  password: 123root
