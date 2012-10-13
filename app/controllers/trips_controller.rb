@@ -2,7 +2,7 @@ class TripsController < ApplicationController
 
   load_and_authorize_resource
 
-  skip_load_resource only: :create
+  skip_load_resource only: %w(create update)
 
   def index
   end
@@ -11,8 +11,21 @@ class TripsController < ApplicationController
   end
 
   def create
-    # TODO
-    trip = Trip.create!(name: params[:trip][:name], owner_id: params[:trip][:owner_id])
+    @trip = Trip.new(trip_params.slice(:name, :description, :is_public).merge(owner: current_user))
+    create_or_update_trip
+  end
+
+  def edit
+  end
+
+  def update
+    @trip = Trip.find(params[:id])
+    @trip.assign_attributes(trip_params.slice(:name, :description, :is_public))
+    create_or_update_trip
+  end
+
+  def create_or_update_trip
+    @trip.destinations.clear
 
     invitees = params[:trip][:invitees].split(",").map{|i| i.strip }
     invitees.each do |email|
@@ -33,20 +46,7 @@ class TripsController < ApplicationController
 
     if any_destination && destinations_valid && trip_valid
       @trip.save!
-
-      # Notify Invitees
-      invitees = trip_params[:invitees].split(',').map(&:strip)
-      invitees.each do |email|
-        invitee = if user = Traveller.find_by_email(email)
-          UserMailer.notice_trip_invitation_email(user, trip).deliver!
-          user
-        else
-          user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
-          UserMailer.invite_email(user).deliver!
-          user
-        end
-        trip.travellers << invitee
-      end
+      notify_new_invitees
 
       # Success!
       redirect_to edit_destination_path(destinations.first), flash: { success: 'Trip created successfully. Now edit your destination!' }
@@ -60,12 +60,6 @@ class TripsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def destroy
   end
 
@@ -77,5 +71,22 @@ class TripsController < ApplicationController
       destination_params.slice(:name, :from_date, :to_date)
     end
     @trip_params
+  end
+
+  def notify_new_invitees
+    old_invitees = @trip.travellers.all.map(&:email)
+    new_invitees = trip_params[:invitees].split(',').map(&:strip)
+
+    (new_invitees - old_invitees).each do |email|
+      invitee = if user = Traveller.find_by_email(email)
+        UserMailer.notice_trip_invitation_email(user, trip).deliver!
+        user
+      else
+        user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
+        UserMailer.invite_email(user).deliver!
+        user
+      end
+      @trip.travellers << invitee
+    end
   end
 end
