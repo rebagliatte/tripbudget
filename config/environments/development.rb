@@ -44,4 +44,6 @@ config.action_mailer.smtp_settings = {
   :password             => '123tripb',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
+
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end
