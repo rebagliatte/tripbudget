@@ -22,4 +22,8 @@ module ApplicationHelper
     syntax_highlighter(Redcarpet.new(text, *options).to_html).html_safe
   end
 
+  def pretty_date(date)
+    date.strftime('%m/%d/%Y')
+  end
+
 end
