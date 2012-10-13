@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  protected
+
+  def render_404
+    render :file => Rails.root.join("public/404.html").to_s, :layout => false, :status => 404
+  end
+
   private
 
   def current_user
