@@ -40,6 +40,7 @@ TripBudget.Helpers.ExpenseCosts = (function () {
    */
   ExpenseCostsHelper.prototype.bindCostChangesEvent = function () {
     $('.cost-input').live('blur', this.refresh.bind(this));
+    $('.person_gap, .time_gap').live('click', this.refresh.bind(this));
   };
 
   return ExpenseCostsHelper;

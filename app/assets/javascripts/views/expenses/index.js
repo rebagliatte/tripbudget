@@ -1,6 +1,7 @@
 TripBudget.Views.ExpensesHandler = (function () {
 
   var DEFAULT_ALTERNATIVE = {
+      "id": null,
       "cost": "",
       "person_gap": "per_person",
       "time_gap": "per_day",
@@ -8,17 +9,20 @@ TripBudget.Views.ExpensesHandler = (function () {
     }
     , DEFAULT_EXPENSES = [
       {
+        "id": null,
         "name": "Accomodation",
         "category": "accomodation",
         "alternatives": []
       },
       {
+        "id": null,
         "name": "Transport",
         "category": "transport",
         "alternatives": [],
       }
     ]
     , DEFAULT_EXPENSE = {
+      "id": null,
       "name": "New Expense", // TODO: Make funny default expense titles
       "category": "",
       "alternatives": []
@@ -30,7 +34,7 @@ TripBudget.Views.ExpensesHandler = (function () {
   var ExpensesHandler = function (settings) {
     this.expenses = settings.expenses || [];
     this.alternativeIndex = 0;
-    this.$mainContainer = $('#expenses-form');
+    this.$mainContainer = $('#expenses-form-inner-wrapper');
     this.templates = {
       expense: _.template($('#expense-template').html()),
       alternative: _.template($('#alternative-template').html())
@@ -43,8 +47,11 @@ TripBudget.Views.ExpensesHandler = (function () {
       totalDays: settings.totalDays,
       totalTravellers: settings.totalTravellers
     });
+    this.saver = new TripBudget.Helpers.ExpensesSaver({
+    });
 
     this.bindNewExpenseEvent();
+    this.bindFormSubmitEvents();
   };
 
   /**
@@ -76,7 +83,9 @@ TripBudget.Views.ExpensesHandler = (function () {
     }.bind(this));
 
     // Appending default blank alternative
-    this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
+    if (expense.alternatives.length === 0) {
+      this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
+    }
 
     // Appending to container
     this.$mainContainer.append(expenseContent);
@@ -134,6 +143,16 @@ TripBudget.Views.ExpensesHandler = (function () {
     $('#add-expense').click(function (event) {
       event.preventDefault();
       this.appendExpense(DEFAULT_EXPENSE);
+    }.bind(this));
+  };
+
+  /**
+   *
+   */
+  ExpensesHandler.prototype.bindFormSubmitEvents = function () {
+    $('#expenses-form .submit-expense').click(function (event) {
+      event.preventDefault();
+      this.saver.save();
     }.bind(this));
   };
 
