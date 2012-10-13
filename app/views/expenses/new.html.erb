@@ -6,7 +6,10 @@
   <h1><%= @destination.name %></h1>
   <h2>
     <%= pretty_date(@destination.from_date) %> -
-    <%= pretty_date(@destination.to_date) %>
+    <%= pretty_date(@destination.to_date) %> -
+    <span class="days-diff">
+      <%= @destination.total_days %> day(s)
+    </span>
   </h2>
 </header>
 

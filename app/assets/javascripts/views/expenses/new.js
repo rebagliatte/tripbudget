@@ -19,7 +19,7 @@ TripBudget.Views.ExpensesHandler = (function () {
       }
     ]
     , DEFAULT_EXPENSE = {
-      "name": "",
+      "name": "New Expense", // TODO: Make funny default expense titles
       "category": "",
       "alternatives": []
     };
@@ -43,6 +43,8 @@ TripBudget.Views.ExpensesHandler = (function () {
       totalDays: settings.totalDays,
       totalTravellers: settings.totalTravellers
     });
+
+    this.bindNewExpenseEvent();
   };
 
   /**
@@ -128,7 +130,11 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.bindDOMEvents = function () {
+  ExpensesHandler.prototype.bindNewExpenseEvent = function () {
+    $('#add-expense').click(function (event) {
+      event.preventDefault();
+      this.appendExpense(DEFAULT_EXPENSE);
+    }.bind(this));
   };
 
   return ExpensesHandler;
