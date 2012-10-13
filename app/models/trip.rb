@@ -6,9 +6,8 @@ class Trip < ActiveRecord::Base
   belongs_to :owner, class_name: 'Traveller'
 
   validates :name, presence: true
-  # validates :is_public, presence: true
 
   def self.get_random_invitation_code
-    rand(36**8).to_s(36)
+    rand(36 ** 8).to_s(36)
   end
 end

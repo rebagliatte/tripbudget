@@ -4,18 +4,40 @@
   #   - action
 %>
 
-<%= simple_form_for(trip, html: { class:'form-horizontal' }, url: { action: action }) do |form| %>
+<%= simple_form_for(trip, html: { class:'form-horizontal', id: 'trip-form' }, url: { action: action }) do |form| %>
 
   <%= error_messages_for(trip) %>
 
   <%= form.input :name %>
   <%= form.input :description %>
-  <%= form.input :is_public, as: :radio_buttons %>
   <%= form.input :invitees, hint: 'Comma separated list of emails' %>
-  <%= form.association :owner %>
+  <%= form.input :is_public, as: :radio_buttons %>
+
+  <ul id="destinations-container"></ul>
+  <a href="#" id="add-destination">Add a destination</a>
 
   <div class="form-actions">
-    <%= submit_tag("#{action} trip", class: 'btn btn-primary') %>
+    <%= submit_tag "#{action.capitalize} trip", class: 'btn btn-primary' %>
     <%= link_to 'Cancel', trips_path, class: 'btn' %>
   </div>
+<% end %>
+
+<script type="text/template" id="destination-template">
+  <li class="destination">
+    <input type="hidden" name="trip[destinations][<%%= index %>][id]" value="<%%= destination.id %>" />
+    <input type="text" name="trip[destinations][<%%= index %>][name]" value="<%%= destination.name %>" />
+    <input type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" />
+    <input type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" />
+
+    <a href="#" class="remove-destination">X</a>
+  </li>
+</script>
+
+<%= content_for :javascript do %>
+  $(function () {
+    var view = new TripBudget.Views.NewTrip(<%= {
+      destinations: @trip.destinations
+    }.to_json.html_safe %>);
+    view.appendAll();
+  });
 <% end %>
