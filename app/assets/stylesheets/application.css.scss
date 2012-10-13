@@ -5,6 +5,8 @@
 @import "bourbon";
 @import "bootstrap_and_overrides";
 @import "home";
+@import "trips";
+@import "destinations";
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
 
 /* Header */
@@ -41,6 +43,33 @@
   color: #333;
 }
 
+/* Forms */
+.form-horizontal {
+  label {
+    color: #636363;
+  }
+  input[type=text],
+  textarea {
+    width: 785px;
+  }
+  select {
+    width: 800px;
+  }
+  .help-block {
+    color: #888;
+    font-size: 0.9em;
+    font-style: italic;
+  }
+  .form-actions {
+    background: none;
+    border: 0;
+    .secondary-action {
+      color: #888;
+      margin-left: 20px;
+    }
+  }
+}
+
 /* Footer */
 .footer {
   padding: 20px 0;
@@ -48,3 +77,5 @@
   border-top: 1px solid #E5E5E5;
   background-color: whiteSmoke;
 }
+
+

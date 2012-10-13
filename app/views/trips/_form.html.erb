@@ -13,21 +13,26 @@
   <%= form.input :invitees, hint: 'Comma separated list of emails' %>
   <%= form.input :is_public, as: :radio_buttons %>
 
-  <ul id="destinations-container"></ul>
-  <a href="#" id="add-destination">Add a destination</a>
+  <div class="control-group">
+    <label class="optional control-label">Destinations</label>
+    <div class="controls">
+      <ul id="destinations-container"></ul>
+      <a href="#" id="add-destination">Add a destination</a>
+    </div>
+  </div>
 
   <div class="form-actions">
     <%= submit_tag "#{action.capitalize} trip", class: 'btn btn-primary' %>
-    <%= link_to 'Cancel', trips_path, class: 'btn' %>
+    <%= link_to 'Cancel', trips_path, class: 'secondary-action' %>
   </div>
 <% end %>
 
 <script type="text/template" id="destination-template">
   <li class="destination">
     <input type="hidden" name="trip[destinations][<%%= index %>][id]" value="<%%= destination.id %>" />
-    <input type="text" name="trip[destinations][<%%= index %>][name]" value="<%%= destination.name %>" />
-    <input type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" />
-    <input type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" />
+    <input class= "name" type="text" name="trip[destinations][<%%= index %>][name]" value="<%%= destination.name %>" placeholder="Enter a city name">
+    <input class= "date" type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" placeholder="yyyy-mm-dd">
+    <input class= "date" type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" placeholder="yyyy-mm-dd">
 
     <a href="#" class="remove-destination">X</a>
   </li>
