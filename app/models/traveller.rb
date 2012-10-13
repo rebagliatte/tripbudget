@@ -15,7 +15,13 @@ class Traveller < ActiveRecord::Base
     create! do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
-      user.name = auth["info"]["nickname"]
+      user.nickname = auth["info"]["nickname"]
+      user.name = auth["info"]["name"]
+      user.location = auth["info"]["location"]
+      user.image = auth["info"]["image"]
+      user.description = auth["info"]["description"]
+      user.url = auth["info"]["urls"]["Website"]
+      user.twitter_url = auth["info"]["urls"]["Twitter"]
     end
   end
 

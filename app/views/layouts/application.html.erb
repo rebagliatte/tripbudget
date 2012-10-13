@@ -25,13 +25,27 @@
       <div class="nav-collapse">
         <ul class="nav">
           <li><%= link_to "Trips", trips_path %></li>
-          <li>
-            <% if current_user %>
-              Signed in as <%= current_user.name %>!
-              <%= link_to "Sign out", signout_path %>
-            <% else %>
-              <%= link_to "Sign in with Twitter", "/auth/twitter" %>
-            <% end %>
+        </ul>
+
+        <ul class="nav pull-right">
+          <li class="dropdown settings">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Settings
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li></li>
+            </ul>
+          </li>
+          <li class="dropdown authentication">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= image_tag current_user.image, alt: current_user.nickname %>
+              <%= current_user.nickname %>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Sign out', signout_path %></li>
+            </ul>
           </li>
         </ul>
       </div>

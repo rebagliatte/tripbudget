@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013120924) do
+ActiveRecord::Schema.define(:version => 20121013122503) do
 
   create_table "alternatives", :force => true do |t|
     t.decimal  "cost",       :precision => 10, :scale => 0, :default => 0,            :null => false
@@ -58,14 +58,19 @@ ActiveRecord::Schema.define(:version => 20121013120924) do
   add_index "expenses_travellers", ["traveller_id"], :name => "index_expenses_travellers_on_traveller_id"
 
   create_table "travellers", :force => true do |t|
-    t.string   "nickname",   :default => "", :null => false
+    t.string   "nickname",    :default => "", :null => false
     t.string   "uid"
-    t.string   "email",      :default => ""
-    t.string   "name",       :default => ""
-    t.string   "checksum",   :default => ""
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "provider",   :default => "", :null => false
+    t.string   "email",       :default => ""
+    t.string   "name",        :default => ""
+    t.string   "checksum",    :default => ""
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.string   "provider",    :default => "", :null => false
+    t.string   "location",    :default => ""
+    t.string   "image",       :default => ""
+    t.string   "description", :default => ""
+    t.string   "url",         :default => ""
+    t.string   "twitter_url", :default => ""
   end
 
   create_table "travellers_trips", :force => true do |t|
