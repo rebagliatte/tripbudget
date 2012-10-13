@@ -1,4 +1,70 @@
-<h1>Trip Budget Planner</h1>
-<p>Enter the locations and estimates of the expenses. Share with your travel group and get the most out of your money. We do the maths for you.</p>
+<%= title ('Collective budget planning made easy') %>
 
-<%= link_to 'Create a trip', new_trip_path, class: 'btn primary-btn' %>
+<section class="row-fluid intro">
+  <div class="span3">
+    <%= image_tag('home/main_screenshot.png', alt: 'Main screenshot') %>
+  </div>
+
+  <div class="span6">
+    <p>Enter the locations and estimates of your expenses. Share with your travel companions and get the most out of your money. We do the maths for you.</p>
+    <%= link_to 'Create a trip', new_trip_path, class: 'btn btn-primary' %>
+  </div>
+</section>
+
+<section class="row-fluid">
+  <h1 class="secondary-heading">Get started</h1>
+  <ul class="thumbnails">
+    <li class="span4">
+      <div class="thumbnail">
+        <%= image_tag('home/main_screenshot.png', alt: 'Main screenshot') %>
+        <h3>Create a trip</h3>
+        <p>Pick destinations and invite your travel companions</p>
+      </div>
+    </li>
+    <li class="span4">
+      <div class="thumbnail">
+        <%= image_tag('home/main_screenshot.png', alt: 'Main screenshot') %>
+        <h3>Estimate your expenses</h3>
+        <p>Add alternatives and discuss about them in an organized way.</p>
+        <!-- No more browsing through a hundred mails to get the fees od the hostel, or plane ticket you considered! -->
+      </div>
+    </li>
+    <li class="span4">
+      <div class="thumbnail">
+        <%= image_tag('home/main_screenshot.png', alt: 'Main screenshot') %>
+        <h3>Get the most out of your budget</h3>
+        <p>Sit back and relax, we do the maths for you!</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h1 class="secondary-heading">Browse public budgets</h1>
+  <div class="row-fluid">
+    <section class="span4">
+      <h1 class="tertiary-heading">Editor Picks</h1>
+      <ul>
+        <li><%= link_to 'Euro Trip', '#' %></li>
+        <li><%= link_to 'Marco Polo', '#' %></li>
+        <li><%= link_to 'Asia for 2', '#' %></li>
+      </ul>
+    </section>
+    <section class="span4">
+      <h1 class="tertiary-heading">Popular Trips</h1>
+      <ul>
+        <li><%= link_to 'Euro Trip', '#' %></li>
+        <li><%= link_to 'Marco Polo', '#' %></li>
+        <li><%= link_to 'Asia for 2', '#' %></li>
+      </ul>
+    </section>
+    <section class="span4">
+      <h1 class="tertiary-heading">Latest Trips</h1>
+      <ul>
+        <li><%= link_to 'Euro Trip', '#' %></li>
+        <li><%= link_to 'Marco Polo', '#' %></li>
+        <li><%= link_to 'Asia for 2', '#' %></li>
+      </ul>
+    </section>
+  </div>
+</section>
