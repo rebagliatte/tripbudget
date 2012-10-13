@@ -4,8 +4,8 @@ class Traveller < ActiveRecord::Base
   has_and_belongs_to_many :trips
   has_and_belongs_to_many :expenses
 
-  validates :name, presence: true
-  validates :uid, presence: true
+  # validates :name, presence: true
+  # validates :uid, presence: true
 
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
