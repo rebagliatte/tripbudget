@@ -10,8 +10,21 @@ class TripsController < ApplicationController
 
   def create
     # TODO
+    trip = Trip.create!(name: params[:trip][:name], owner_id: params[:trip][:owner_id])
 
-    redirect to new_destination_path
+    invitees = params[:trip][:invitees].split(",").map{|i| i.strip }
+    invitees.each do |email|
+      invitee = if user = Traveller.find_by_email(email)
+                  user
+                else
+                  user = Traveller.create!(email: email, invitation_url: '33333')
+                  UserMailer.invite_email(user).deliver
+                  user
+                end
+      trip.travellers << invitee
+    end
+
+    redirect to new_trip_destination_path
   end
 
   def edit
