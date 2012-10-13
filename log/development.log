@@ -1,0 +1,43 @@
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.4ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateTrips (20121013002842)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "trips" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT '' NOT NULL, "description" text DEFAULT '', "is_public" boolean, "owner_id" integer NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013002842')
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+Migrating to CreateDestinations (20121013002851)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "destinations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT '' NOT NULL, "google_address" varchar(255) DEFAULT '', "from_date" date, "to_date" date, "trip_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013002851')
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+Migrating to CreateExpenses (20121013002949)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "expenses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT '' NOT NULL, "category" varchar(255) DEFAULT '', "destination_id" integer NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013002949')
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+Migrating to CreateAlternatives (20121013003110)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "alternatives" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cost" decimal DEFAULT 0.0 NOT NULL, "person_gap" varchar(255) DEFAULT 'per_person' NOT NULL, "time_gap" varchar(255) DEFAULT 'per_day' NOT NULL, "expense_id" integer, "is_checked" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013003110')
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+Migrating to CreateTravellers (20121013003351)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "travellers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "nickname" varchar(255) DEFAULT '' NOT NULL, "twitter_uid" varchar(255), "email" varchar(255) DEFAULT '', "name" varchar(255) DEFAULT '', "checksum" varchar(255) DEFAULT '', "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013003351')
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+Migrating to CreateComments (20121013003537)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "body" varchar(255) DEFAULT '', "expense_id" integer NOT NULL, "traveller_id" integer NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121013003537')
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("alternatives")
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("comments")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("destinations")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("expenses")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("travellers")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("trips")[0m

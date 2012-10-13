@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  google_address: MyString
+  from_date: 2012-10-12
+  to_date: 2012-10-12
+  trip_id: 1
+
+two:
+  name: MyString
+  google_address: MyString
+  from_date: 2012-10-12
+  to_date: 2012-10-12
+  trip_id: 1

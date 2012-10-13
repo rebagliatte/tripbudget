@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  body: MyString
+  expense_id: 1
+  traveller_id: 1
+
+two:
+  body: MyString
+  expense_id: 1
+  traveller_id: 1

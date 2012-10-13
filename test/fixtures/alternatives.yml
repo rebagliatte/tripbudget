@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cost: 9.99
+  person_gap: MyString
+  time_gap: MyString
+  expense_id: 1
+
+two:
+  cost: 9.99
+  person_gap: MyString
+  time_gap: MyString
+  expense_id: 1
