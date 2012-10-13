@@ -1,4 +1,4 @@
-class Alternatives < ActiveRecord::Base
+class Alternative < ActiveRecord::Base
 
   belongs_to :expense
 

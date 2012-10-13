@@ -1,0 +1,20 @@
+<%
+  # Locals
+  #   - trip
+  #   - action
+%>
+
+<%= simple_form_for(trip, html: { class:'form-horizontal' }, url: { action: action }) do |form| %>
+
+  <%= error_messages_for(trip) %>
+
+  <%= form.input :name %>
+  <%= form.input :description %>
+  <%= form.input :is_public %>
+  <%= form.association :owner %>
+
+  <div class="form-actions">
+    <%= submit_tag("#{action} trip", class: 'btn btn-primary') %>
+    <%= link_to 'Cancel', trips_path, class: 'btn' %>
+  </div>
+<% end %>

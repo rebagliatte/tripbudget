@@ -1,4 +1,4 @@
-class Expenses < ActiveRecord::Base
+class Expense < ActiveRecord::Base
 
   has_many :alternatives
   belongs_to :destination
