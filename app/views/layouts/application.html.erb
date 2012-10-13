@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tripbudget</title>
+  <title><%= yield(:title) %> - TripBudget</title>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
   <![endif]-->
@@ -10,7 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= javascript_include_tag 'trip_budget' %>
 </head>
-<body>
+
+<body class="<%= body_class %>">
 
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -21,20 +22,48 @@
         <span class="icon-bar"></span>
       </a>
 
-      <%= link_to 'TripBudget', root_path, class: 'brand' %>
+      <%= link_to root_path, class: 'brand' do %>
+        <%= image_tag('trip_budget.png', alt: 'TripBudget') %>
+      <% end %>
 
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Trips", trips_path %></li>
+          <li><%= link_to 'Create a trip', new_trip_path %></li>
+          <% if current_user %><li><%= link_to 'My trips', trips_path %></li><% end %>
+          <li><%= link_to 'About', '' %></li>
+          <li><%= link_to 'Contact', '' %></li>
+        </ul>
+
+        <ul class="nav pull-right">
+          <% if current_user %>
+            <li class="dropdown authentication">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= image_tag current_user.image, alt: current_user.nickname %>
+                <%= current_user.nickname %>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Sign out', signout_path %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to 'Sign in', 'auth/twitter' %></li>
+          <% end %>
         </ul>
       </div>
     </div>
   </div>
 </header>
 
-<sections class="container-fluid">
+<section class="container-fluid">
   <%= yield %>
 </section>
+
+<footer class="footer">
+  <div class="container-fluid">
+    App Lovingly created by <%= link_to 'CodePath', 'http://codepath.io' %> for Rails Rumble 2012. <%= link_to 'Favorite us!', 'http://railsrumble.com/entries/209-codepath' %>
+  </div>
+</footer>
 
 <%= javascript_include_tag 'application' %>
 <%= javascript_tag do %>

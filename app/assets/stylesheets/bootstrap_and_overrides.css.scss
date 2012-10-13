@@ -1,14 +1,46 @@
-// Set the correct sprite paths
-$iconSpritePath: image-path('glyphicons-halflings.png');
-$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+// VARIABLES
 
-$navbarBackground: #555;
-$navbarBackgroundHighlight: #888;
-$navbarText: #eee;
-$navbarLinkColor: #eee;
+// Colors
+$textColor:           #333;
+$bodyBackground:      #FCFCFC;
 
+$blue:                #28A0B5;
+$orange:              #b23D31;
+$green:               #0f9147;
+$black:               #000;
+$grayDarker:          #222;
+$grayDark:            #333;
+$gray:                #555;
+$grayLight:           #999;
+$grayLighter:         #eee;
+$white:               #fff;
+
+// Typography
+$linkColor:           #00a057;
+$baseFontFamily:      Helvetica, Arial, sans-serif;
+
+// Buttons
+$btnPrimaryBackground:            #00da77;
+$btnPrimaryBackgroundHighlight:   #009451;
+
+// COMPONENT VARIABLES
+
+// Navbar
+$navbarHeight:                    45px;
+$navbarBackgroundHighlight:       #363636;
+$navbarBackground:                #333333;
+
+$navbarLinkColor:                 #cbcbcb;
+$navbarLinkColorHover:            $white;
+$navbarLinkColorActive:           $white;
+
+// Tables
+$tableBackground:                 $white; // overall background-color
+$tableBackgroundAccent:           #f9f9f9; // for striping
+$tableBackgroundHover:            #e8fbff; // for hover
+$tableBorder:                     #ddd; // table and cell border
+
+// IMPORTS
 @import "bootstrap";
-
 body { padding-top: 60px; }
-
 @import "bootstrap-responsive";

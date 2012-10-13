@@ -1,0 +1,50 @@
+/*
+ *= require_self
+*/
+
+@import "bourbon";
+@import "bootstrap_and_overrides";
+@import "home";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+/* Header */
+.navbar {
+  border-top: 1px solid #414141;
+  border-bottom: 1px solid #000;
+
+  .authentication img {
+    width: 20px;
+    border: 1px solid #cecece;
+  }
+}
+
+/* Headings */
+.main-heading,
+.secondary-heading,
+.tertiary-heading {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+.main-heading {
+  font-size: 2.8em;
+  color: #333;
+  margin-bottom: 1em;
+}
+.secondary-heading {
+  font-size: 2em;
+  color: #999;
+  font-weight: 300;
+}
+.tertiary-heading {
+  font-size: 1.4em;
+  color: #333;
+}
+
+/* Footer */
+.footer {
+  padding: 20px 0;
+  margin-top: 20px;
+  border-top: 1px solid #E5E5E5;
+  background-color: whiteSmoke;
+}
