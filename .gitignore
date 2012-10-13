@@ -8,7 +8,7 @@
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-log/*.log
+/log/*.log
 /tmp
 /logfile
 
@@ -22,4 +22,4 @@ public/assets
 *.swp
 
 # Ignore mac generated files
-*.DS_Store
+.DS_Store
