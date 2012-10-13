@@ -10,8 +10,8 @@
 
   <%= form.input :name %>
   <%= form.input :description %>
-  <%= form.input :is_public %>
-  <%= form.input :invitees %>
+  <%= form.input :is_public, as: :radio_buttons %>
+  <%= form.input :invitees, hint: 'Comma separated list of emails' %>
   <%= form.association :owner %>
 
   <div class="form-actions">
