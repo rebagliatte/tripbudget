@@ -37,16 +37,20 @@
               <li></li>
             </ul>
           </li>
-          <li class="dropdown authentication">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <%= image_tag current_user.image, alt: current_user.nickname %>
-              <%= current_user.nickname %>
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Sign out', signout_path %></li>
-            </ul>
-          </li>
+          <% if current_user %>
+            <li class="dropdown authentication">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= image_tag current_user.image, alt: current_user.nickname %>
+                <%= current_user.nickname %>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Sign out', signout_path %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to 'Sign in', 'auth/twitter' %></li>
+          <% end %>
         </ul>
       </div>
     </div>
