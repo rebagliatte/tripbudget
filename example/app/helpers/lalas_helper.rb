@@ -1,0 +1,2 @@
+module LalasHelper
+end
