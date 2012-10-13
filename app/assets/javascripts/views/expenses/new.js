@@ -49,21 +49,21 @@ TripPlanner.Views.ExpensesHandler = (function () {
   ExpensesHandler.prototype.appendExpense = function (expense) {
     // Create expense template
     var expenseContent = $(this.templates.expense(expense))
-      , expenseList = expenseContent.find('ul.alternatives');
+      , alternativesList = expenseContent.find('ul.alternatives');
 
     // Binding expense content
     expenseContent.find('.add-alternative').click(function (event) {
       event.preventDefault();
 
-      this.appendAlternative(expenseList, DEFAULT_ALTERNATIVE);
+      this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
     }.bind(this));
 
     expense.alternatives.forEach(function (alternative) {
-      this.appendAlternative(expenseList, alternative);
+      this.appendAlternative(alternativesList, alternative);
     }.bind(this));
 
     // Appending default blank alternative
-    this.appendAlternative(expenseList, DEFAULT_ALTERNATIVE);
+    this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
 
     // Appending to container
     this.$mainContainer.append(expenseContent);
@@ -72,11 +72,13 @@ TripPlanner.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.appendAlternative = function (container, alternative) {
-    var $alternative = $(this.templates.alternative({
-      index: this.alternativeIndex,
-      alternative: alternative
-    }));
+  ExpensesHandler.prototype.appendAlternative = function (container, alternative, options) {
+    var options = options || {}
+      , $alternative = $(this.templates.alternative({
+        index: this.alternativeIndex,
+        alternative: alternative
+      }))
+      , $alternativesList = container;
 
     if (alternative.person_gap === 'per_person') {
       $alternative.find('.person_gap .per_person').button('toggle');
@@ -90,6 +92,21 @@ TripPlanner.Views.ExpensesHandler = (function () {
     }
     else {
       $alternative.find('.time_gap .per_stay').button('toggle');
+    }
+
+    $alternative.find('.remove-alternative').click(function (event) {
+      var $alternativesList = $(this).parents('ul')
+        , wasChecked = $alternative.find('.is_checked > input').is(':checked');
+
+      event.preventDefault();
+      $alternative.remove();
+      if (wasChecked) {
+        $alternativesList.find('li').first().find('.is_checked input').attr('checked', 'checked'); // Disgusting
+      }
+    });
+
+    if (options.isNew && $alternativesList.find(':checked').length === 0) {
+      $alternative.find('.is_checked > input').attr('checked', 'checked');
     }
 
     this.alternativeIndex += 1;
