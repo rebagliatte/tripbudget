@@ -3,16 +3,18 @@ class Ability
 
   def initialize(user)
     if user
+      can :create, Trip
       can :read, Trip, is_public: true
-      can :manage, Trip do |trip|
-        trip.travellers.includes?(user)
+      can :edit, Trip do |trip|
+        trip.travellers.include?(user)
       end
+      can :destroy, Trip, owner_id: user.id
       can :read, Traveller do |traveller|
         (user.trips & traveller.trips).any?
       end
       can :edit, Traveller, id: user.id
       can :edit, Destination do |destination|
-        user.trips.includes?(destination.trip)
+        user.trips.include?(destination.trip)
       end
     end
 
