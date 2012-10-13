@@ -46,7 +46,7 @@ class TripsController < ApplicationController
       errors << 'You must pick at least one destination' unless any_destination
       flash.now[:error] = errors if errors.any?
 
-      render :new
+      render @trip.new_record? :new : :edit
     end
   end
 
