@@ -19,20 +19,26 @@
 }
 
 /* Headings */
+.main-heading,
+.secondary-heading,
+.tertiary-heading {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
 .main-heading {
-  font-weight: normal;
-  font-size: 2em;
-  margin: 0;
+  font-size: 2.8em;
+  color: #333;
+  margin-bottom: 1em;
 }
 .secondary-heading {
-  font-weight: normal;
-  font-size: 1.7em;
+  font-size: 2em;
   color: #999;
+  font-weight: 300;
 }
 .tertiary-heading {
-  font-weight: normal;
-  font-size: 1.3em;
-  color: #777;
+  font-size: 1.4em;
+  color: #333;
 }
 
 /* Footer */
