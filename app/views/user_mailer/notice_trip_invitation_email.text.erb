@@ -1,3 +1,7 @@
-You have been invited to the following trip: <%= @trip.name %>.
+Hi <%= @traveller.name %>,
 
-Go to this url in order to be invited to the trip: <%= trip_destinations_url(@trip) %>
+<%= @trip.owner.name %> has invited you to collaborate on your trip budget planning.
+
+Visit the following URL to join the trip:
+
+<%= trip_destinations_url(@trip) %>
