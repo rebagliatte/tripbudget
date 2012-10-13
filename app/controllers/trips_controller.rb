@@ -11,10 +11,20 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.new(trip_params.slice(:name, :description, :is_public).merge(owner: current_user))
+    # TODO
+    trip = Trip.create!(name: params[:trip][:name], owner_id: params[:trip][:owner_id])
 
-    destinations = trip_params[:destinations].map do |destination_params|
-      @trip.destinations.new(destination_params)
+    invitees = params[:trip][:invitees].split(",").map{|i| i.strip }
+    invitees.each do |email|
+      invitee = if user = Traveller.find_by_email(email)
+                  UserMailer.notice_trip_invitation_email(user, trip).deliver!
+                  user
+                else
+                  user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
+                  UserMailer.invite_email(user, trip).deliver!
+                  user
+                end
+      trip.travellers << invitee
     end
 
     any_destination = destinations.any?

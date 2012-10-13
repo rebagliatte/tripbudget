@@ -1,3 +1,7 @@
-You have been invited to TripBudget, <%= @traveller.email %>.
+Hi,
 
-Go to this url in order to be invited to the trip: <%= invitation_url(@traveller.invitation_url) %>
+<%= @trip.owner.name %> has invited you to collaborate on your trip budget planning <%#= @trip.destinations.first.from_date.to_s(:short) %>.
+
+Visit the following URL to join the trip:
+
+<%= invitation_url(@traveller.invitation_url) %>
