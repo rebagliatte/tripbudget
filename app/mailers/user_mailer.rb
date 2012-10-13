@@ -5,4 +5,10 @@ class UserMailer < ActionMailer::Base
     @traveller = traveller
     mail(:to => traveller.email, :subject => 'You were invited to TripBudget!')
   end
+
+  def notice_trip_invitation_email(traveller, trip)
+    @traveller = traveller
+    @trip = trip
+    mail(:to => traveller.email, :subject => 'You were invited to a new trip!')
+  end
 end
