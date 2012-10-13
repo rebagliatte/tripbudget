@@ -19,13 +19,27 @@
     <h1><%%= name %></h1>
 
     <ul class="alternatives"></ul>
+
+    <a href="#" class="add-alternative">Add an alternative</a>
   </div>
 </script>
 
 <script type="text/x-jquery-tmpl" id="alternative-template">
   <li>
     <span class="radio">
-      <input type="radio" />
+      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
+    </span>
+    $ <input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" />
+    <div class="btn-group person_gap" data-toggle="buttons-radio">
+      <button type="button" class="btn per_person">Per person</button>
+      <button type="button" class="btn per_group">Per Group</button>
+    </div>
+    <div class="btn-group time_gap" data-toggle="buttons-radio">
+      <button type="button" class="btn per_day">Per day</button>
+      <button type="button" class="btn per_stay">Per stay</button>
+    </div>
+    <span class="link-url">
+      <input type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link_url %>" />
     </span>
   </li>
 </script>
@@ -35,5 +49,5 @@
     destination: @destination,
     expenses: @destination.expenses
   }.to_json.html_safe %>);
-  window.testing.drawAll();
+  window.testing.appendAll();
 <% end %>
