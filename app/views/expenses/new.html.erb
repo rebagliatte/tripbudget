@@ -12,6 +12,13 @@
 
 <%= form_for :expenses, url: create_all_trip_destination_expenses_path(@trip, @destination), id: 'expenses-form' do |f| %>
    <div id="expenses-form"></div>
+
+  <p>
+    <a href="#" id="add-expense">Add new budget</a>
+    <span class="total-label">Total</span>
+    <strong id="total-price"></strong>
+  </p>
+
 <% end %>
 
 <script type="text/x-jquery-tmpl" id="expense-template">
@@ -29,7 +36,7 @@
     <span class="is_checked">
       <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
     </span>
-    $ <input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" />
+    $ <input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" class="cost-input" />
     <div class="btn-group person_gap" data-toggle="buttons-radio">
       <button type="button" class="btn per_person">Per person</button>
       <button type="button" class="btn per_group">Per Group</button>
@@ -46,9 +53,13 @@
 </script>
 
 <%= content_for :javascript do %>
-  window.testing = new TripPlanner.Views.ExpensesHandler(<%= {
-    destination: @destination,
-    expenses: @destination.expenses
-  }.to_json.html_safe %>);
-  window.testing.appendAll();
+  $(function () {
+    window.testing = new TripBudget.Views.ExpensesHandler(<%= {
+      destination: @destination,
+      expenses: @destination.expenses,
+      totalDays: @destination.total_days,
+      totalTravellers: @destination.total_travellers
+    }.to_json.html_safe %>);
+    window.testing.appendAll();
+  });
 <% end %>

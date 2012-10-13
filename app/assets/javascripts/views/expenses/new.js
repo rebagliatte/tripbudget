@@ -1,4 +1,4 @@
-TripPlanner.Views.ExpensesHandler = (function () {
+TripBudget.Views.ExpensesHandler = (function () {
 
   var DEFAULT_ALTERNATIVE = {
       "cost": "",
@@ -17,7 +17,12 @@ TripPlanner.Views.ExpensesHandler = (function () {
         "category": "transport",
         "alternatives": [],
       }
-    ];
+    ]
+    , DEFAULT_EXPENSE = {
+      "name": "",
+      "category": "",
+      "alternatives": []
+    };
 
   /**
    *
@@ -33,6 +38,11 @@ TripPlanner.Views.ExpensesHandler = (function () {
     if (this.expenses.length === 0) {
       this.expenses = DEFAULT_EXPENSES;
     }
+
+    this.expenseCosts = new TripBudget.Helpers.ExpenseCosts({
+      totalDays: settings.totalDays,
+      totalTravellers: settings.totalTravellers
+    });
   };
 
   /**
@@ -41,6 +51,7 @@ TripPlanner.Views.ExpensesHandler = (function () {
   ExpensesHandler.prototype.appendAll = function () {
     this.$mainContainer.empty();
     this.expenses.forEach(this.appendExpense.bind(this));
+    this.expenseCosts.refresh();
   };
 
   /**
@@ -102,8 +113,9 @@ TripPlanner.Views.ExpensesHandler = (function () {
       $alternative.remove();
       if (wasChecked) {
         $alternativesList.find('li').first().find('.is_checked input').attr('checked', 'checked'); // Disgusting
+        this.expenseCosts.refresh();
       }
-    });
+    }.bind(this));
 
     if (options.isNew && $alternativesList.find(':checked').length === 0) {
       $alternative.find('.is_checked > input').attr('checked', 'checked');

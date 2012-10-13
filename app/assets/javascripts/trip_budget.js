@@ -1,3 +1,4 @@
-window.TripPlanner = {
-  Views: {}
+window.TripBudget = {
+  Views: {},
+  Helpers: {}
 };
