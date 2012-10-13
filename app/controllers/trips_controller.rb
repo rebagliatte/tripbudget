@@ -9,6 +9,9 @@ class TripsController < ApplicationController
   end
 
   def create
+    # TODO
+
+    redirect to new_destination_path
   end
 
   def edit
