@@ -25,6 +25,14 @@
       <div class="nav-collapse">
         <ul class="nav">
           <li><%= link_to "Trips", trips_path %></li>
+          <li>
+            <% if current_user %>
+              Signed in as <%= current_user.name %>!
+              <%= link_to "Sign out", signout_path %>
+            <% else %>
+              <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+            <% end %>
+          </li>
         </ul>
       </div>
     </div>
