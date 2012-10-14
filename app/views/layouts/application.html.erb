@@ -53,15 +53,17 @@
   </div>
 </header>
 
-<section class="container-fluid">
-  <% flash.each do |name, msg| %>
-    <div class="alert alert-<%= name %>">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= msg %>
-    </div>
-  <% end %>
+<section class="container-fluid ">
+  <div class="main-wrapper">
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name %>">
+        <a class="close" data-dismiss="alert">×</a>
+        <%= msg %>
+      </div>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
+  </div>
 </section>
 
 <footer class="footer">
