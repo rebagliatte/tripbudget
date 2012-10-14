@@ -4,6 +4,8 @@ class TripsController < ApplicationController
   before_filter :load_trip_on_update, only: :update
   load_and_authorize_resource
 
+  EMAIL_REGEXP = /\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b/
+
   def show
   end
 
@@ -86,7 +88,7 @@ class TripsController < ApplicationController
 
   def notify_new_invitees
     old_invitees = @trip.travellers.all.map(&:email)
-    new_invitees = trip_params[:invitees].split(',').map(&:strip)
+    new_invitees = trip_params[:invitees].scan(EMAIL_REGEXP).uniq
 
     (new_invitees - old_invitees).each do |email|
       invitee = if user = Traveller.find_by_email(email)
