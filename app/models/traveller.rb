@@ -16,6 +16,7 @@ class Traveller < ActiveRecord::Base
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.nickname = auth["info"]["nickname"]
+      user.email = auth["info"]["email"] unless auth["info"]["email"].blank?
       user.name = auth["info"]["name"]
       user.location = auth["info"]["location"]
       user.image = auth["info"]["image"]

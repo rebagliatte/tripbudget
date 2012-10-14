@@ -4,7 +4,7 @@ Tripbudget::Application.routes.draw do
 
   resources :trips, only: %w(index new create show edit update destroy) do
     member do
-      get :future_show
+      get :summary
     end
     resources :destinations, only: %w(show edit update) do
       member do
@@ -18,7 +18,7 @@ Tripbudget::Application.routes.draw do
   resources :invitations, only: 'show'
 
   # Authentication
-  match 'auth/twitter/callback', to: 'sessions#create'
+  match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
 

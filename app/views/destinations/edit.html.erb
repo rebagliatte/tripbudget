@@ -35,7 +35,7 @@
     <% if @destination.next_destination %>
       <%= link_to "Next: #{@destination.next_destination.name}", edit_trip_destination_path(@trip, @destination.next_destination), class: 'btn btn-large btn-primary submit-expense next' %>
     <% else %>
-      <%= link_to 'Summary', trip_url(@trip), class: 'btn btn-primary btn-large submit-expense' %>
+      <%= link_to 'Summary', summary_trip_path(@trip), class: 'btn btn-primary btn-large submit-expense' %>
     <% end %>
   </div>
 <% end %>
@@ -92,12 +92,12 @@
     </div>
 
     <div class="btn-group person_gap gap" data-toggle="buttons-radio">
-      <button type="button" class="btn per_person"><span class="icon"></span></button>
-      <button type="button" class="btn per_group"><span class="icon"></span></button>
+      <button type="button" class="btn per_person" rel="tooltip" title="Per Person"><span class="icon"></span></button>
+      <button type="button" class="btn per_group" rel="tooltip" title="Per Group"><span class="icon"></span></button>
     </div>
     <div class="btn-group time_gap gap" data-toggle="buttons-radio">
-      <button type="button" class="btn per_day"><span class="icon"></span></button>
-      <button type="button" class="btn per_stay"><span class="icon"></span></button>
+      <button type="button" class="btn per_day" rel="tooltip" title="Per Day"><span class="icon"></span></button>
+      <button type="button" class="btn per_stay" rel="tooltip" title="Per Stay"><span class="icon"></span></button>
     </div>
 
     <div class="input-prepend link-url">
@@ -140,5 +140,7 @@
         "csrf-token": $('[name="csrf-token"]').attr('content')
       }
     });
+
+    $('[rel=tooltip]').tooltip();
   });
 <% end %>
