@@ -7,7 +7,7 @@
   <%= link_to trip_path(trip) do %>
     <article>
       <% owner = trip.owner %>
-      <%= image_tag(owner.image, alt:owner.display_name) %>
+      <%= image_tag(owner.image.blank? ? 'default_traveller.png' : owner.image, alt:owner.display_name) %>
       <h1>
         <%= trip.name %>
         <span class="owner">by <%= owner.display_name %></span>
