@@ -1,6 +1,6 @@
 <%= title @trip.name %>
-<%= @trip.destinations.map(&:name).to_sentence %>
 
+<p><%= @trip.description %></p>
 
 <ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
