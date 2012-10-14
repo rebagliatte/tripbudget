@@ -2,19 +2,27 @@
  *= require_self
 */
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
 @import "bourbon";
 @import "bootstrap_and_overrides";
 @import "home";
 @import "trips";
 @import "destinations";
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
 @import "datepicker";
 @import "bootstrap-editable";
 
+.main-wrapper {
+  min-height: 700px;
+  margin-bottom: 20px;
+}
+
 /* Header */
 .navbar {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 
+  .brand {
+    padding-left: 3px;
+  }
   .authentication img {
     width: 20px;
     border: 1px solid #cecece;
@@ -28,6 +36,7 @@
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
+  text-shadow: 0 2px 1px #fff;
 }
 .main-heading {
   font-size: 2.8em;
@@ -40,8 +49,8 @@
   font-weight: 300;
 }
 .tertiary-heading {
-  font-size: 1.4em;
-  color: #333;
+  font-size: 1.3em;
+  color: #444;
 }
 
 /* Forms */
@@ -73,15 +82,32 @@
   }
 }
 
+/* Alerts */
+.alert a {
+  color: inherit;
+  text-decoration: underline;
+  &.close {
+    text-decoration: none;
+  }
+}
+
 /* Footer */
 .footer {
-  padding-top: 10px;
-  text-align: right;
+  background-color: #333333;
+  border-top: 2px solid #4d4d4d;
+  color: #868585;
+  padding: 2em 0;
+  line-height: 60px;
   a {
-    color: #555;
+    color: #acacac;
     &:hover {
-      color: #000;
+      color: #fff;
+      text-decoration: none;
     }
+  }
+  a.rails-rumble {
+    float: left;
+    margin-right: 2em;
   }
 }
 

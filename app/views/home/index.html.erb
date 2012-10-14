@@ -6,36 +6,37 @@
 
     <div class="span4">
       <%= title ('Collective budget planning made easy') %>
-      <p>Enter the locations and estimates of your expenses. Share with your travel companions and get the most out of your money. We do the maths for you.</p>
-      <%= link_to 'Create a trip', new_trip_path, class: 'btn btn-primary' %>
+      <p>Enter the locations and estimates of your expenses. Share with your travel group and get the most out of your money.</p>
+      <p>We do the maths for you.</p>
+      <%= link_to 'Create a trip', new_trip_path, class: 'btn btn-primary btn-large' %>
     </div>
   </div>
 </section>
 
 <section class="container-fluid steps">
   <div class="row-fluid">
-    <h1 class="secondary-heading">Get started in 3 simple steps</h1>
+    <h1 class="secondary-heading">Getting started in 3 simple steps</h1>
     <ul>
-      <li>
+      <li class="first">
+        <%= image_tag('home/step1.png', alt: 'Create a trip') %>
         <h1 class="tertiary-heading">Create a trip</h1>
         <p>Pick destinations and invite your travel companions</p>
-        <%= image_tag('home/step1.png', alt: 'Create a trip') %>
       </li>
-      <li>
-        <h1 class="tertiary-heading">Estimate your expenses</h1>
-        <p>Add alternatives and discuss about them in an organized way.</p>
+      <li class="second">
         <%= image_tag('home/step2.png', alt: 'Estimate your expenses') %>
+        <h1 class="tertiary-heading">Estimate your expenses</h1>
+        <p>Add alternatives and discuss about them.</p>
       </li>
-      <li>
+      <li class="third">
+        <%= image_tag('home/step3.png', alt: 'Get the most out of your budget') %>
         <h1 class="tertiary-heading">Get the most out of your budget</h1>
         <p>Sit back and relax, we do the maths for you!</p>
-        <%= image_tag('home/step3.png', alt: 'Get the most out of your budget') %>
       </li>
     </ul>
   </div>
 </section>
 
-<section class="container-fluid">
+<section class="container-fluid public-budgets">
   <h1 class="secondary-heading">Browse public budgets</h1>
   <div class="row-fluid">
     <section class="span4">

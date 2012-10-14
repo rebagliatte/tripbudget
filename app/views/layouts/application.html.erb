@@ -68,7 +68,15 @@
 
 <footer class="footer">
   <div class="container-fluid">
-    App Lovingly created by <%= link_to 'CodePath', 'http://codepath.io' %> for Rails Rumble 2012. <%= link_to 'Favorite us!', 'http://railsrumble.com/entries/209-codepath' %>
+    <%= link_to 'http://railsrumble.com/entries/209-codepath', class: 'rails-rumble' do %>
+      <%= image_tag('rails_rumble.png', alt: 'Rails Rumble') %>
+    <% end %>
+    <p>
+      Lovingly created by
+      <%= link_to 'CodePath', 'http://codepath.io' %>
+      for Rails Rumble 2012.
+      <%= link_to 'Favorite us!', 'http://railsrumble.com/entries/209-codepath' %>
+    </p>
   </div>
 </footer>
 

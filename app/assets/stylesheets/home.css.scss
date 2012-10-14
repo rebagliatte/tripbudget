@@ -8,19 +8,94 @@ body.home.index {
     margin-top: 0;
     border: 0;
     @include box-shadow(none);
+    .alert {
+      padding-left: 10%;
+      padding-right: 10%;
+      margin: 0;
+      @include border-radius(0);
+      border-bottom: 1px solid #C09853;
+    }
   }
   .container-fluid.global {
     padding: 0;
     .container-fluid {
-      padding-top: 3em;
-      padding-bottom: 3em;
+      padding-top: 5em;
     }
   }
 
-  /* Intro */
   .intro {
+    padding-left: 9%;
     background: transparent url(/assets/bg.jpg) top left no-repeat;
-    padding-bottom: 0;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Open Sans', sans-serif;
+
+    img {
+      float: left;
+      margin-right: 2em;
+      width: 100%;
+    }
+    h1 {
+      font-size: 2.6em;
+      margin-top: 1em;
+      color: rgba(0,0,0,0.7);
+      text-shadow: 0 1px 2px #fff;
+    }
+    p {
+      font-size: 1.3em;
+      line-height: 1.3em;
+    }
+    .btn {
+      margin-top: 20px;
+    }
   }
 
+  .steps {
+    padding: 9em 7.5% 8em 8.7%;
+
+    .secondary-heading {
+      padding-left: 1.7%;
+    }
+
+    ul {
+      margin-left: 0;
+    }
+    li {
+      list-style: none;
+      float: left;
+      width: 32%;
+
+      h1 {
+        margin-bottom: 0;
+      }
+      p {
+        color: #999;
+      }
+
+      img {
+        width: 100%;
+      }
+      &.second {
+        width: 35%;
+      }
+      &.first,
+      &.second {
+        h1,
+        p {
+          padding: 0 6%;
+        }
+      }
+    }
+  }
+
+  .public-budgets {
+    padding-bottom: 8em;
+    background-color: #f5f5f5;
+    border-top: 1px solid #c7c7c7;
+  }
 }
+
+
+
+
+
+

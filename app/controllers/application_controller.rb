@@ -2,7 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, flash: { error: exception.message }
+    if current_user
+      redirect_to root_url, flash: { notice: exception.message }
+    else
+     redirect_to root_url, flash: { notice: 'Please <a href="/auth/twitter">sign in</a> to access this page.'.html_safe }
+    end
   end
 
   protected
