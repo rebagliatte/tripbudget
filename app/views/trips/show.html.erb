@@ -1,7 +1,9 @@
-<h1><%= @trip.name %></h1>
-<p><%= @trip.description %></p>
+<%= title @trip.name, visible: false %>
 
-<ul id="travellers-list">
+<h1 id="editable-header" class="main-heading"><%= @trip.name %></h1>
+<p class="secondary-heading"><%= @trip.description %></p>
+
+<ul id="travellers-list" id="myTab">
   <% @trip.travellers.each do |traveller| %>
     <li class="included">
       <%= link_to '#', rel: 'tooltip', title: traveller.display_name do %>
@@ -12,70 +14,65 @@
 </ul>
 
 <ul class="nav nav-pills">
-  <% @trip.destinations.each do |destination| %>
-    <li class="<%= destination == @destination ? 'active' : '' %>"><%= link_to destination.name, "#destination-#{destination.id}" %></li>
+  <% @trip.destinations.each_with_index do |destination, index| %>
+    <li class="<%= index.zero? ? 'active' : '' %>"><%= link_to destination.name, "#destination-#{destination.id}", data: { toggle: 'pill' } %></li>
   <% end %>
 </ul>
 
 <div class="tab-content">
   <% @trip.destinations.each_with_index do |destination, index| %>
     <section id="destination-<%= destination.id %>" class="tab-pane <%= index.zero? ? 'active' : '' %>">
-      <header>
-        <h1><%= destination.name %></h1>
-        <h2>
-          <%= pretty_date(destination.from_date) %> -
-          <%= pretty_date(destination.to_date) %> -
-          <span class="days-diff">
-            <%= destination.total_days %> day(s)
-          </span>
-        </h2>
-      </header>
 
-      <div id="expenses-inner-wrapper">
-        <% destination.expenses.each do |expense| %>
-          <div class="expense">
-            <h1 class="tertiary-heading"><%= expense.name %></h1>
-            <div class="alternatives-wrapper">
-              <ul class="alternatives">
-                <% expense.alternatives.each do |alternative| %>
-                  <li class="<%= alternative.is_checked? ? 'active' : 'inactive' %>">
-                    <span class="is_checked">
-                      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
-                    </span>
-                    $ <%= alternative.cost %>
+      <% if destination.expenses.any? %>
+        <div id="expenses-inner-wrapper">
+          <% destination.expenses.each do |expense| %>
+            <div class="expense">
+              <h1 class="tertiary-heading"><%= expense.name %></h1>
+              <div class="alternatives-wrapper">
+                <ul class="alternatives">
+                  <% expense.alternatives.each do |alternative| %>
+                    <li class="form-inline <%= alternative.is_checked? ? 'active' : 'inactive' %>">
+                      <span class="is_checked">
+                        <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
+                      </span>
+                      <span class="cost">$ <%= alternative.cost %></span>
 
-                    <div class="btn-group person_gap gap" data-toggle="buttons-radio">
-                      <button type="button" class="btn per_person <%= alternative.per_person? ? 'active' : '' %>" rel="tooltip" title="Per Person"><span class="icon"></span></button>
-                      <button type="button" class="btn per_group <%= alternative.per_group? ? 'active' : '' %>" rel="tooltip" title="Per Group"><span class="icon"></span></button>
-                    </div>
-                    <div class="btn-group time_gap gap" data-toggle="buttons-radio">
-                      <button type="button" class="btn per_day <%= alternative.per_day? ? 'active' : '' %>" rel="tooltip" title="Per Day"><span class="icon"></span></button>
-                      <button type="button" class="btn per_stay  <%= alternative.per_stay? ? 'active' : '' %>" rel="tooltip" title="Per Stay"><span class="icon"></span></button>
-                    </div>
-                    <span class="link-url">
-                      <% unless alternative.link.blank? %>
-                        <a href="<%= alternative.link %>" target="_blank"><%= alternative.link %></a>
-                      <% end %>
-                    </span>
-                  </li>
-                <% end %>
-              </ul>
+                      <div class="btn-group person_gap gap" data-toggle="buttons-radio">
+                        <button type="button" class="btn per_person <%= alternative.per_person? ? 'active' : '' %>" rel="tooltip" title="Per Person"><span class="icon"></span></button>
+                        <button type="button" class="btn per_group <%= alternative.per_group? ? 'active' : '' %>" rel="tooltip" title="Per Group"><span class="icon"></span></button>
+                      </div>
+                      <div class="btn-group time_gap gap" data-toggle="buttons-radio">
+                        <button type="button" class="btn per_day <%= alternative.per_day? ? 'active' : '' %>" rel="tooltip" title="Per Day"><span class="icon"></span></button>
+                        <button type="button" class="btn per_stay  <%= alternative.per_stay? ? 'active' : '' %>" rel="tooltip" title="Per Stay"><span class="icon"></span></button>
+                      </div>
+                      <span class="link-url">
+                        <% unless alternative.link.blank? %>
+                          <a href="<%= alternative.link %>" target="_blank"><%= alternative.link %></a>
+                        <% end %>
+                      </span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
+          <% end %>
+        </div>
+      <% else %>
+          <div class="alert alert-notice">
+            Hey! It seems you don't have any expenses for this destination. Spend some bucks dude!
           </div>
-        <% end %>
-      </div>
+      <% end %>
     </section>
   <% end %>
 </div>
 
-<p>
-  <span class="total-label">Total</span>
-  <%#= @trip.total_price %>
-  <strong id="total-price">$ 4</strong>
-</p>
+<section class="totals">
+  <%= link_to 'Edit this trip', edit_trip_path(@trip), class: 'btn btn-primary btn-large' %>
+  <h1 class="tertiary-heading">Total: <strong id="total-price">$ 0</strong></h1>
+</section>
 
 <%= content_for :javascript do %>
   $(function () {
-    $('#destination-tabs a:first').tab('show');
+    $('#myTab a:first').tab('show');
   });
 <% end %>
