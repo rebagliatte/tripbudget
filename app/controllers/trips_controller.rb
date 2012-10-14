@@ -30,6 +30,7 @@ class TripsController < ApplicationController
 
   def create_or_update_trip
     destinations = trip_params[:destinations].map do |destination_params|
+      require 'ruby-debug'; debugger;
       if destination = @trip.destinations.find_by_id(destination_params[:id])
         destination.assign_attributes(destination_params)
         destination
@@ -44,6 +45,7 @@ class TripsController < ApplicationController
 
     if any_destination && destinations_valid && trip_valid
       @trip.transaction do
+        destinations.map(&:save!)
         @trip.destinations = destinations
         @trip.save!
         notify_new_invitees
