@@ -1,6 +1,16 @@
 <h1 id="editable-header"><%= @trip.name %></h1>
 <p><%= @trip.description %></p>
 
+<ul id="travellers-list">
+  <% @trip.travellers.each do |traveller| %>
+    <li class="<%= @destination.travellers.include?(traveller) ? 'included' : 'excluded' %>">
+      <%= link_to '#', class: 'traveller-disabling', data: { id: traveller.id } do %>
+        <%= image_tag traveller.image, alt: traveller.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
 <header>
   <h1><%= @destination.name %></h1>
   <h2>
@@ -76,7 +86,8 @@
       destination: @destination,
       expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives) },
       totalDays: @destination.total_days,
-      totalTravellers: @destination.total_travellers
+      travellersNumber: @destination.travellers.count,
+      minorUpdatePath: minor_update_trip_destination_path(@trip, @destination, format: :json)
     }.to_json.html_safe %>);
 
     view.appendAll();

@@ -14,10 +14,6 @@ class Destination < ActiveRecord::Base
     (to_date - from_date).to_i + 1
   end
 
-  def total_travellers
-    1 # TODO
-  end
-
   def next_destination
     @next_destination ||= trip.destinations.where('destinations.id > ?', id).first
   end

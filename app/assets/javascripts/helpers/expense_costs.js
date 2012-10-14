@@ -2,7 +2,7 @@ TripBudget.Helpers.ExpenseCosts = (function () {
 
   var ExpenseCostsHelper = function (settings) {
     this.totalDays = settings.totalDays;
-    this.totalTravellers = settings.totalTravellers;
+    this.travellersNumber = settings.travellersNumber;
 
     this.bindCostChangesEvent();
   };
@@ -21,7 +21,7 @@ TripBudget.Helpers.ExpenseCosts = (function () {
         rawCost = parseFloat($alternative.find('.cost-input').val()) || 0;
 
         if ($alternative.find('.per_person').is('.active')) {
-          rawCost *= this.totalTravellers;
+          rawCost *= this.travellersNumber;
         }
 
         if ($alternative.find('.per_day').is('.active')) {

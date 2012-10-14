@@ -33,7 +33,11 @@ class DestinationsController < ApplicationController
   end
 
   def minor_update
-    @destination.update_attribute(:name, params[:value])
+    if params[:value]
+      @destination.update_attribute(:name, params[:value])
+    else
+      @destination.travellers = @trip.travellers.where(id: params[:destination_travellers_ids]).all
+    end
     render json: @destination
   end
 

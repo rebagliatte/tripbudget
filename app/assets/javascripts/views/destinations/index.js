@@ -45,9 +45,12 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     this.expenseCosts = new TripBudget.Helpers.ExpenseCosts({
       totalDays: settings.totalDays,
-      totalTravellers: settings.totalTravellers
+      travellersNumber: settings.travellersNumber
     });
     this.saver = new TripBudget.Helpers.ExpensesSaver({});
+    this.destinationTravellersHelper = new TripBudget.Helpers.DestinationTravellers({
+      minorUpdatePath: settings.minorUpdatePath
+    });
 
     this.bindNewExpenseEvent();
     this.bindFormSubmitEvents();
