@@ -30,9 +30,9 @@
 <script type="text/template" id="destination-template">
   <li class="destination">
     <input type="hidden" name="trip[destinations][<%%= index %>][id]" value="<%%= destination.id %>" />
-    <input class= "name" type="text" name="trip[destinations][<%%= index %>][name]" value="<%%= destination.name %>" placeholder="Enter a city name">
-    <input class= "date" type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" placeholder="yyyy-mm-dd">
-    <input class= "date" type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" placeholder="yyyy-mm-dd">
+    <input class="name" type="text" name="trip[destinations][<%%= index %>][name]" value="<%%= destination.name %>" placeholder="Enter a city name">
+    <input class="datepicker" type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" placeholder="yyyy-mm-dd">
+    <input class="datepicker" type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" placeholder="yyyy-mm-dd">
 
     <a href="#" class="remove-destination">X</a>
   </li>
@@ -44,5 +44,6 @@
       destinations: @trip.destinations
     }.to_json.html_safe %>);
     view.appendAll();
+    $('.datepicker').datepicker();
   });
 <% end %>

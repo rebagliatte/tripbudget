@@ -23,8 +23,14 @@
   </p>
 
   <p>
-    <a href="#" class="submit-expense">Go Back</a>
-    <%= f.submit 'Next Destination', class: 'submit-expense' %>
+    <% if @destination.prev_destination %>
+      <%= link_to "< Prev (#{@destination.prev_destination.name})", edit_trip_destination_path(@trip, @destination.prev_destination), class: 'submit-expense' %>
+    <% end %>
+    <% if @destination.next_destination %>
+      <%= link_to "(#{@destination.next_destination.name}) Next >", edit_trip_destination_path(@trip, @destination.next_destination), class: 'submit-expense' %>
+    <% else %>
+      <%= link_to 'Summary', '#', class: 'submit-expense' %>
+    <% end %>
   </p>
 <% end %>
 
@@ -64,12 +70,13 @@
 
 <%= content_for :javascript do %>
   $(function () {
-    window.testing = new TripBudget.Views.ExpensesHandler(<%= {
+    var view = new TripBudget.Views.DestinationsHandler(<%= {
       destination: @destination,
       expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives) },
       totalDays: @destination.total_days,
       totalTravellers: @destination.total_travellers
     }.to_json.html_safe %>);
-    window.testing.appendAll();
+
+    view.appendAll();
   });
 <% end %>

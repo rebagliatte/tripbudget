@@ -1,25 +1,17 @@
 TripBudget.Helpers.ExpensesSaver = (function () {
 
-  var ExpensesSaver = function (settings) {
+  var ExpensesSaver = function () {
+    // ?
   };
 
   /**
    *
    */
-  ExpensesSaver.prototype.saveAndNext = function () {
-  };
-
-  /**
-   *
-   */
-  ExpensesSaver.prototype.saveAndPrev = function () {
-  };
-
-  /**
-   *
-   */
-  ExpensesSaver.prototype.save = function () {
+  ExpensesSaver.prototype.save = function (settings) {
     var expenses = [];
+
+    // Display
+    this.loading(true);
 
     $('#expenses-form-inner-wrapper .expense').each(function (index, expenseElem) {
       var $expense = $(expenseElem)
@@ -45,10 +37,28 @@ TripBudget.Helpers.ExpensesSaver = (function () {
       expenses.push(expense);
     });
 
-    $.post($('#expenses-form').attr('action'), { expenses: expenses }, function () {
-      console.log('success!');
+    $.ajax({
+      url: $('#expenses-form').attr('action'),
+      type: 'PUT',
+      data: { expenses: expenses },
+      success: function () {
+        this.loading(false);
+        document.location.href = settings.element.attr('href');
+      }.bind(this),
+      dataType: 'json'
     });
+  };
 
+  /**
+   *
+   */
+  ExpensesSaver.prototype.loading = function (display) {
+    if (display) {
+
+    }
+    else { // Hide
+
+    }
   };
 
   return ExpensesSaver;
