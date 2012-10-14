@@ -3,6 +3,11 @@ Tripbudget::Application.routes.draw do
   root to: 'home#index'
 
   resources :trips, only: %w(index new create show edit update destroy) do
+    collection do
+      get :popular
+      get :handpicked
+      get :latest
+    end
     member do
       get :summary
     end

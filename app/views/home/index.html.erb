@@ -43,18 +43,18 @@
     <h1 class="secondary-heading">Browse public budgets</h1>
     <div class="row-fluid">
 
-      <%# TODO: Public trips widget %>
-
       <% if @editor_picks.any? %>
         <section class="span4">
-          <h1 class="tertiary-heading">Editor Picks</h1>
+          <h1 class="tertiary-heading">Handpicked Trips</h1>
           <ul>
             <% @editor_picks.each do |trip| %>
               <li><%= link_to trip.name, trip_path(trip) %></li>
             <% end %>
           </ul>
+          <%= link_to 'View all', handpicked_trips_path %>
         </section>
       <% end %>
+
       <% if @popular_picks.any? %>
         <section class="span4">
           <h1 class="tertiary-heading">Popular Trips</h1>
@@ -63,8 +63,10 @@
               <li><%= link_to trip.name, trip_path(trip) %></li>
             <% end %>
           </ul>
+          <%= link_to 'View all', popular_trips_path %>
         </section>
       <% end %>
+
       <% if @latest_picks.any? %>
         <section class="span4">
           <h1 class="tertiary-heading">Latest Trips</h1>
@@ -73,8 +75,10 @@
               <li><%= link_to trip.name, trip_path(trip) %></li>
             <% end %>
           </ul>
+          <%= link_to 'View all', latest_trips_path %>
         </section>
       <% end %>
+
     </div>
   </section>
 <% end %>

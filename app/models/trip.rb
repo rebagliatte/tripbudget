@@ -43,6 +43,23 @@ class Trip < ActiveRecord::Base
     end
   end
 
+  def self.handpicked
+    where(is_public: true).where(is_featured: true)
+  end
+
+  def self.popular(n)
+    popular_picks_ids = select('trips.id, COUNT(*) as travellers_count')
+                            .joins(:travellers)
+                            .where(is_public: true)
+                            .group('trips.id')
+                            .order('travellers_count DESC').limit(n).map(&:id)
+    where(id: popular_picks_ids)
+  end
+
+  def self.latest
+    where(is_public: true)
+  end
+
 private
 
   def total_per_category(category)

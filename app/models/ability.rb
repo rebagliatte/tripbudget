@@ -25,5 +25,6 @@ class Ability
     can :read, Traveller do |traveller|
       traveller.trips.where(is_public: true).any?
     end
+    can [:popular, :latest, :handpicked], Trip
   end
 end
