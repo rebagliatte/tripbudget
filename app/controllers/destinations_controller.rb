@@ -1,5 +1,7 @@
 class DestinationsController < ApplicationController
 
+  # load_and_authorize_resource
+
   load_and_authorize_resource :trip
   load_and_authorize_resource trough: :trip
 

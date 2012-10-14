@@ -7,7 +7,7 @@ class Destination < ActiveRecord::Base
   validates :from_date, presence: true
   validates :to_date, presence: true
 
-  default_scope order('destinations.created_at ASC')
+  default_scope order('destinations.id ASC')
 
   def total_days
     (to_date - from_date).to_i + 1
@@ -17,4 +17,11 @@ class Destination < ActiveRecord::Base
     1 # TODO
   end
 
+  def next_destination
+    @next_destination ||= trip.destinations.where('destinations.id > ?', id).first
+  end
+
+  def prev_destination
+    @prev_destination ||= trip.destinations.where('destinations.id < ?', id).last
+  end
 end

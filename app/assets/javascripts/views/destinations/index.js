@@ -1,4 +1,4 @@
-TripBudget.Views.ExpensesHandler = (function () {
+TripBudget.Views.DestinationsHandler = (function () {
 
   var DEFAULT_ALTERNATIVE = {
       "id": null,
@@ -31,7 +31,7 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  var ExpensesHandler = function (settings) {
+  var DestinationsHandler = function (settings) {
     this.expenses = settings.expenses || [];
     this.alternativeIndex = 0;
     this.$mainContainer = $('#expenses-form-inner-wrapper');
@@ -56,7 +56,7 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.appendAll = function () {
+  DestinationsHandler.prototype.appendAll = function () {
     this.$mainContainer.empty();
     this.expenses.forEach(this.appendExpense.bind(this));
     this.expenseCosts.refresh();
@@ -65,7 +65,7 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.appendExpense = function (expense) {
+  DestinationsHandler.prototype.appendExpense = function (expense) {
     // Create expense template
     var expenseContent = $(this.templates.expense(expense))
       , alternativesList = expenseContent.find('ul.alternatives');
@@ -93,7 +93,7 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.appendAlternative = function (container, alternative, options) {
+  DestinationsHandler.prototype.appendAlternative = function (container, alternative, options) {
     var options = options || {}
       , $alternative = $(this.templates.alternative({
         index: this.alternativeIndex,
@@ -138,7 +138,7 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.bindNewExpenseEvent = function () {
+  DestinationsHandler.prototype.bindNewExpenseEvent = function () {
     $('#add-expense').click(function (event) {
       event.preventDefault();
       this.appendExpense(DEFAULT_EXPENSE);
@@ -148,13 +148,15 @@ TripBudget.Views.ExpensesHandler = (function () {
   /**
    *
    */
-  ExpensesHandler.prototype.bindFormSubmitEvents = function () {
+  DestinationsHandler.prototype.bindFormSubmitEvents = function () {
+    var self = this;
+
     $('#expenses-form .submit-expense').click(function (event) {
       event.preventDefault();
-      this.saver.save();
-    }.bind(this));
+      self.saver.save({ element: $(this) });
+    });
   };
 
-  return ExpensesHandler;
+  return DestinationsHandler;
 
 })();
