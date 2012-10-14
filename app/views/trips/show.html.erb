@@ -73,7 +73,7 @@
 
 <section class="totals">
   <%= link_to 'Edit this trip', edit_trip_path(@trip), class: 'btn btn-primary btn-large' %>
-  <h1 class="tertiary-heading">Total: <strong id="total-price">$ 0</strong></h1>
+  <h1 class="tertiary-heading">Total: <strong id="total-price">$ <%= @trip.total_per_group %></strong></h1>
 </section>
 
 <%= content_for :javascript do %>
