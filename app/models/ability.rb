@@ -5,8 +5,8 @@ class Ability
     if user
       can :create, Trip
       can :read, Trip, is_public: true
-      can :update, Trip do |trip|
-        trip.travellers.include?(user) || trip.owner == user
+      can [:read, :update], Trip do |trip|
+        trip.travellers.include?(user)
       end
       can :destroy, Trip, owner_id: user.id
       can :read, Traveller do |traveller|
@@ -14,7 +14,10 @@ class Ability
       end
       can :update, Traveller, id: user.id
       can :update, Destination do |destination|
-        user.trips.include?(destination.trip) || destination.trip.owner == user
+        user.trips.include?(destination.trip)
+      end
+      can :minor_update, Destination do |destination|
+        user.trips.include?(destination.trip)
       end
     end
 

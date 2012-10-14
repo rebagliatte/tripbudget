@@ -28,7 +28,8 @@ TripBudget.Helpers.ExpensesSaver = (function () {
             cost: $alternative.find('.cost-input').val(),
             person_gap: $alternative.find('.person_gap .active').is('.per_person') ? 'per_person' : 'per_group',
             time_gap: $alternative.find('.time_gap .active').is('.per_day') ? 'per_day' : 'per_stay',
-            link: $alternative.find('.link-url input').val()
+            link: $alternative.find('.link-url input').val(),
+            is_checked: $alternative.find('.is_checked > input').is(':checked')
           };
 
         expense.alternatives.push(alternative);
