@@ -21,16 +21,22 @@
           <td><%= travellers_to_images(trip) %></td>
           <td><%= trip.destinations.map(&:name).to_sentence %></td>
           <td>
-            <%= link_to trip_path(trip), rel: 'tooltip', title: 'View' do %>
-              <i class="icon icon-eye-open"></i><span class="hidden">View</span>
+            <% if can? :show, trip %>
+              <%= link_to trip_path(trip), rel: 'tooltip', title: 'View' do %>
+                <i class="icon icon-eye-open"></i><span class="hidden">View</span>
+              <% end %>
             <% end %>
 
-            <%= link_to edit_trip_path(trip), rel: 'tooltip', title: 'Edit' do %>
-              <i class="icon icon-pencil"></i><span class="hidden">Edit</span>
+            <% if can? :update, trip %>
+              <%= link_to edit_trip_path(trip), rel: 'tooltip', title: 'Edit' do %>
+                <i class="icon icon-pencil"></i><span class="hidden">Edit</span>
+              <% end %>
             <% end %>
 
-            <%= link_to trip_path(trip), method: :delete, data: {confirm: "Are you sure?"}, rel: 'tooltip', title: 'Delete' do %>
-              <i class="icon icon-remove"></i><span class="hidden">Delete</span>
+            <% if can? :destroy, trip %>
+              <%= link_to trip_path(trip), method: :delete, data: {confirm: "Are you sure?"}, rel: 'tooltip', title: 'Delete' do %>
+                <i class="icon icon-remove"></i><span class="hidden">Delete</span>
+              <% end %>
             <% end %>
           </td>
         </tr>
