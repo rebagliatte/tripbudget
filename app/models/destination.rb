@@ -39,6 +39,24 @@ class Destination < ActiveRecord::Base
     total
   end
 
+  def total_per_group_and_category(category)
+    total = 0
+    expenses.each do |expense|
+      alternative = expense.active_alternative
+      if expense.category == category
+        if alternative.person_gap == 'per_person'
+          alternative_cost = alternative.cost * trip.travellers.count
+        else
+          alternative_cost = alternative.cost
+        end
+
+        alternative_cost = alternative.cost * total_days if alternative.time_gap == 'per_day'
+
+        total += alternative_cost
+      end
+    end
+    total
+  end
   def total_per_person
     total_per_group/trip.travellers.count
   end
