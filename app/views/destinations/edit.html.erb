@@ -70,25 +70,29 @@
   <li class="form-inline">
     <input type="hidden" name="alternative[id]" value="<%%= alternative.id %>" class="alternative-id" />
     <span class="is_checked">
-      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
+      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> >
     </span>
 
     <div class="input-prepend">
-      <span class="add-on">$</span><input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" class="cost-input input-mini" />
+      <span class="add-on">$</span>
+      <input class="cost-input input-small" type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" placeholder="0.00" >
     </div>
 
-    <div class="btn-group person_gap" data-toggle="buttons-radio">
-      <button type="button" class="btn per_person">Per person</button>
-      <button type="button" class="btn per_group">Per Group</button>
+    <div class="btn-group person_gap gap" data-toggle="buttons-radio">
+      <button type="button" class="btn per_person"><span class="icon"></span></button>
+      <button type="button" class="btn per_group"><span class="icon"></span></button>
     </div>
-    <div class="btn-group time_gap" data-toggle="buttons-radio">
-      <button type="button" class="btn per_day">Per day</button>
-      <button type="button" class="btn per_stay">Per stay</button>
+    <div class="btn-group time_gap gap" data-toggle="buttons-radio">
+      <button type="button" class="btn per_day"><span class="icon"></span></button>
+      <button type="button" class="btn per_stay"><span class="icon"></span></button>
     </div>
-    <span class="link-url">
-      <input type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link %>" />
-    </span>
-    <a href="#" class="remove-alternative">X</a>
+
+    <div class="input-prepend link-url">
+      <span class="add-on"><span class="icon"></span></span>
+      <input class="input-xlarge" type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link %>" placeholder="http://..." >
+    </div>
+
+    <a href="#" class="remove-alternative icon"></a>
   </li>
 </script>
 

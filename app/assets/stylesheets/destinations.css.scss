@@ -7,10 +7,11 @@ body.destinations.edit {
     display: inline;
     line-height: 1.5em;
     padding-right: 50px;
-    background: transparent url(/assets/icons/edit.png) right center no-repeat;
+    background: transparent url(/assets/icons/edit.png) right 20px no-repeat;
 
     &:hover {
       background-color: #fff5ca;
+      background-position: right -22px;
       @include border-radius(5px);
       cursor: pointer;
     }
@@ -46,5 +47,71 @@ body.destinations.edit {
     border: 1px solid #cfcfcf;
     padding: 20px;
     @include border-radius(5px);
+
+    .form-inline {
+      margin-bottom: 0.5em;
+    }
+
+    .cost-input,
+    .is_checked,
+    .per_group,
+    .per_stay,
+    .link-url input {
+      margin-right: 0.5em;
+    }
+
+    .is_checked {
+      float: left;
+      margin-top: 2px;
+    }
+    .input-prepend,
+    .btn-group {
+      vertical-align: top;
+    }
+    .btn-group > .btn {
+      padding: 0 2px;
+    }
+    .btn-group + .btn-group {
+      margin-left: 0;
+    }
+    .icon {
+      background: transparent url(/assets/icons/sprite.png) top left no-repeat;
+      width: 30px;
+      height: 23px;
+      display: inline-block;
+    }
+    .per_person .icon {background-position: 8px 6px;}
+    .per_group .icon {background-position: -16px 6px;}
+    .per_day .icon {background-position: -42px 6px;}
+    .per_stay .icon {background-position: -66px 6px;}
+    .per_person .icon:hover {background-position: 8px -28px;}
+    .per_group .icon:hover {background-position: -16px -28px;}
+    .per_day .icon:hover {background-position: -42px -28px;}
+    .per_stay .icon:hover {background-position: -66px -28px;}
+
+    .link-url .icon {
+      width: 17px;
+      background: transparent url(/assets/icons/url.png) left 2px no-repeat;
+    }
+
+    .remove-alternative {
+      height: 28px;
+      background: transparent url(/assets/icons/delete.png) left 7px no-repeat;
+      &:hover {
+        background-position: left -35px;
+      }
+    }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
