@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(:version => 20121014114835) do
 
   create_table "destinations_travellers", :force => true do |t|
     t.integer "traveller_id"
-    t.integer "expense_id"
+    t.integer "destination_id"
   end
 
-  add_index "destinations_travellers", ["expense_id"], :name => "index_expenses_travellers_on_expense_id"
+  add_index "destinations_travellers", ["destination_id"], :name => "index_expenses_travellers_on_expense_id"
   add_index "destinations_travellers", ["traveller_id"], :name => "index_expenses_travellers_on_traveller_id"
 
   create_table "expenses", :force => true do |t|
