@@ -107,7 +107,7 @@
 
 <script type="text/template" id="comment-template">
   <li class="comment">
-    <%# TODO: Add user image %>
+    <img src="<%%= comment.image %>" alt="<%%= comment.body %>" />
 
     <%% if (stored) { %>
       <p><%%= comment.body %></p>
@@ -122,11 +122,16 @@
     var view = new TripBudget.Views.DestinationsHandler(<%= {
       travellers: @destination.travellers,
       destination: @destination,
-      expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives, comments: e.comments) },
+      expenses: @destination.expenses.map do |e|
+        e.attributes.merge(alternatives: e.alternatives, comments: e.comments.map  do |c|
+          { body: c.body, image: c.traveller.image.blank? ? 'default_traveller.png' : c.traveller.image }
+        end)
+      end,
       totalDays: @destination.total_days,
       travellersNumber: @destination.travellers.count,
       minorUpdatePath: minor_update_trip_destination_path(@trip, @destination, format: :json),
-      commentSubmitPath: create_comment_trip_destination_path(@trip, @destination, format: :json)
+      commentSubmitPath: create_comment_trip_destination_path(@trip, @destination, format: :json),
+      myImage: current_user.image.blank? ? 'default_traveller.png' : current_user.image
     }.to_json.html_safe %>);
 
     view.appendAll();

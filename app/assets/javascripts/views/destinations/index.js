@@ -36,6 +36,7 @@ TripBudget.Views.DestinationsHandler = (function () {
    */
   var DestinationsHandler = function (settings) {
     this.expenses = settings.expenses || [];
+    this.myImage = settings.myImage;
     this.alternativeIndex = 0;
     this.commentSubmitPath = settings.commentSubmitPath;
     this.$mainContainer = $('#expenses-form-inner-wrapper');
@@ -109,12 +110,12 @@ TripBudget.Views.DestinationsHandler = (function () {
         var commentContent = $commentInput.val()
           , expenseId = $commentInput.parents('.expense').find('.expense-id').val();
 
-
         $.ajax({
           url: self.commentSubmitPath,
           type: 'POST',
           data: { comment: { body: commentContent, expense_id: expenseId }, "csrf-token": $('[name="csrf-token"]').attr('content') },
           success: function (comment) {
+            comment.image = self.myImage;
             $commentInput.val('');
             self.appendComment($commentInput.parents('.expense').find('.comment-list'), comment, { stored: true });
           },
@@ -122,7 +123,7 @@ TripBudget.Views.DestinationsHandler = (function () {
         });
       }
       else { // Temporary displaying on DOM. Will be saved on .save()
-        self.appendComment($commentInput.parents('.expense').find('.comment-list'), { body: $commentInput.val() }, { stored: false });
+        self.appendComment($commentInput.parents('.expense').find('.comment-list'), { body: $commentInput.val(), image: this.myImage }, { stored: false });
         $commentInput.val('');
       }
     });
