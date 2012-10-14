@@ -11,6 +11,9 @@ class DestinationsController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   def update
     @destination.transaction do
       @expenses = expenses_params.map do |expense_params|

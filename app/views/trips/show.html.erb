@@ -25,17 +25,17 @@
     <tbody>
       <% @trip.destinations.each do |destination| %>
         <tr>
-          <td><%# TODO: print data %></td>
-          <td><%# TODO: print data %></td>
-          <td><%# TODO: print data %></td>
+          <td><%= destination.name %></td>
+          <td><%= destination.total_per_person %></td>
+          <td><%= destination.total_per_group %></td>
         </tr>
       <% end %>
     </tbody>
     <tfoot>
       <tr>
         <td>Total</td>
-        <td><%# TODO: print total %></td>
-        <td><%# TODO: print total %></td>
+        <td><%= @trip.total_per_person %></td>
+        <td><%= @trip.total_per_group %></td>
       </tr>
     </tfoot>
   </table>
