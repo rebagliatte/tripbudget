@@ -4,14 +4,15 @@
 
 <%# TODO: mapa de google %>
 
-<section class="travellers">
-  <h1 class="hidden">Travellers</h1>
-  <ul>
-    <% @trip.travellers.each do |t| %>
-      <li><%= image_tag t.image.blank? ? 'default_traveller.png' : t.image, alt: t.name %></li>
-    <% end %>
-  </ul>
-</section>
+<ul id="travellers-list">
+  <% @trip.travellers.each do |traveller| %>
+    <li class="included">
+      <%= link_to '#', rel: 'tooltip', title: traveller.display_name do %>
+        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.display_name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
 
 <section class="summary">
   <h1 class="secondary-heading">Summary</h1>
@@ -46,98 +47,6 @@
   <h1 class="secondary-heading">Graphs</h1>
   <div id="by_destination"></div>
   <div id="by_budget"></div>
-  <% content_for :javascript do %>
-  var chart1;
-  $(document).ready(function() {
-      chart1 = new Highcharts.Chart({
-         credits: {
-            enabled: false
-         },
-         colors: [
-           '#556270',
-           '#4ECDC4',
-           '#C7F464',
-           '#FF6B6B',
-           '#C44D58',
-           '#CE1836',
-           '#F85931',
-           '#EDB92E',
-           '#A3A948'
-         ],
-         plotOptions: {
-             pie: {
-                 allowPointSelect: true,
-                 cursor: 'pointer',
-                 dataLabels: {
-                     enabled: false
-                 },
-                 showInLegend: true
-             }
-         },
-         chart: {
-            renderTo: 'by_budget',
-            type: 'pie',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-
-         },
-         title: {
-            text: 'Per Budget'
-         },
-         series: [{
-            name: 'budget',
-            data: <%= @trip.totals_per_category.to_json.html_safe %>
-         }]
-      });
-   });
-
-
-  var chart2;
-  $(document).ready(function() {
-      chart2 = new Highcharts.Chart({
-         credits: {
-            enabled: false
-         },
-         colors: [
-           '#556270',
-           '#4ECDC4',
-           '#C7F464',
-           '#FF6B6B',
-           '#C44D58',
-           '#CE1836',
-           '#F85931',
-           '#EDB92E',
-           '#A3A948'
-        ], 
-         chart: {
-            renderTo: 'by_destination',
-            type: 'pie',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-
-         },
-         title: {
-            text: 'Per Destination'
-         },
-         plotOptions: {
-             pie: {
-                 allowPointSelect: true,
-                 cursor: 'pointer',
-                 dataLabels: {
-                     enabled: false
-                 },
-                 showInLegend: true
-             }
-         },
-         series: [{
-            name: 'destinations',
-            data: <%= @trip.totals_per_destination.to_json.html_safe %>
-         }]
-      });
-   });
-  <% end %>
 </section>
 
 <div class="summary-actions">
@@ -145,3 +54,97 @@
   <%= link_to 'Edit Trip', edit_trip_path(@trip), class: 'btn btn-primary' %>
   <%= link_to 'Go back', '#' %>
 </div>
+
+<% content_for :javascript do %>
+  var chart1;
+  $(document).ready(function() {
+    chart1 = new Highcharts.Chart({
+       credits: {
+          enabled: false
+       },
+       colors: [
+         '#556270',
+         '#4ECDC4',
+         '#C7F464',
+         '#FF6B6B',
+         '#C44D58',
+         '#CE1836',
+         '#F85931',
+         '#EDB92E',
+         '#A3A948'
+       ],
+       plotOptions: {
+           pie: {
+               allowPointSelect: true,
+               cursor: 'pointer',
+               dataLabels: {
+                   enabled: false
+               },
+               showInLegend: true
+           }
+       },
+       chart: {
+          renderTo: 'by_budget',
+          type: 'pie',
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false
+
+       },
+       title: {
+          text: 'Per Budget'
+       },
+       series: [{
+          name: 'budget',
+          data: <%= @trip.totals_per_category.to_json.html_safe %>
+       }]
+    });
+ });
+
+  var chart2;
+  $(document).ready(function() {
+    chart2 = new Highcharts.Chart({
+       credits: {
+          enabled: false
+       },
+       colors: [
+         '#556270',
+         '#4ECDC4',
+         '#C7F464',
+         '#FF6B6B',
+         '#C44D58',
+         '#CE1836',
+         '#F85931',
+         '#EDB92E',
+         '#A3A948'
+      ],
+       chart: {
+          renderTo: 'by_destination',
+          type: 'pie',
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false
+
+       },
+       title: {
+          text: 'Per Destination'
+       },
+       plotOptions: {
+           pie: {
+               allowPointSelect: true,
+               cursor: 'pointer',
+               dataLabels: {
+                   enabled: false
+               },
+               showInLegend: true
+           }
+       },
+       series: [{
+          name: 'destinations',
+          data: <%= @trip.totals_per_destination.to_json.html_safe %>
+       }]
+    });
+
+  $('#destination-tabs a:first').tab('show');
+});
+<% end %>

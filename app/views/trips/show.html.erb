@@ -4,7 +4,7 @@
 <ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
     <li class="included">
-      <%= link_to '#', class: 'traveller-disabling', data: { id: traveller.id }, rel: 'tooltip', title: traveller.display_name do %>
+      <%= link_to '#', rel: 'tooltip', title: traveller.display_name do %>
         <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.display_name %>
       <% end %>
     </li>
