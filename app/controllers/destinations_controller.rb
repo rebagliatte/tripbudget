@@ -25,11 +25,13 @@ class DestinationsController < ApplicationController
         end
 
         expense.alternatives = expense_params[:alternatives].map do |alternative_params|
-          alternative = expense.alternatives.find_by_id(alternative_params[:id]) || expense.alternatives.new
-          alternative.assign_attributes(alternative_params)
-          alternative.cost = 0 if alternative.cost.blank?
-          alternative
-        end
+          unless alternative_params[:cost].blank?
+            alternative = expense.alternatives.find_by_id(alternative_params[:id]) || expense.alternatives.new
+            alternative.assign_attributes(alternative_params)
+            alternative.cost = 0 if alternative.cost.blank?
+            alternative
+          end
+        end.compact
         expense
       end
       @expenses.each(&:save!)
