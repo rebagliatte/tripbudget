@@ -57,15 +57,11 @@
         <ul class="comment-list"></ul>
 
         <div class="add-comment comment">
-
           <%= image_tag(current_user.image, alt: current_user.display_name) %>
 
-          <div class="input-append">
+          <div class="add-comment input-append">
             <input type="text" name="expense[<%%= expense.id %>][comments][][body]" class="comment-body input-xxlarge" placeholder="Leave a comment..." />
-
-            <%% if (is_new_expense === false) { %>
-              <button class="btn" type="button">Submit</button>
-            <%% } %>
+            <button class="btn" type="button">Submit</button>
           </div>
         </div>
       </section>
@@ -80,7 +76,7 @@
   <li class="form-inline">
     <input type="hidden" name="alternative[id]" value="<%%= alternative.id %>" class="alternative-id" />
     <span class="is_checked">
-      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> >
+      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
     </span>
 
     <%# TODO: create this field %>
@@ -88,7 +84,7 @@
 
     <div class="input-prepend">
       <span class="add-on">$</span>
-      <input class="cost-input input-small" type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" placeholder="0.00" >
+      <input class="cost-input input-small" type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" placeholder="0.00" />
     </div>
 
     <div class="btn-group person_gap gap" data-toggle="buttons-radio">
@@ -112,8 +108,12 @@
 <script type="text/template" id="comment-template">
   <li class="comment">
     <%# TODO: Add user image %>
-    <%= image_tag(current_user.image, alt: current_user.display_name) %>
-    <p><%%= comment.body %></p>
+
+    <%% if (stored) { %>
+      <p><%%= comment.body %></p>
+    <%% } else { %>
+      <p class="unstored-comment"><%%= comment.body %></p>
+    <%% } %>
   </li>
 </script>
 
