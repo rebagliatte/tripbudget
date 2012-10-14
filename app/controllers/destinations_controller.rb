@@ -17,6 +17,7 @@ class DestinationsController < ApplicationController
         expense = @destination.expenses.find_by_id(expense_params[:id]) || Expense.new
         expense.name = expense_params[:name].blank? ? 'Unknown' : expense_params[:name]
         expense.destination = @destination
+        expense.category = expense_params[:category].blank? ? 'other' : expense_params[:category]
         if expense_params[:new_comment]
           expense.comments.new(expense_params[:new_comment].slice(:body).merge(traveller: current_user))
         end
