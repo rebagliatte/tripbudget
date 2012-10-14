@@ -7,6 +7,8 @@ class Trip < ActiveRecord::Base
 
   validates :name, presence: true
 
+  default_scope order('trips.id ASC')
+
   def self.get_random_invitation_code
     rand(36 ** 8).to_s(36)
   end

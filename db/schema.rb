@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014114835) do
+ActiveRecord::Schema.define(:version => 20121014173835) do
 
   create_table "alternatives", :force => true do |t|
     t.decimal  "cost",       :precision => 10, :scale => 0, :default => 0,            :null => false
@@ -84,12 +84,13 @@ ActiveRecord::Schema.define(:version => 20121014114835) do
   add_index "travellers_trips", ["trip_id"], :name => "index_traveller_trips_on_trip_id"
 
   create_table "trips", :force => true do |t|
-    t.string   "name",        :default => "", :null => false
+    t.string   "name",        :default => "",    :null => false
     t.text     "description"
     t.boolean  "is_public"
-    t.integer  "owner_id",                    :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "owner_id",                       :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "is_featured", :default => false, :null => false
   end
 
 end
