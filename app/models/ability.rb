@@ -4,8 +4,8 @@ class Ability
   def initialize(user)
     if user
       can :create, Trip
-      can [:read, :future_show], Trip, is_public: true
-      can [:read, :future_show, :update], Trip do |trip|
+      can [:read, :summary], Trip, is_public: true
+      can [:read, :summary, :update], Trip do |trip|
         trip.travellers.include?(user)
       end
       can :destroy, Trip, owner_id: user.id

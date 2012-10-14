@@ -25,7 +25,7 @@ class TripsController < ApplicationController
     create_or_update_trip
   end
 
-  def future_show
+  def summary
   end
 
   def create_or_update_trip

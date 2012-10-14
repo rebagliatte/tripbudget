@@ -36,7 +36,7 @@
     <% if @destination.next_destination %>
       <%= link_to "(#{@destination.next_destination.name}) Next >", edit_trip_destination_path(@trip, @destination.next_destination), class: 'submit-expense' %>
     <% else %>
-      <%= link_to 'Summary', trip_url(@trip), class: 'submit-expense' %>
+      <%= link_to 'Summary', summary_trip_path(@trip), class: 'submit-expense' %>
     <% end %>
   </p>
 <% end %>
