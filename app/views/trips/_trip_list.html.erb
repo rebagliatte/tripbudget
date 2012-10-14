@@ -1,0 +1,22 @@
+<%
+  # Locals
+  #   - trip_collection
+%>
+
+<% trips_collection.each do |trip| %>
+  <%= link_to trip_path(trip) do %>
+    <article>
+      <% owner = trip.owner %>
+      <%= image_tag(owner.image, alt:owner.display_name) %>
+      <h1>
+        <%= trip.name %>
+        <span class="owner">by <%= owner.display_name %></span>
+      </h1>
+      <ul>
+        <li class="travellers-count"><%= trip.travellers.count %></li>
+        <li class="destinations-count"><%= trip.destinations.count %></li>
+        <li class="duration"><%= trip.duration_in_days %></li>
+      </ul>
+    </article>
+  <% end %>
+<% end %>
