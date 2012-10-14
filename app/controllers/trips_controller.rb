@@ -13,6 +13,21 @@ class TripsController < ApplicationController
     @trips = current_user.trips
   end
 
+  def popular
+    @trips = Trip.popular(10).all
+    render :index
+  end
+
+  def handpicked
+    @trips = Trip.handpicked.all
+    render :index
+  end
+
+  def latest
+    @trips = Trip.latest.all
+    render :index
+  end
+
   def new
   end
 
