@@ -20,6 +20,13 @@ body.trips.form {
     }
   }
 }
+body.trips.show {
+  .alternatives {
+    .inactive {
+      opacity: 0.6;
+    }
+  }
+}
 body.trips.summary {
   .main-wrapper {
     position: relative;
@@ -43,6 +50,6 @@ body.trips.summary {
 
   .graphs .row-fluid div {
     min-height: 500px;
-    
+
   }
 }

@@ -32,6 +32,11 @@
                 <ul class="alternatives">
                   <% expense.alternatives.each do |alternative| %>
                     <li class="form-inline <%= alternative.is_checked? ? 'active' : 'inactive' %>">
+                      <% if alternative.is_checked? %>
+                        <strong class="cost"><%= alternative.provider %></strong>
+                      <% else %>
+                        <span class="cost"><%= alternative.provider %></span>
+                      <% end %>
                       <span class="is_checked">
                         <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
                       </span>
