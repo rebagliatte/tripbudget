@@ -19,6 +19,7 @@ TripBudget.Helpers.ExpensesSaver = (function () {
 
       expense.name = $expense.find('h1').html();
       expense.id = $expense.find('.alternative-id').val();
+      expense.new_comment = { body: $expense.find('.comment-body').val() };
       expense.alternatives = [];
 
       $expense.find('.alternatives li').each(function (childIndex, alternativeElem) {

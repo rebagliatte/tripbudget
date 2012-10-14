@@ -12,20 +12,23 @@ TripBudget.Views.DestinationsHandler = (function () {
         "id": null,
         "name": "Accomodation",
         "category": "accomodation",
-        "alternatives": []
+        "alternatives": [],
+        "comments": []
       },
       {
         "id": null,
         "name": "Transport",
         "category": "transport",
         "alternatives": [],
+        "comments": []
       }
     ]
     , DEFAULT_EXPENSE = {
       "id": null,
       "name": "New Expense", // TODO: Make funny default expense titles
       "category": "",
-      "alternatives": []
+      "alternatives": [],
+      "comments": []
     };
 
   /**
@@ -37,7 +40,8 @@ TripBudget.Views.DestinationsHandler = (function () {
     this.$mainContainer = $('#expenses-form-inner-wrapper');
     this.templates = {
       expense: _.template($('#expense-template').html()),
-      alternative: _.template($('#alternative-template').html())
+      alternative: _.template($('#alternative-template').html()),
+      comment: _.template($('#comment-template').html())
     };
     if (this.expenses.length === 0) {
       this.expenses = DEFAULT_EXPENSES;
@@ -61,7 +65,7 @@ TripBudget.Views.DestinationsHandler = (function () {
    */
   DestinationsHandler.prototype.appendAll = function () {
     this.$mainContainer.empty();
-    this.expenses.forEach(this.appendExpense.bind(this));
+    this.expenses.forEach(function (expense) { this.appendExpense(expense); }.bind(this));
     this.expenseCosts.refresh();
   };
 
@@ -70,8 +74,9 @@ TripBudget.Views.DestinationsHandler = (function () {
    */
   DestinationsHandler.prototype.appendExpense = function (expense) {
     // Create expense template
-    var expenseContent = $(this.templates.expense(expense))
-      , alternativesList = expenseContent.find('ul.alternatives');
+    var expenseContent = $(this.templates.expense({ expense: expense, is_new_expense: expense.id == null }))
+      , alternativesList = expenseContent.find('ul.alternatives')
+      , commentList = expenseContent.find('ul.comment-list');
 
     // Binding expense content
     expenseContent.find('.add-alternative').click(function (event) {
@@ -88,6 +93,10 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     expense.alternatives.forEach(function (alternative) {
       this.appendAlternative(alternativesList, alternative);
+    }.bind(this));
+
+    expense.comments.forEach(function (comment) {
+      this.appendComment(commentList, comment);
     }.bind(this));
 
     // Appending default blank alternative
@@ -142,6 +151,15 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     this.alternativeIndex += 1;
     container.append($alternative);
+  };
+
+  /**
+   *
+   */
+  DestinationsHandler.prototype.appendComment = function (container, comment) {
+    var $comment = $(this.templates.comment({ comment: comment }));
+
+    container.append($comment);
   };
 
   /**
