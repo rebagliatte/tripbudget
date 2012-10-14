@@ -2,18 +2,30 @@ body.destinations.edit {
   .main-wrapper {
     position: relative;
   }
-  .main-heading {
-    margin-bottom: 0;
-    display: inline;
-    line-height: 1.5em;
-    padding-right: 50px;
-    background: transparent url(/assets/icons/edit.png) right 20px no-repeat;
+  form {
+    margin: 0;
+  }
 
+  // Inline edits
+  .editable {
+    display: inline;
+    padding-right: 25px;
+    background: transparent url(/assets/icons/edit.png) right 16px no-repeat; //16px
     &:hover {
       background-color: #fff5ca;
-      background-position: right -22px;
+      background-position: right -26px;
       @include border-radius(5px);
       cursor: pointer;
+    }
+  }
+
+  // Headings
+  .main-heading {
+    margin-bottom: 0;
+    line-height: 1.5em;
+    background-position: right 20px;
+    &:hover {
+      background-position: right -22px;
     }
   }
   .secondary-heading {
@@ -22,6 +34,8 @@ body.destinations.edit {
   .tertiary-heading {
     margin-bottom: 0;
   }
+
+  // Travellers
   #travellers-list {
     position: absolute;
     top: 20px;
@@ -37,6 +51,49 @@ body.destinations.edit {
       }
     }
   }
+
+  // Add and remove
+  .remove {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: transparent url(/assets/icons/delete.png) left 7px no-repeat;
+    span {
+      display: none;
+    }
+    &:hover {
+      background-position: left -35px;
+    }
+  }
+
+  .add {
+    line-height: 1em;
+    display: block;
+    padding-left: 15px;
+    background: transparent url(/assets/icons/add.png) left 2px no-repeat;
+    &:hover {
+      background-position: left -39px;
+    }
+    &.add-alternative {
+      margin-left: 20px;
+    }
+  }
+
+  // Expenses
+  .expense {
+    position: relative;
+    .editable {
+      display: block;
+      margin-right: 30px;
+    }
+    .remove-expense {
+      position: absolute;
+      top: 9px;
+      right: -11px;
+    }
+  }
+
+  // Alternatives
   .alternatives {
     margin: 0;
     li {
@@ -94,14 +151,65 @@ body.destinations.edit {
       background: transparent url(/assets/icons/url.png) left 2px no-repeat;
     }
 
-    .remove-alternative {
-      height: 28px;
-      background: transparent url(/assets/icons/delete.png) left 7px no-repeat;
-      &:hover {
-        background-position: left -35px;
-      }
+    .action {
+      line-height: 30px;
+      height: 30px;
+      margin: 30px 20px 30px 18px;
     }
   }
+
+  // Comments
+  .comment-list {
+    margin: 20px 0 0 0;
+    li {
+      list-style: none;
+      line-height: 30px;
+      color: #777;
+    }
+  }
+  .comment {
+    margin-left: 18px;
+    position: relative;
+    padding-left: 40px;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      @include border-radius(5px);
+    }
+  }
+
+  // Totals
+  .totals {
+    padding: 1em 0;
+    height: 40px;
+    h1 {
+      float: right;
+      display: inline;
+      min-width: 300px;
+      margin: 0;
+      text-align: right;
+      padding-right: 20px;
+      font-weight: 600;
+    }
+    #add-expense {
+      float: left;
+      margin-top: 5px;
+    }
+  }
+
+  // Actions
+  .destination-actions {
+    display: block;
+    clear: both;
+    .next {
+      float: right;
+    }
+  }
+
+
 }
 
 

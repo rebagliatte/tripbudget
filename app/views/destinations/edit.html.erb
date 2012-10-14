@@ -23,22 +23,21 @@
 
   <div id="expenses-form-inner-wrapper"></div>
 
-  <p>
-    <a href="#" id="add-expense">Add new budget</a>
-    <span class="total-label">Total</span>
-    <strong id="total-price"></strong>
-  </p>
+  <section class="totals">
+    <h1 class="tertiary-heading">Total: <strong id="total-price"></strong></h1>
+    <a href="#" id="add-expense" class="add">Add a new expense</a>
+  </section>
 
-  <p>
+  <div class="destination-actions">
     <% if @destination.prev_destination %>
-      <%= link_to "< Prev (#{@destination.prev_destination.name})", edit_trip_destination_path(@trip, @destination.prev_destination), class: 'submit-expense' %>
+      <%= link_to "Prev: #{@destination.prev_destination.name}", edit_trip_destination_path(@trip, @destination.prev_destination), class: 'btn btn-large submit-expense' %>
     <% end %>
     <% if @destination.next_destination %>
-      <%= link_to "(#{@destination.next_destination.name}) Next >", edit_trip_destination_path(@trip, @destination.next_destination), class: 'submit-expense' %>
+      <%= link_to "Next: #{@destination.next_destination.name}", edit_trip_destination_path(@trip, @destination.next_destination), class: 'btn btn-large btn-primary submit-expense next' %>
     <% else %>
-      <%= link_to 'Summary', trip_url(@trip), class: 'submit-expense' %>
+      <%= link_to 'Summary', trip_url(@trip), class: 'btn btn-primary btn-large submit-expense' %>
     <% end %>
-  </p>
+  </div>
 <% end %>
 
 <script type="text/template" id="expense-template">
@@ -51,18 +50,28 @@
 
       <ul class="alternatives"></ul>
 
+      <a href="#" class="action add-alternative"><i class="icon-plus"></i> Add an alternative</a>
+      <a href="#" class="action toggle-comments"><i class="icon-comment"></i> Show/hide comments</a>
+
       <section class="comments">
-        <div class="add-comment">
-          <textarea name="expense[<%%= expense.id %>][comments][][body]" class="comment-body" />
-          <%% if (is_new_expense === false) { %>
-            <button class="btn">Comment!</button>
-          <%% } %>
-        </div>
         <ul class="comment-list"></ul>
+
+        <div class="add-comment comment">
+
+          <%= image_tag(current_user.image, alt: current_user.display_name) %>
+
+          <div class="input-append">
+            <input type="text" name="expense[<%%= expense.id %>][comments][][body]" class="comment-body input-xxlarge" placeholder="Leave a comment..." />
+
+            <%% if (is_new_expense === false) { %>
+              <button class="btn" type="button">Comment</button>
+            <%% } %>
+          </div>
+        </div>
       </section>
 
-      <a href="#" class="add-alternative">Add an alternative</a>
-      <a href="#" class="remove-expense">Remove expense X</a>
+
+      <a href="#" class="remove remove-expense"><span>Remove expense</span></a>
     </div>
   </section>
 </script>
@@ -93,12 +102,16 @@
       <input class="input-xlarge" type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link %>" placeholder="http://..." >
     </div>
 
-    <a href="#" class="remove-alternative icon"></a>
+    <a href="#" class="remove remove-alternative" rel="tooltip" title="Remove this expense"></a>
   </li>
 </script>
 
 <script type="text/template" id="comment-template">
-  <p><%%= comment.body %></p>
+  <li class="comment">
+    <%# TODO: Image del user que comenta  %>
+    <%= image_tag(current_user.image, alt: current_user.display_name) %>
+    <p><%%= comment.body %></p>
+  </li>
 </script>
 
 <%= content_for :javascript do %>
