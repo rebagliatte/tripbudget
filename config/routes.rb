@@ -3,6 +3,9 @@ Tripbudget::Application.routes.draw do
   root to: 'home#index'
 
   resources :trips, only: %w(index new create show edit update destroy) do
+    member do
+      get :future_show
+    end
     resources :destinations, only: %w(show edit update) do
       member do
         post :minor_update

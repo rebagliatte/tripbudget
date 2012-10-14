@@ -25,6 +25,9 @@ class TripsController < ApplicationController
     create_or_update_trip
   end
 
+  def future_show
+  end
+
   def create_or_update_trip
     destinations = trip_params[:destinations].map do |destination_params|
       if destination = @trip.destinations.find_by_id(destination_params[:id])
