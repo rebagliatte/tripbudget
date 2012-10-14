@@ -151,7 +151,6 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Appending to container
     this.$mainContainer.append(expenseContent);
-    expenseContent.find('.comments').fadeToggle();
   };
 
   /**
