@@ -63,7 +63,17 @@
            '#F85931',
            '#EDB92E',
            '#A3A948'
-        ], 
+         ],
+         plotOptions: {
+             pie: {
+                 allowPointSelect: true,
+                 cursor: 'pointer',
+                 dataLabels: {
+                     enabled: false
+                 },
+                 showInLegend: true
+             }
+         },
          chart: {
             renderTo: 'by_budget',
             type: 'pie',
@@ -109,6 +119,16 @@
          },
          title: {
             text: 'Per Destination'
+         },
+         plotOptions: {
+             pie: {
+                 allowPointSelect: true,
+                 cursor: 'pointer',
+                 dataLabels: {
+                     enabled: false
+                 },
+                 showInLegend: true
+             }
          },
          series: [{
             data: <%= @trip.totals_per_destination.to_json.html_safe %>
