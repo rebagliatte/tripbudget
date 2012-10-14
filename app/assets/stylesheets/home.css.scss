@@ -1,3 +1,26 @@
 body.home.index {
 
+  /* Reset framed layout */
+  background: none;
+  .main-wrapper {
+    background-color: none;
+    padding: 0;
+    margin-top: 0;
+    border: 0;
+    @include box-shadow(none);
+  }
+  .container-fluid.global {
+    padding: 0;
+    .container-fluid {
+      padding-top: 3em;
+      padding-bottom: 3em;
+    }
+  }
+
+  /* Intro */
+  .intro {
+    background: transparent url(/assets/bg.jpg) top left no-repeat;
+    padding-bottom: 0;
+  }
+
 }
