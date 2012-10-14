@@ -1,5 +1,7 @@
-<h1 id="editable-header"><%= @trip.name %></h1>
-<p><%= @trip.description %></p>
+<%= title @trip.name, visible: false %>
+
+<h1 id="editable-header" class="main-heading"><%= @trip.name %></h1>
+<p class="secondary-heading"><%= @trip.description %></p>
 
 <ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
