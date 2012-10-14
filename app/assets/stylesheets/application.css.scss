@@ -65,7 +65,8 @@
     @include box-sizing(border-box);
   }
   input[type=text] {
-    /* padding: 12px 6px; TODO: Vero. This breaks moz input edit otherwise */
+    height: 2em;
+    padding: 6px;
   }
   .help-block {
     color: #888;
