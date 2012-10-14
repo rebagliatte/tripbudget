@@ -38,7 +38,7 @@
                         <span class="cost"><%= alternative.provider %></span>
                       <% end %>
                       <span class="is_checked">
-                        <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
+                        <input type="radio" name="" <%= alternative.is_checked? ? 'checked="checked"'.html_safe : '' %> disabled="disabled" />
                       </span>
                       <span class="cost">$ <%= alternative.cost %></span>
 
