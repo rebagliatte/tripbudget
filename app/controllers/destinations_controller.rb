@@ -64,7 +64,7 @@ class DestinationsController < ApplicationController
       alternative_params = (expense[:alternatives] || {}).values.map do |alternative|
         alternative.slice(:id, :cost, :person_gap, :time_gap, :link, :is_checked)
       end
-      e_params = expense.slice(:id, :name).merge(alternatives: alternative_params)
+      e_params = expense.slice(:id, :name, :category).merge(alternatives: alternative_params)
       e_params[:new_comment] = expense[:new_comment] if expense[:new_comment] && !expense[:new_comment][:body].blank?
       e_params
     end

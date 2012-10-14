@@ -4,6 +4,8 @@
   #   - action
 %>
 
+<% @body_class = 'form' %>
+
 <%= simple_form_for(trip, html: { class:'form-horizontal', id: 'trip-form' }) do |form| %>
 
   <%= error_messages_for(trip) %>
@@ -31,8 +33,8 @@
   <li class="destination">
     <input type="hidden" name="trip[destinations][<%%= index %>][id]" value="<%%= destination.id %>" />
     <input class="name" type="text" name="trip[destinations][<%%= index %>][name]" value="<%%= destination.name %>" placeholder="Enter a city name">
-    <input class="datepicker" type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" placeholder="yyyy-mm-dd">
-    <input class="datepicker" type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" placeholder="yyyy-mm-dd">
+    <input class="datepicker" type="text" name="trip[destinations][<%%= index %>][from_date]" value="<%%= destination.from_date %>" placeholder="yyyy-mm-dd" data-modified="<%%= !! destination.id %>">
+    <input class="datepicker" type="text" name="trip[destinations][<%%= index %>][to_date]" value="<%%= destination.to_date %>" placeholder="yyyy-mm-dd" data-modified="<%%= !! destination.id %>">
 
     <a href="#" class="remove-destination">X</a>
   </li>

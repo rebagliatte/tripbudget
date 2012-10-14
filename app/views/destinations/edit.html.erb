@@ -36,17 +36,18 @@
     <% if @destination.next_destination %>
       <%= link_to "(#{@destination.next_destination.name}) Next >", edit_trip_destination_path(@trip, @destination.next_destination), class: 'submit-expense' %>
     <% else %>
-      <%= link_to 'Summary', '#', class: 'submit-expense' %>
+      <%= link_to 'Summary', trip_url(@trip), class: 'submit-expense' %>
     <% end %>
   </p>
 <% end %>
 
 <script type="text/template" id="expense-template">
   <section class="expense">
-    <h1 class="tertiary-heading"><%%= expense.name %></h1>
+    <h1 class="tertiary-heading" id="expense-title-<%%= expense.id %>"><%%= expense.name %></h1>
 
     <div class="alternatives-wrapper">
       <input type="hidden" name="expense[id]" value="<%%= expense.id %>" class="expense-id" />
+      <input type="hidden" name="expense[category]" value="<%%= expense.category %>" class="expense-category" />
 
       <ul class="alternatives"></ul>
 

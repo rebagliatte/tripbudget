@@ -26,7 +26,7 @@ TripBudget.Views.DestinationsHandler = (function () {
     , DEFAULT_EXPENSE = {
       "id": null,
       "name": "New Expense", // TODO: Make funny default expense titles
-      "category": "",
+      "category": "other",
       "alternatives": [],
       "comments": []
     };
@@ -91,6 +91,12 @@ TripBudget.Views.DestinationsHandler = (function () {
     expenseContent.find('.remove-expense').click(function (event) {
       event.preventDefault();
       expenseContent.remove();
+    });
+
+    // Binding expense title inline-edit
+    expenseContent.find('h1').editable({
+      type: 'text',
+      title: 'Edit budget name'
     });
 
     // Bind comments button click
