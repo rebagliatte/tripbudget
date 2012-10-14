@@ -47,7 +47,25 @@ TripBudget.Views.EditTrip = (function () {
 
     this.$destinationsContainer.append(destinationContent);
     this.destinationIndex += 1;
-    destinationContent.find('.datepicker').datepicker();
+    destinationContent.find('.datepicker')
+      .datepicker()
+      .on('changeDate', function (ev) {
+        var $this = $(this)
+          , $sibling = $this.siblings('.datepicker').first();
+
+        if ($sibling.data('modified') === false) {
+          $sibling.val($this.val());
+          $sibling.data('modified', true);
+        }
+        else {
+          $sibling = $this.parent().next().find('.datepicker').first();
+          if ($sibling.data('modified') === false) {
+            $sibling.val($this.val());
+            $sibling.data('modified', true);
+          }
+        }
+        $this.data('modified', true);
+      });
   };
 
   /**
