@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if current_user
       redirect_to root_url, flash: { notice: exception.message }
     else
-     redirect_to root_url, flash: { notice: 'Please <a href="/auth/twitter">sign in</a> to access this page.'.html_safe }
+     redirect_to root_url, flash: { notice: 'Please sign in with <a href="/auth/twitter">twitter</a> or <a href="/auth/facebook">facebook</a> to access this page.'.html_safe }
     end
   end
 

@@ -3,7 +3,7 @@
 <h1 id="editable-header" class="main-heading"><%= @trip.name %></h1>
 <p class="secondary-heading"><%= @trip.description %></p>
 
-<ul id="travellers-list" id="myTab">
+<ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
     <li class="included">
       <%= link_to '#', rel: 'tooltip', title: traveller.display_name do %>
@@ -33,9 +33,9 @@
                   <% expense.alternatives.each do |alternative| %>
                     <li class="form-inline <%= alternative.is_checked? ? 'active' : 'inactive' %>">
                       <% if alternative.is_checked? %>
-                        <strong class="cost"><%= alternative.provider %></strong>
+                        <strong class="provider"><%= alternative.provider %></strong>
                       <% else %>
-                        <span class="cost"><%= alternative.provider %></span>
+                        <span class="provider"><%= alternative.provider %></span>
                       <% end %>
                       <span class="is_checked">
                         <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
@@ -71,13 +71,22 @@
   <% end %>
 </div>
 
+<ul class="nav nav-pills">
+  <% @trip.destinations.each_with_index do |destination, index| %>
+    <li class="<%= index.zero? ? 'active' : '' %>"><%= link_to destination.name, "#destination-#{destination.id}", data: { toggle: 'pill' } %></li>
+  <% end %>
+</ul>
+
 <section class="totals">
-  <%= link_to 'Edit this trip', edit_trip_path(@trip), class: 'btn btn-primary btn-large' %>
   <h1 class="tertiary-heading">Total: <strong id="total-price">$ 0</strong></h1>
+  <% if current_user && @trip.travellers.include?(current_user) %>
+    <%= link_to 'Edit this trip', edit_trip_path(@trip), class: 'btn btn-primary btn-large' %>
+  <% end %>
+  <%= link_to 'Summary', summary_trip_path(@trip), class: 'btn btn-primary btn-large left' %>
 </section>
 
 <%= content_for :javascript do %>
   $(function () {
-    $('#myTab a:first').tab('show');
+    $('nav-pills a:first').tab('show');
   });
 <% end %>

@@ -51,8 +51,10 @@
 
 <div class="summary-actions">
   <%# TODO: share buttons %>
-  <%= link_to 'Edit Trip', edit_trip_path(@trip), class: 'btn btn-primary' %>
-  <%= link_to 'Go back', '#' %>
+  <% if @trip.travellers.include?(current_user) %>
+    <%= link_to 'Edit Trip', edit_trip_path(@trip), class: 'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Go back', trip_path(@trip) %>
 </div>
 
 <% content_for :javascript do %>

@@ -22,6 +22,14 @@ body.trips.form {
 }
 body.trips.show {
   .alternatives {
+    .cost {
+      width: 4%;
+      display: inline-block;
+    }
+    .provider {
+      width: 20%;
+      display: inline-block;
+    }
     .inactive {
       opacity: 0.6;
     }

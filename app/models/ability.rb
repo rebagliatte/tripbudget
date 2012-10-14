@@ -4,7 +4,6 @@ class Ability
   def initialize(user)
     if user
       can :create, Trip
-      can [:read, :summary], Trip, is_public: true
       can [:read, :summary, :update], Trip do |trip|
         trip.travellers.include?(user)
       end
@@ -21,6 +20,7 @@ class Ability
       end
     end
 
+    can [:read, :summary], Trip, is_public: true
     # Everybody can access these
     can :read, Traveller do |traveller|
       traveller.trips.where(is_public: true).any?

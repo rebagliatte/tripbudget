@@ -23,7 +23,7 @@ body.trips.show {
   // Headings
   .main-heading {
     margin-bottom: 0;
-    line-height: 1.5em;
+    line-height: 0.6em;
     background-position: right 20px;
     &:hover {
       background-position: right -22px;
@@ -31,6 +31,7 @@ body.trips.show {
   }
   .secondary-heading {
     margin-bottom: 1em;
+    line-height: 1.5em;
   }
   .tertiary-heading {
     margin-bottom: 0;
@@ -39,7 +40,7 @@ body.trips.show {
   // Travellers
   #travellers-list {
     position: absolute;
-    top: 80px;
+    top: 20px;
     right: 20px;
     margin: 0;
     li {
