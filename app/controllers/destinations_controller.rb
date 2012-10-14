@@ -24,18 +24,25 @@ class DestinationsController < ApplicationController
           end
         end
 
-        expense.alternatives = expense_params[:alternatives].map do |alternative_params|
+        alternatives = expense_params[:alternatives].map do |alternative_params|
           unless alternative_params[:cost].blank?
-            alternative = expense.alternatives.find_by_id(alternative_params[:id]) || expense.alternatives.new
-            alternative.assign_attributes(alternative_params)
+            alternative = expense.alternatives.find_by_id(alternative_params[:id]) || Alternative.new
+            alternative.assign_attributes(alternative_params.merge(expense: expense))
             alternative.cost = 0 if alternative.cost.blank?
             alternative
           end
         end.compact
-        expense
+
+        { expense: expense, alternatives: alternatives }
       end
-      @expenses.each(&:save!)
-      @destination.expenses = @expenses
+      @expenses.each do |e|
+        e[:expense].transaction do
+          e[:expense].save!
+          e[:alternatives].each(&:save!)
+        end
+      end
+      @destination.expenses = @expenses.map {|eh| eh[:expense] }
+      @destination.save
     end
     render json: @expenses
   end
@@ -67,7 +74,7 @@ class DestinationsController < ApplicationController
     return @expenses_params if @expenses_params
     @expenses_params = (params[:expenses] || {}).values.map do |expense|
       alternative_params = (expense[:alternatives] || {}).values.map do |alternative|
-        alternative.slice(:id, :cost, :person_gap, :time_gap, :link, :is_checked)
+        alternative.slice(:id, :cost, :person_gap, :time_gap, :link, :is_checked, :provider)
       end
       e_params = expense.slice(:id, :name, :category).merge(alternatives: alternative_params)
       e_params[:comments] = []

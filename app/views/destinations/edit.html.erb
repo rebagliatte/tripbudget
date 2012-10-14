@@ -79,8 +79,7 @@
       <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
     </span>
 
-    <%# TODO: create this field %>
-    <input class="input-xlarge provider" type="text" name="" value="" placeholder="Provider name" >
+    <input class="input-xlarge provider alternative-provider" type="text" name="alternative[<%%= index %>" value="<%%= alternative.provider %>" placeholder="Provider name" />
 
     <div class="input-prepend">
       <span class="add-on">$</span>
