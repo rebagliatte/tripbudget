@@ -47,6 +47,7 @@ TripBudget.Views.EditTrip = (function () {
 
     this.$destinationsContainer.append(destinationContent);
     this.destinationIndex += 1;
+    destinationContent.find('.datepicker').datepicker();
   };
 
   /**
