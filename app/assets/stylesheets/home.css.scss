@@ -25,10 +25,14 @@ body.home.index {
   }
 
   .intro {
-    padding-left: 9%;
-    background: transparent url(/assets/bg.jpg) top left no-repeat;
+    background: transparent url(/assets/bg.jpg) center center no-repeat;
     border-bottom: 1px solid #ccc;
     font-family: 'Open Sans', sans-serif;
+
+    .container-fluid {
+      padding-left: 9%;
+      background: rgba(255, 255, 255, 0.8);
+    }
 
     img {
       float: left;

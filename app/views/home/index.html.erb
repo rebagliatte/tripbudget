@@ -1,14 +1,16 @@
-<section class="container-fluid intro">
-  <div class="row-fluid">
-    <div class="span8">
-      <%= image_tag('home/main_screenshot.png', alt: 'Main screenshot') %>
-    </div>
+<section class="intro">
+  <div class="container-fluid ">
+    <div class="row-fluid">
+      <div class="span8">
+        <%= image_tag('home/main_screenshot.png', alt: 'Main screenshot') %>
+      </div>
 
-    <div class="span4">
-      <%= title ('Collective budget planning made easy') %>
-      <p>Enter the locations and estimates of your expenses. Share with your travel group and get the most out of your money.</p>
-      <p>We do the maths for you.</p>
-      <%= link_to 'Create a trip', new_trip_path, class: 'btn btn-primary btn-large' %>
+      <div class="span4">
+        <%= title ('Collective budget planning made easy') %>
+        <p>Enter the locations and estimates of your expenses. Share with your travel group and get the most out of your money.</p>
+        <p>We do the maths for you.</p>
+        <%= link_to 'Create a trip', new_trip_path, class: 'btn btn-primary btn-large' %>
+      </div>
     </div>
   </div>
 </section>
