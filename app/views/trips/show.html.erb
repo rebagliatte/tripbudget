@@ -1,2 +1,53 @@
-<h1>Trips#show</h1>
-<p>Find me in app/views/trips/show.html.erb</p>
+<%= title @trip.name %>
+<%= @trip.destinations.map(:name).to_sentence %>
+
+<%# TODO: mapa de google %>
+
+<section class="travellers">
+  <h1 class="hidden">Travellers</h1>
+  <ul>
+    <% @trip.travellers.each do |t| %>
+      <li><%= image_tag(t.image, alt: t.name) %></li>
+    <% end %>
+  </ul>
+</section>
+
+<section class="summary">
+  <h1 class="secondary-heading">Summary</h1>
+  <table class='table table-striped table-bordered table-hover'>
+    <thead>
+      <tr>
+        <th>Destination</th>
+        <th>Cost per person</th>
+        <th>Cost per group</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @trip.destination.each do |destination| %>
+        <tr>
+          <td><%# TODO: print data %></td>
+          <td><%# TODO: print data %></td>
+          <td><%# TODO: print data %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td><%# TODO: print total %></td>
+        <td><%# TODO: print total %></td>
+      </tr>
+    </tfoot>
+  </table>
+</section>
+
+<section class="graphs">
+  <h1 class="secondary-heading">Graphs</h1>
+  <%# TODO: graphs %>
+</section>
+
+<div class="summary-actions">
+  <%# TODO: share buttons %>
+  <%= link_to 'Edit Trip', edit_trip_path(@trip), class: 'btn btn-primary' %>
+  <%= link_to 'Go back', '#' %>
+</div>

@@ -4,6 +4,9 @@ class TripsController < ApplicationController
   before_filter :load_trip_on_update, only: :update
   load_and_authorize_resource
 
+  def show
+  end
+
   def index
     @trips = current_user.trips
     binding.pry

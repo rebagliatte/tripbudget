@@ -13,7 +13,7 @@
 
 <body class="<%= body_class %>">
 
-<header class="navbar navbar-fixed-top">
+<header class="navbar navbar-static-top">
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -53,15 +53,17 @@
   </div>
 </header>
 
-<section class="container-fluid">
-  <% flash.each do |name, msg| %>
-    <div class="alert alert-<%= name %>">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= msg %>
-    </div>
-  <% end %>
+<section class="container-fluid ">
+  <div class="main-wrapper">
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name %>">
+        <a class="close" data-dismiss="alert">×</a>
+        <%= msg %>
+      </div>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
+  </div>
 </section>
 
 <footer class="footer">
