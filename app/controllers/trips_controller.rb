@@ -9,7 +9,6 @@ class TripsController < ApplicationController
 
   def index
     @trips = current_user.trips
-    binding.pry
   end
 
   def new
@@ -28,7 +27,12 @@ class TripsController < ApplicationController
 
   def create_or_update_trip
     destinations = trip_params[:destinations].map do |destination_params|
-      Destination.new(destination_params.merge(trip: @trip))
+      if destination = @trip.destinations.find_by_id(destination_params[:id])
+        destination.assign_attributes(destination_params)
+        destination
+      else
+        Destination.new(destination_params.merge(trip: @trip))
+      end
     end
 
     any_destination = destinations.any?
@@ -40,6 +44,10 @@ class TripsController < ApplicationController
         @trip.destinations = destinations
         @trip.save!
         notify_new_invitees
+
+        destinations.each do |d|
+          d.travellers = @trip.travellers
+        end
       end
 
       # Success!
@@ -62,7 +70,12 @@ class TripsController < ApplicationController
     return @trip_params if @trip_params
     @trip_params = params[:trip].slice(:name, :description, :is_public, :invitees)
     @trip_params[:destinations] = (params[:trip][:destinations] || {}).values.reject {|d| d[:name].blank? }.map do |destination_params|
-      destination_params.slice(:name, :from_date, :to_date)
+      {
+        id: destination_params[:id],
+        name: destination_params[:name],
+        from_date: Date.strptime(destination_params[:from_date], '%m/%d/%Y'),
+        to_date: Date.strptime(destination_params[:to_date], '%m/%d/%Y')
+      }
     end
     @trip_params
   end
@@ -92,6 +105,5 @@ class TripsController < ApplicationController
   def load_trip_on_update
     @trip = Trip.find(params[:id])
     @trip.assign_attributes(trip_params.slice(:name, :description, :is_public))
-    binding.pry
   end
 end

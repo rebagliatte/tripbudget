@@ -11,6 +11,9 @@ class DestinationsController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   def update
     @destination.transaction do
       @expenses = expenses_params.map do |expense_params|
@@ -33,7 +36,11 @@ class DestinationsController < ApplicationController
   end
 
   def minor_update
-    @destination.update_attribute(:name, params[:value])
+    if params[:value]
+      @destination.update_attribute(:name, params[:value])
+    elsif params[:destination_travellers_ids].kind_of?(Array)
+      @destination.travellers = @trip.travellers.where(id: params[:destination_travellers_ids]).all
+    end
     render json: @destination
   end
 
