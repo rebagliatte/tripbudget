@@ -37,6 +37,7 @@ TripBudget.Views.DestinationsHandler = (function () {
   var DestinationsHandler = function (settings) {
     this.expenses = settings.expenses || [];
     this.alternativeIndex = 0;
+    this.commentSubmitPath = settings.commentSubmitPath;
     this.$mainContainer = $('#expenses-form-inner-wrapper');
     this.templates = {
       expense: _.template($('#expense-template').html()),
@@ -74,7 +75,8 @@ TripBudget.Views.DestinationsHandler = (function () {
    */
   DestinationsHandler.prototype.appendExpense = function (expense) {
     // Create expense template
-    var expenseContent = $(this.templates.expense({ expense: expense, is_new_expense: expense.id == null }))
+    var self = this
+      , expenseContent = $(this.templates.expense({ expense: expense, is_new_expense: expense.id == null }))
       , alternativesList = expenseContent.find('ul.alternatives')
       , commentList = expenseContent.find('ul.comment-list');
 
@@ -91,10 +93,32 @@ TripBudget.Views.DestinationsHandler = (function () {
       expenseContent.remove();
     });
 
+    // Bind comments button click
+    expenseContent.find('.add-comment .btn').click(function (event) {
+      var $commentInput = $(this).prev()
+        , commentContent = $commentInput.val()
+        , expenseId = $commentInput.parents('.expense').find('.expense-id').val();
+
+      event.preventDefault();
+
+      $.ajax({
+        url: self.commentSubmitPath,
+        type: 'POST',
+        data: { comment: { body: commentContent, expense_id: expenseId }, "csrf-token": $('[name="csrf-token"]').attr('content') },
+        success: function (comment) {
+          $commentInput.val('');
+          self.appendComment($commentInput.parents('.expense').find('.comment-list'), comment);
+        },
+        dataType: 'json'
+      });
+    });
+
+    // Display alternatives
     expense.alternatives.forEach(function (alternative) {
       this.appendAlternative(alternativesList, alternative);
     }.bind(this));
 
+    // Display comments
     expense.comments.forEach(function (comment) {
       this.appendComment(commentList, comment);
     }.bind(this));
@@ -158,7 +182,6 @@ TripBudget.Views.DestinationsHandler = (function () {
    */
   DestinationsHandler.prototype.appendComment = function (container, comment) {
     var $comment = $(this.templates.comment({ comment: comment }));
-
     container.append($comment);
   };
 

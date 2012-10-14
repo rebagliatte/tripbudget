@@ -90,7 +90,7 @@
 </script>
 
 <script type="text/template" id="comment-template">
-  <%%= comment.body %>
+  <p><%%= comment.body %></p>
 </script>
 
 <%= content_for :javascript do %>
@@ -101,7 +101,8 @@
       expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives, comments: e.comments) },
       totalDays: @destination.total_days,
       travellersNumber: @destination.travellers.count,
-      minorUpdatePath: minor_update_trip_destination_path(@trip, @destination, format: :json)
+      minorUpdatePath: minor_update_trip_destination_path(@trip, @destination, format: :json),
+      commentSubmitPath: create_comment_trip_destination_path(@trip, @destination, format: :json)
     }.to_json.html_safe %>);
 
     view.appendAll();
