@@ -2,7 +2,7 @@ class Traveller < ActiveRecord::Base
 
   has_many :comments
   has_and_belongs_to_many :trips
-  has_and_belongs_to_many :expenses
+  has_and_belongs_to_many :destinations
 
   # validates :name, presence: true
   # validates :uid, presence: true

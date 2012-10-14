@@ -72,6 +72,7 @@
 <%= content_for :javascript do %>
   $(function () {
     var view = new TripBudget.Views.DestinationsHandler(<%= {
+      travellers: @destination.travellers,
       destination: @destination,
       expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives) },
       totalDays: @destination.total_days,

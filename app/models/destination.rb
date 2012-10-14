@@ -2,6 +2,7 @@ class Destination < ActiveRecord::Base
 
   has_many :expenses
   belongs_to :trip
+  has_and_belongs_to_many :travellers
 
   validates :name, presence: true
   validates :from_date, presence: true

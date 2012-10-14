@@ -41,7 +41,15 @@
 <%= content_for :javascript do %>
   $(function () {
     var view = new TripBudget.Views.EditTrip(<%= {
-      destinations: @trip.destinations
+      destinations: @trip.destinations.map do |d|
+        {
+          id: d.id,
+          name: d.name,
+          from_date: pretty_date(d.from_date),
+          to_date: pretty_date(d.to_date),
+          google_address: d.google_address
+        }
+      end
     }.to_json.html_safe %>);
     view.appendAll();
   });

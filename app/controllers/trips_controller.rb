@@ -63,8 +63,8 @@ class TripsController < ApplicationController
     @trip_params[:destinations] = (params[:trip][:destinations] || {}).values.reject {|d| d[:name].blank? }.map do |destination_params|
       {
         name: destination_params[:name],
-        from_date: Date.strptime(destination_params[:from_date], '%m/%d/%y'),
-        to_date: Date.strptime(destination_params[:to_date], '%m/%d/%y')
+        from_date: Date.strptime(destination_params[:from_date], '%m/%d/%Y'),
+        to_date: Date.strptime(destination_params[:to_date], '%m/%d/%Y')
       }
     end
     @trip_params
