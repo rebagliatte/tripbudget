@@ -8,7 +8,7 @@
     <td style="border: 1px solid #cecece; font-family: Helvetica, Arial, sans-serif; font-size: 14px; padding: 10px 20px 20px 20px;">
       <p>Hi <%= @traveller.name %>,</p>
       <p style="margin-bottom: 30px;"><%= @trip.owner.name %> has invited you to collaborate on your trip budget planning<%#= @trip.destinations.first.from_date.to_s(:short) %>.</p>
-      <a href="<%= trip_destinations_url(@trip) %>" style="background-color: #07c573; border: 1px solid #00a35d; border-radius: 4px; box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px 0px; color: white; cursor: pointer; font-size: 14px; height: 20px; line-height: 20px; padding: 10px 20px; text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 0px; text-decoration: none;">Join the trip</a>
+      <a href="<%= trip_url(@trip) %>" style="background-color: #07c573; border: 1px solid #00a35d; border-radius: 4px; box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px 0px; color: white; cursor: pointer; font-size: 14px; height: 20px; line-height: 20px; padding: 10px 20px; text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 0px; text-decoration: none;">Join the trip</a>
     </td>
   </tr>
 </table>
