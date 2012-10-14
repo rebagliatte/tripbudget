@@ -26,9 +26,9 @@ class Trip < ActiveRecord::Base
   end
 
   def totals_per_category
-    accomodation = total_per_category('Accomodation')
-    transportation = total_per_category('Transport')
-    meals = total_per_category('Meals')
+    accomodation = total_per_category('accomodation')
+    transportation = total_per_category('transport')
+    meals = total_per_category('meals')
     other = total_per_group - accomodation - transportation - meals
 
     [['Accomodation',  accomodation ],
