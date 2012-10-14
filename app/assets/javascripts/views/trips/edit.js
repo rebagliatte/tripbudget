@@ -1,8 +1,8 @@
 TripBudget.Views.EditTrip = (function () {
 
   var DEFAULT_DESTINATION = {
-    "from_date": 1, // Today
-    "to_date": 1, // Today + 1 week
+    "from_date": "10/13/2012", // Today
+    "to_date": "10/20/2012", // Today + 1 week
     "name": "" // TODO: Insert funny destination name here
   };
 
