@@ -101,22 +101,30 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Bind comments button click
     expenseContent.find('.add-comment .btn').click(function (event) {
-      var $commentInput = $(this).prev()
-        , commentContent = $commentInput.val()
-        , expenseId = $commentInput.parents('.expense').find('.expense-id').val();
+      var $commentInput = $(this).prev();
 
       event.preventDefault();
 
-      $.ajax({
-        url: self.commentSubmitPath,
-        type: 'POST',
-        data: { comment: { body: commentContent, expense_id: expenseId }, "csrf-token": $('[name="csrf-token"]').attr('content') },
-        success: function (comment) {
-          $commentInput.val('');
-          self.appendComment($commentInput.parents('.expense').find('.comment-list'), comment);
-        },
-        dataType: 'json'
-      });
+      if (expense.id) { // Already stored object
+        var commentContent = $commentInput.val()
+          , expenseId = $commentInput.parents('.expense').find('.expense-id').val();
+
+
+        $.ajax({
+          url: self.commentSubmitPath,
+          type: 'POST',
+          data: { comment: { body: commentContent, expense_id: expenseId }, "csrf-token": $('[name="csrf-token"]').attr('content') },
+          success: function (comment) {
+            $commentInput.val('');
+            self.appendComment($commentInput.parents('.expense').find('.comment-list'), comment, { stored: true });
+          },
+          dataType: 'json'
+        });
+      }
+      else { // Temporary displaying on DOM. Will be saved on .save()
+        self.appendComment($commentInput.parents('.expense').find('.comment-list'), { body: $commentInput.val() }, { stored: false });
+        $commentInput.val('');
+      }
     });
 
     // Display alternatives
@@ -126,7 +134,7 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Display comments
     expense.comments.forEach(function (comment) {
-      this.appendComment(commentList, comment);
+      this.appendComment(commentList, comment, { stored: true });
     }.bind(this));
 
     // Appending default blank alternative
@@ -186,8 +194,8 @@ TripBudget.Views.DestinationsHandler = (function () {
   /**
    *
    */
-  DestinationsHandler.prototype.appendComment = function (container, comment) {
-    var $comment = $(this.templates.comment({ comment: comment }));
+  DestinationsHandler.prototype.appendComment = function (container, comment, options) {
+    var $comment = $(this.templates.comment({ comment: comment, stored: options.stored }));
     container.append($comment);
   };
 

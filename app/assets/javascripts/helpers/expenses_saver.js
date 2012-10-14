@@ -20,9 +20,14 @@ TripBudget.Helpers.ExpensesSaver = (function () {
       expense.name = $expense.find('h1').html();
       expense.id = $expense.find('.expense-id').val();
       expense.category = $expense.find('.expense-category').val();
-      expense.new_comment = { body: $expense.find('.comment-body').val() };
-      expense.alternatives = [];
+      expense.comments = [];
 
+      $expense.find('.unstored-comment').each(function (index, element) {
+        var $elem = $(element);
+        expense.comments.push({ body: $elem.html(), expense_id: $expense.data('id') });
+      });
+
+      expense.alternatives = [];
       $expense.find('.alternatives li').each(function (childIndex, alternativeElem) {
         var $alternative = $(alternativeElem)
           , alternative = {

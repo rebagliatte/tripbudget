@@ -18,8 +18,10 @@ class DestinationsController < ApplicationController
         expense.name = expense_params[:name].blank? ? 'Unknown' : expense_params[:name]
         expense.destination = @destination
         expense.category = expense_params[:category].blank? ? 'other' : expense_params[:category]
-        if expense_params[:new_comment]
-          expense.comments.new(expense_params[:new_comment].slice(:body).merge(traveller: current_user))
+        if expense_params[:comments] && expense_params[:comments].any?
+          expense_params[:comments].each do |comment|
+            expense.comments.new(comment.slice(:body).merge(traveller: current_user))
+          end
         end
 
         expense.alternatives = expense_params[:alternatives].map do |alternative_params|
@@ -66,7 +68,10 @@ class DestinationsController < ApplicationController
         alternative.slice(:id, :cost, :person_gap, :time_gap, :link, :is_checked)
       end
       e_params = expense.slice(:id, :name, :category).merge(alternatives: alternative_params)
-      e_params[:new_comment] = expense[:new_comment] if expense[:new_comment] && !expense[:new_comment][:body].blank?
+      e_params[:comments] = []
+      expense[:comments].values.each do |comment|
+        e_params[:comments] << { body: comment[:body] } unless comment[:body].blank?
+      end if expense[:comments]
       e_params
     end
   end

@@ -54,9 +54,7 @@
       <section class="comments">
         <div class="add-comment">
           <textarea name="expense[<%%= expense.id %>][comments][][body]" class="comment-body" />
-          <%% if (is_new_expense === false) { %>
-            <button class="btn">Comment!</button>
-          <%% } %>
+          <button class="btn">Comment!</button>
         </div>
         <ul class="comment-list"></ul>
       </section>
@@ -71,12 +69,12 @@
   <li class="form-inline">
     <input type="hidden" name="alternative[id]" value="<%%= alternative.id %>" class="alternative-id" />
     <span class="is_checked">
-      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> >
+      <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
     </span>
 
     <div class="input-prepend">
       <span class="add-on">$</span>
-      <input class="cost-input input-small" type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" placeholder="0.00" >
+      <input class="cost-input input-small" type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" placeholder="0.00" />
     </div>
 
     <div class="btn-group person_gap gap" data-toggle="buttons-radio">
@@ -98,7 +96,11 @@
 </script>
 
 <script type="text/template" id="comment-template">
-  <p><%%= comment.body %></p>
+  <%% if (stored) { %>
+    <p><%%= comment.body %></p>
+  <%% } else { %>
+    <p class="unstored-comment"><%%= comment.body %></p>
+  <%% } %>
 </script>
 
 <%= content_for :javascript do %>
