@@ -29,8 +29,8 @@
 
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to 'Create a trip', new_trip_path %></li>
-          <% if current_user %><li><%= link_to 'My trips', trips_path %></li><% end %>
+          <li class= <%= current_page(new_trip_path) %>><%= link_to 'Create a trip', new_trip_path %></li>
+          <% if current_user %><li class= <%= current_page(trips_path) %> ><%= link_to 'My trips', trips_path %></li><% end %>
         </ul>
 
         <ul class="nav pull-right">

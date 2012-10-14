@@ -10,7 +10,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = current_user.trips
+    @trips = current_user.trips.active
   end
 
   def popular
@@ -84,6 +84,8 @@ class TripsController < ApplicationController
   end
 
   def destroy
+    @trip.update_attribute(:is_active, false)
+    redirect_to trips_path, flash: { success: 'Trip destroyed successfully!' }
   end
 
   private
@@ -120,7 +122,7 @@ class TripsController < ApplicationController
   end
 
   def load_trip_on_create
-    @trip = Trip.new(trip_params.slice(:name, :description, :is_public).merge(owner: current_user))
+    @trip = Trip.new(trip_params.slice(:name, :description, :is_public).merge(owner: current_user, is_active: true))
   end
 
   def load_trip_on_update

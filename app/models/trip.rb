@@ -8,6 +8,7 @@ class Trip < ActiveRecord::Base
   validates :name, presence: true
 
   default_scope order('trips.id ASC')
+  scope :active, where(is_active: true)
 
   def invitees
     travellers.reject {|t| t == owner }.map(&:email).join(", ")
@@ -48,20 +49,20 @@ class Trip < ActiveRecord::Base
   end
 
   def self.handpicked
-    where(is_public: true).where(is_featured: true)
+    active.where(is_public: true).where(is_featured: true)
   end
 
   def self.popular(n)
     popular_picks_ids = select('trips.id, COUNT(*) as travellers_count')
                             .joins(:travellers)
-                            .where(is_public: true)
+                            .where(is_public: true).active
                             .group('trips.id')
                             .order('travellers_count DESC').limit(n).map(&:id)
     where(id: popular_picks_ids)
   end
 
   def self.latest
-    where(is_public: true)
+    where(is_public: true).active
   end
 
 private

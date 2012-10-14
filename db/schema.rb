@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014205814) do
+ActiveRecord::Schema.define(:version => 20121014230418) do
 
   create_table "alternatives", :force => true do |t|
     t.decimal  "cost",       :precision => 10, :scale => 0, :default => 0,            :null => false
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20121014205814) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "is_featured", :default => false, :null => false
+    t.boolean  "is_active",   :default => false, :null => false
   end
 
 end
