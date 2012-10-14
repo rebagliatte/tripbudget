@@ -44,6 +44,7 @@ class TripsController < ApplicationController
 
     if any_destination && destinations_valid && trip_valid
       @trip.transaction do
+        destinations.map(&:save!)
         @trip.destinations = destinations
         @trip.save!
         notify_new_invitees
