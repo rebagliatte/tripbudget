@@ -7,7 +7,7 @@
   <h1 class="hidden">Travellers</h1>
   <ul>
     <% @trip.travellers.each do |t| %>
-      <li><%= image_tag(t.image, alt: t.name) %></li>
+      <li><%= image_tag t.image.blank? ? 'default_traveller.png' : t.image, alt: t.name %></li>
     <% end %>
   </ul>
 </section>
