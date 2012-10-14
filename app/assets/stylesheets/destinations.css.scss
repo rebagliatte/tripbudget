@@ -123,6 +123,10 @@ body.trips.show {
       float: left;
       margin-top: 2px;
     }
+    .cost {
+      line-height: 30px;
+      margin-right: 1em;
+    }
     .provider,
     .input-prepend,
     .btn-group {
@@ -196,7 +200,7 @@ body.trips.show {
     &.add-comment {
       padding-top: 20px;
       input {
-        width: 905px;
+        width: 91.2%;
       }
       img {
         top: 20px;
@@ -233,6 +237,7 @@ body.trips.show {
     display: block;
     clear: both;
     color: #777;
+    height: 40px;
     .next {
       float: right;
     }
