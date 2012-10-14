@@ -109,8 +109,9 @@ body.destinations.edit {
       margin-bottom: 0.5em;
     }
 
-    .cost-input,
     .is_checked,
+    .provider,
+    .cost-input,
     .per_group,
     .per_stay,
     .link-url input {
@@ -121,6 +122,7 @@ body.destinations.edit {
       float: left;
       margin-top: 2px;
     }
+    .provider,
     .input-prepend,
     .btn-group {
       vertical-align: top;
@@ -154,7 +156,15 @@ body.destinations.edit {
     .action {
       line-height: 30px;
       height: 30px;
-      margin: 30px 20px 30px 18px;
+      margin-right: 1em;
+      color: #777;
+      text-decoration: underline;
+      &.add-alternative {
+        margin-left: 20px;
+      }
+      &:hover {
+        color: #333;
+      }
     }
   }
 
@@ -170,14 +180,26 @@ body.destinations.edit {
   .comment {
     margin-left: 18px;
     position: relative;
-    padding-left: 40px;
-
+    padding-left: 45px;
+    border-top: 1px solid #f0f0f0;
+    p {
+      margin-bottom: 0;
+    }
     img {
       position: absolute;
       top: 0;
       left: 0;
       width: 30px;
       @include border-radius(5px);
+    }
+    &.add-comment {
+      padding-top: 20px;
+      input {
+        width: 905px;
+      }
+      img {
+        top: 20px;
+      }
     }
   }
 
@@ -197,6 +219,11 @@ body.destinations.edit {
     #add-expense {
       float: left;
       margin-top: 5px;
+      color: #777;
+      text-decoration: underline;
+      &:hover {
+        color: #333;
+      }
     }
   }
 
@@ -204,22 +231,9 @@ body.destinations.edit {
   .destination-actions {
     display: block;
     clear: both;
+    color: #777;
     .next {
       float: right;
     }
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -25,7 +25,7 @@
 
   <section class="totals">
     <h1 class="tertiary-heading">Total: <strong id="total-price"></strong></h1>
-    <a href="#" id="add-expense" class="add">Add a new expense</a>
+    <a href="#" id="add-expense">Add a new expense</a>
   </section>
 
   <div class="destination-actions">
@@ -50,8 +50,8 @@
 
       <ul class="alternatives"></ul>
 
-      <a href="#" class="action add-alternative"><i class="icon-plus"></i> Add an alternative</a>
-      <a href="#" class="action toggle-comments"><i class="icon-comment"></i> Show/hide comments</a>
+      <a href="#" class="action add-alternative">Add an alternative</a>
+      <a href="#" class="action toggle-comments">Show/hide comments</a>
 
       <section class="comments">
         <ul class="comment-list"></ul>
@@ -64,7 +64,7 @@
             <input type="text" name="expense[<%%= expense.id %>][comments][][body]" class="comment-body input-xxlarge" placeholder="Leave a comment..." />
 
             <%% if (is_new_expense === false) { %>
-              <button class="btn" type="button">Comment</button>
+              <button class="btn" type="button">Submit</button>
             <%% } %>
           </div>
         </div>
@@ -83,6 +83,9 @@
       <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> >
     </span>
 
+    <%# TODO: create this field %>
+    <input class="input-xlarge provider" type="text" name="" value="" placeholder="Provider name" >
+
     <div class="input-prepend">
       <span class="add-on">$</span>
       <input class="cost-input input-small" type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" placeholder="0.00" >
@@ -99,7 +102,7 @@
 
     <div class="input-prepend link-url">
       <span class="add-on"><span class="icon"></span></span>
-      <input class="input-xlarge" type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link %>" placeholder="http://..." >
+      <input class="input-xlarge" type="text" name="alternative[<%%= index %>][link]" value="<%%= alternative.link %>" placeholder="http://" >
     </div>
 
     <a href="#" class="remove remove-alternative" rel="tooltip" title="Remove this expense"></a>
@@ -108,7 +111,7 @@
 
 <script type="text/template" id="comment-template">
   <li class="comment">
-    <%# TODO: Image del user que comenta  %>
+    <%# TODO: Add user image %>
     <%= image_tag(current_user.image, alt: current_user.display_name) %>
     <p><%%= comment.body %></p>
   </li>
