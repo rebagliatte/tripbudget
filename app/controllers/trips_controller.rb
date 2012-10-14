@@ -27,7 +27,11 @@ class TripsController < ApplicationController
 
   def create_or_update_trip
     destinations = trip_params[:destinations].map do |destination_params|
-      Destination.new(destination_params.merge(trip: @trip))
+      if destination = @trip.destinations.find_by_id(destination_params[:id])
+        destination.assign_attributes(destination_params)
+      else
+        Destination.new(destination_params.merge(trip: @trip))
+      end
     end
 
     any_destination = destinations.any?
@@ -39,6 +43,10 @@ class TripsController < ApplicationController
         @trip.destinations = destinations
         @trip.save!
         notify_new_invitees
+
+        destinations.each do |d|
+          d.travellers = @trip.travellers
+        end
       end
 
       # Success!

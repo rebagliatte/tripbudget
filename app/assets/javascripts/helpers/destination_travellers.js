@@ -27,7 +27,7 @@ TripBudget.Helpers.DestinationTravellers = (function () {
       }
 
       $('#travellers-list li.included').each(function (index, element) {
-        destinationTravellerIds.push($(element).data('id'));
+        destinationTravellerIds.push($(element).find('a').data('id'));
       });
 
       $.ajax({

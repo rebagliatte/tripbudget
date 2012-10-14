@@ -5,7 +5,7 @@
   <% @trip.travellers.each do |traveller| %>
     <li class="<%= @destination.travellers.include?(traveller) ? 'included' : 'excluded' %>">
       <%= link_to '#', class: 'traveller-disabling', data: { id: traveller.id } do %>
-        <%= image_tag traveller.image, alt: traveller.name %>
+        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.name %>
       <% end %>
     </li>
   <% end %>

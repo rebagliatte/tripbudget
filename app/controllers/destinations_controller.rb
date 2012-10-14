@@ -35,7 +35,7 @@ class DestinationsController < ApplicationController
   def minor_update
     if params[:value]
       @destination.update_attribute(:name, params[:value])
-    else
+    elsif params[:destination_travellers_ids].kind_of?(Array)
       @destination.travellers = @trip.travellers.where(id: params[:destination_travellers_ids]).all
     end
     render json: @destination
