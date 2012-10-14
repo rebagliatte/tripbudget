@@ -4,7 +4,6 @@ class TripsController < ApplicationController
   skip_load_resource only: %w(create update)
 
   def show
-
   end
 
   def index
