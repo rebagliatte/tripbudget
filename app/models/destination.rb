@@ -21,4 +21,25 @@ class Destination < ActiveRecord::Base
   def prev_destination
     @prev_destination ||= trip.destinations.where('destinations.id < ?', id).last
   end
+
+  def total_per_group
+    total = 0
+    expenses.each do |expense|
+      alternative = expense.active_alternative
+      if alternative.person_gap == 'per_person'
+        alternative_cost = alternative.cost * trip.travellers.count
+      else
+        alternative_cost = alternative.cost
+      end
+
+      alternative_cost = alternative.cost * total_days if alternative.time_gap == 'per_day'
+
+      total += alternative_cost
+    end
+    total
+  end
+
+  def total_per_person
+    total_per_group/trip.travellers.count
+  end
 end

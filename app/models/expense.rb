@@ -6,4 +6,7 @@ class Expense < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def active_alternative
+    alternatives.where(is_checked: true).first
+  end
 end
