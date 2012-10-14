@@ -110,6 +110,15 @@
     float: left;
     margin-right: 2em;
   }
+  p {
+    float: left;
+  }
+  .share-it, iframe {
+    float: right;
+    height: 40px;
+    width: 100px;
+    margin-left: 20px;
+  }
 }
 
 /* Public trip tables */
