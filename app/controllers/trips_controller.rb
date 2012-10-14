@@ -1,17 +1,18 @@
 class TripsController < ApplicationController
 
-  # load_and_authorize_resource
-
-  skip_load_resource only: %w(create update)
+  before_filter :load_trip_on_create, only: :create
+  before_filter :load_trip_on_update, only: :update
+  load_and_authorize_resource
 
   def index
+    @trips = current_user.trips
+    binding.pry
   end
 
   def new
   end
 
   def create
-    @trip = Trip.new(trip_params.slice(:name, :description, :is_public).merge(owner: current_user))
     create_or_update_trip
   end
 
@@ -19,8 +20,6 @@ class TripsController < ApplicationController
   end
 
   def update
-    @trip = Trip.find(params[:id])
-    @trip.assign_attributes(trip_params.slice(:name, :description, :is_public))
     create_or_update_trip
   end
 
@@ -80,5 +79,16 @@ class TripsController < ApplicationController
       end
       @trip.travellers << invitee
     end
+    @trip.travellers << current_user unless @trip.travellers.include?(current_user)
+  end
+
+  def load_trip_on_create
+    @trip = Trip.new(trip_params.slice(:name, :description, :is_public).merge(owner: current_user))
+  end
+
+  def load_trip_on_update
+    @trip = Trip.find(params[:id])
+    @trip.assign_attributes(trip_params.slice(:name, :description, :is_public))
+    binding.pry
   end
 end

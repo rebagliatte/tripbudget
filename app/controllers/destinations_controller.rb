@@ -1,9 +1,9 @@
 class DestinationsController < ApplicationController
 
-  # load_and_authorize_resource
-
   load_and_authorize_resource :trip
-  load_and_authorize_resource trough: :trip
+  load_and_authorize_resource through: :trip
+
+  respond_to :json, only: %w(update minor_update)
 
   def index
   end
@@ -27,6 +27,11 @@ class DestinationsController < ApplicationController
       @expenses.each(&:save!)
     end
     render json: @expenses
+  end
+
+  def minor_update
+    @destination.update_attribute(:name, params[:value])
+    render json: @destination
   end
 
   def destroy

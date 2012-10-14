@@ -1,4 +1,4 @@
-<h1><%= @trip.name %></h1>
+<h1 id="editable-header"><%= @trip.name %></h1>
 <p><%= @trip.description %></p>
 
 <header>
@@ -78,5 +78,15 @@
     }.to_json.html_safe %>);
 
     view.appendAll();
+
+    $('#editable-header').editable({
+      type: 'text',
+      title: 'Edit destination name',
+      pk: <%= @destination.id %>,
+      url: '<%= minor_update_trip_destination_path(@trip, @destination, format: :json) %>',
+      params: {
+        "csrf-token": $('[name="csrf-token"]').attr('content')
+      }
+    });
   });
 <% end %>
