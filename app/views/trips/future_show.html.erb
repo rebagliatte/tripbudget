@@ -1,0 +1,79 @@
+<h1><%= @trip.name %></h1>
+<p><%= @trip.description %></p>
+
+<ul id="travellers-list">
+  <% @trip.travellers.each do |traveller| %>
+    <li>
+      <%#= link_to traveller_path(traveller) do %>
+      <%= link_to '#' do %>
+        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<ul class="nav nav-tabs" id="destination-tabs">
+  <% @trip.destinations.each do |destination| %>
+    <li><a href="#destination-<%= destination.id %>" data-toggle="tab"><%= destination.name %></a></li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <% @trip.destinations.each_with_index do |destination, index| %>
+    <section id="destination-<%= destination.id %>" class="tab-pane <%= index.zero? ? 'active' : '' %>">
+      <header>
+        <h1><%= destination.name %></h1>
+        <h2>
+          <%= pretty_date(destination.from_date) %> -
+          <%= pretty_date(destination.to_date) %> -
+          <span class="days-diff">
+            <%= destination.total_days %> day(s)
+          </span>
+        </h2>
+      </header>
+
+      <div id="expenses-inner-wrapper">
+        <% destination.expenses.each do |expense| %>
+          <div class="expense">
+            <h1><%= expense.name %></h1>
+            <ul class="alternatives">
+              <% expense.alternatives.each do |alternative| %>
+                <li class="<%= alternative.is_checked? ? 'active' : 'inactive' %>">
+                  <span class="is_checked">
+                    <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
+                  </span>
+                  $ <%= alternative.cost %>
+                  <div class="btn-group person_gap" data-toggle="buttons-radio">
+                    <button type="button" class="btn per_person <%= alternative.per_person? ? 'active' : '' %>">Per person</button>
+                    <button type="button" class="btn per_group <%= alternative.per_group? ? 'active' : '' %>">Per Group</button>
+                  </div>
+                  <div class="btn-group time_gap" data-toggle="buttons-radio">
+                    <button type="button" class="btn per_day <%= alternative.per_day? ? 'active' : '' %>">Per day</button>
+                    <button type="button" class="btn per_stay <%= alternative.per_stay? ? 'active' : '' %>">Per stay</button>
+                  </div>
+                  <span class="link-url">
+                    <% unless alternative.link.blank? %>
+                      <a href="<%= alternative.link %>" target="_blank"><%= alternative.link %></a>
+                    <% end %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</div>
+
+<p>
+  <span class="total-label">Total</span>
+  <%#= @trip.total_price %>
+  <strong id="total-price">$ 4</strong>
+</p>
+
+<%= content_for :javascript do %>
+  $(function () {
+    $('#destination-tabs a:first').tab('show');
+  });
+<% end %>
