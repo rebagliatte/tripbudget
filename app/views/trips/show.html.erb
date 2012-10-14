@@ -1,5 +1,5 @@
 <%= title @trip.name %>
-<%= @trip.destinations.map(:name).to_sentence %>
+<%= @trip.destinations.map(&:name).to_sentence %>
 
 <%# TODO: mapa de google %>
 
@@ -23,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @trip.destination.each do |destination| %>
+      <% @trip.destinations.each do |destination| %>
         <tr>
           <td><%# TODO: print data %></td>
           <td><%# TODO: print data %></td>

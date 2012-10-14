@@ -9,7 +9,6 @@ class TripsController < ApplicationController
 
   def index
     @trips = current_user.trips
-    binding.pry
   end
 
   def new
@@ -62,7 +61,11 @@ class TripsController < ApplicationController
     return @trip_params if @trip_params
     @trip_params = params[:trip].slice(:name, :description, :is_public, :invitees)
     @trip_params[:destinations] = (params[:trip][:destinations] || {}).values.reject {|d| d[:name].blank? }.map do |destination_params|
-      destination_params.slice(:name, :from_date, :to_date)
+      {
+        name: destination_params[:name],
+        from_date: Date.strptime(destination_params[:from_date], '%m/%d/%y'),
+        to_date: Date.strptime(destination_params[:to_date], '%m/%d/%y')
+      }
     end
     @trip_params
   end
@@ -92,6 +95,5 @@ class TripsController < ApplicationController
   def load_trip_on_update
     @trip = Trip.find(params[:id])
     @trip.assign_attributes(trip_params.slice(:name, :description, :is_public))
-    binding.pry
   end
 end
