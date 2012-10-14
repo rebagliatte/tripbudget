@@ -1,8 +1,3 @@
-<h1>Trips#index</h1>
-<p>Find me in app/views/trips/index.html.erb</p>
+<%= title "My Trips" %>
 
-<ul>
-  <% @trips.each do |trip| %>
-    <li><%= link_to trip.name, edit_trip_path(trip) %></li>
-  <% end %>
-</ul>
+<%= render(partial: 'trips_table', locals: { trips_collection: @trips, actions_available: true }) %>

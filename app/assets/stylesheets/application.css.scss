@@ -112,6 +112,15 @@
   }
 }
 
+/* Public trip tables */
+.trips-table {
+  img {
+    width: 30px;
+    margin-right: 3px;
+    @include border-radius(5px);
+  }
+}
+
 /* Media Queries */
 @media screen and (min-width: 600px) {
   body {
