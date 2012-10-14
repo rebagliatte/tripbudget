@@ -24,4 +24,8 @@ class Traveller < ActiveRecord::Base
       user.twitter_url = auth["info"]["urls"]["Twitter"]
     end
   end
+
+  def display_name
+    name.blank? ? email : name
+  end
 end

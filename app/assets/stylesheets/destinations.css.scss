@@ -1,5 +1,50 @@
 body.destinations.edit {
+  .main-wrapper {
+    position: relative;
+  }
   .main-heading {
+    margin-bottom: 0;
+    display: inline;
+    line-height: 1.5em;
+    padding-right: 50px;
+    background: transparent url(/assets/icons/edit.png) right center no-repeat;
+
+    &:hover {
+      background-color: #fff5ca;
+      @include border-radius(5px);
+      cursor: pointer;
+    }
+  }
+  .secondary-heading {
+    margin-bottom: 1em;
+  }
+  .tertiary-heading {
+    margin-bottom: 0;
+  }
+  #travellers-list {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     margin: 0;
+    li {
+      list-style: none;
+      float: left;
+      margin-right: 10px;
+      img {
+        width: 40px;
+        @include border-radius(5px);
+      }
+    }
+  }
+  .alternatives {
+    margin: 0;
+    li {
+      list-style: none;
+    }
+  }
+  .alternatives-wrapper {
+    border: 1px solid #cfcfcf;
+    padding: 20px;
+    @include border-radius(5px);
   }
 }

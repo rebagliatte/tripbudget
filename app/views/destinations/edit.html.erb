@@ -6,23 +6,18 @@
 <ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
     <li class="<%= @destination.travellers.include?(traveller) ? 'included' : 'excluded' %>">
-      <%= link_to '#', class: 'traveller-disabling', data: { id: traveller.id } do %>
-        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.name %>
+      <%= link_to '#', class: 'traveller-disabling', data: { id: traveller.id }, rel: 'tooltip', title: traveller.display_name do %>
+        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.display_name %>
       <% end %>
     </li>
   <% end %>
 </ul>
 
-<header>
-  <h1><%= @destination.name %></h1>
-  <h2>
-    <%= pretty_date(@destination.from_date) %> -
-    <%= pretty_date(@destination.to_date) %> -
-    <span class="days-diff">
-      <%= @destination.total_days %> day(s)
-    </span>
-  </h2>
-</header>
+<ul class="nav nav-pills">
+  <% @trip.destinations.each do |destination| %>
+    <li class="<%= destination == @destination ? 'active' : '' %>"><%= link_to destination.name, edit_trip_destination_path(@trip, destination) %></li>
+  <% end %>
+</ul>
 
 <%= form_for @destination, url: trip_destination_path(@trip, @destination, format: :json), html: { id: 'expenses-form' } do |f| %>
 
@@ -47,35 +42,41 @@
 <% end %>
 
 <script type="text/template" id="expense-template">
-  <div class="expense">
-    <h1><%%= expense.name %></h1>
+  <section class="expense">
+    <h1 class="tertiary-heading"><%%= expense.name %></h1>
 
-    <input type="hidden" name="expense[id]" value="<%%= expense.id %>" class="expense-id" />
+    <div class="alternatives-wrapper">
+      <input type="hidden" name="expense[id]" value="<%%= expense.id %>" class="expense-id" />
 
-    <ul class="alternatives"></ul>
+      <ul class="alternatives"></ul>
 
-    <section class="comments">
-      <div class="add-comment">
-        <textarea name="expense[<%%= expense.id %>][comments][][body]" class="comment-body" />
-        <%% if (is_new_expense === false) { %>
-          <button class="btn">Comment!</button>
-        <%% } %>
-      </div>
-      <ul class="comment-list"></ul>
-    </section>
+      <section class="comments">
+        <div class="add-comment">
+          <textarea name="expense[<%%= expense.id %>][comments][][body]" class="comment-body" />
+          <%% if (is_new_expense === false) { %>
+            <button class="btn">Comment!</button>
+          <%% } %>
+        </div>
+        <ul class="comment-list"></ul>
+      </section>
 
-    <a href="#" class="add-alternative">Add an alternative</a>
-    <a href="#" class="remove-expense">Remove expense X</a>
-  </div>
+      <a href="#" class="add-alternative">Add an alternative</a>
+      <a href="#" class="remove-expense">Remove expense X</a>
+    </div>
+  </section>
 </script>
 
 <script type="text/template" id="alternative-template">
-  <li>
+  <li class="form-inline">
     <input type="hidden" name="alternative[id]" value="<%%= alternative.id %>" class="alternative-id" />
     <span class="is_checked">
       <input type="radio" name="alternative[<%%= index %>][is_checked]" <%% if (alternative.is_checked) { %>checked="checked"<%% } %> />
     </span>
-    $ <input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" class="cost-input" />
+
+    <div class="input-prepend">
+      <span class="add-on">$</span><input type="text" name="alternative[<%%= index %>][cost]" value="<%%= alternative.cost %>" class="cost-input input-mini" />
+    </div>
+
     <div class="btn-group person_gap" data-toggle="buttons-radio">
       <button type="button" class="btn per_person">Per person</button>
       <button type="button" class="btn per_group">Per Group</button>
