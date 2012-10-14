@@ -14,7 +14,7 @@ Tripbudget::Application.routes.draw do
     end
   end
 
-  resources :users, only: 'show'
+  resources :travellers, only: 'show'
   resources :invitations, only: 'show'
 
   # Authentication

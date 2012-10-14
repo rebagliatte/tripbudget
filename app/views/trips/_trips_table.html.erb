@@ -1,0 +1,44 @@
+<%
+  # Locals
+  #   - trips_collection
+  #   - actions_available
+%>
+
+<% if trips_collection.any? %>
+  <table class='table table-striped table-bordered table-hover trips-table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Travellers</th>
+        <th>Destinations</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% trips_collection.each do |trip| %>
+        <tr>
+          <td><%= link_to trip.name, trip_path(trip) %></td>
+          <td><%= travellers_to_images(trip) %></td>
+          <td><%= trip.destinations.map(&:name).to_sentence %></td>
+          <td>
+            <%= link_to trip_path(trip), rel: 'tooltip', title: 'View' do %>
+              <i class="icon icon-eye-open"></i><span class="hidden">View</span>
+            <% end %>
+
+            <%= link_to edit_trip_path(trip), rel: 'tooltip', title: 'Edit' do %>
+              <i class="icon icon-pencil"></i><span class="hidden">Edit</span>
+            <% end %>
+
+            <%= link_to trip_path(trip), method: :delete, data: {confirm: "Are you sure?"}, rel: 'tooltip', title: 'Delete' do %>
+              <i class="icon icon-remove"></i><span class="hidden">Delete</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-notice">Sorry, no trips match this query right now :P</div>
+<% end %>
+
+<%= link_to 'Create a new trip', new_trip_path, class: 'btn btn-primary btn-large' %>
