@@ -18,6 +18,10 @@ class Trip < ActiveRecord::Base
     rand(36 ** 8).to_s(36)
   end
 
+  def duration_in_days
+    destinations.inject(0) {|total, destination| total += destination.total_days }
+  end
+
   def total_per_group
     destinations.inject(0) {|total, destination| total += destination.total_per_group }
   end
