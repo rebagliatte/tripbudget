@@ -98,7 +98,6 @@
   border-top: 1px solid #4d4d4d;
   color: #868585;
   padding: 2em 0;
-  line-height: 60px;
   a {
     color: #acacac;
     &:hover {
@@ -112,6 +111,7 @@
   }
   p {
     float: left;
+    line-height: 60px;
   }
   .share-it, iframe {
     float: right;
