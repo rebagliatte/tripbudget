@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require trip_budget
 //= require_tree ./libs
 //= require_tree ./helpers
 //= require_tree ./views

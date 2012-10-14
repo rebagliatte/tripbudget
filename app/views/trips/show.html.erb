@@ -32,8 +32,13 @@
                 <ul class="alternatives">
                   <% expense.alternatives.each do |alternative| %>
                     <li class="form-inline <%= alternative.is_checked? ? 'active' : 'inactive' %>">
+                      <% if alternative.is_checked? %>
+                        <strong class="cost"><%= alternative.provider %></strong>
+                      <% else %>
+                        <span class="cost"><%= alternative.provider %></span>
+                      <% end %>
                       <span class="is_checked">
-                        <input type="radio" name="alternative[<%%= index %>][is_checked]" <%= alternative.is_checked? ? 'checked="checked"' : '' %> disabled="disabled" />
+                        <input type="radio" name="" <%= alternative.is_checked? ? 'checked="checked"'.html_safe : '' %> disabled="disabled" />
                       </span>
                       <span class="cost">$ <%= alternative.cost %></span>
 
@@ -68,7 +73,7 @@
 
 <section class="totals">
   <%= link_to 'Edit this trip', edit_trip_path(@trip), class: 'btn btn-primary btn-large' %>
-  <h1 class="tertiary-heading">Total: <strong id="total-price">$ 0</strong></h1>
+  <h1 class="tertiary-heading">Total: <strong id="total-price">$ <%= @trip.total_per_group %></strong></h1>
 </section>
 
 <%= content_for :javascript do %>
