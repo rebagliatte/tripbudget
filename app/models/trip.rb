@@ -9,6 +9,10 @@ class Trip < ActiveRecord::Base
 
   default_scope order('trips.id ASC')
 
+  def invitees
+    travellers.reject {|t| t == owner }.map(&:email).join(", ")
+  end
+
   def self.get_random_invitation_code
     rand(36 ** 8).to_s(36)
   end
