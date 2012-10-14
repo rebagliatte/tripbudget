@@ -1,6 +1,7 @@
 <%= title @trip.name %>
 <%= @trip.destinations.map(&:name).to_sentence %>
 
+
 <%# TODO: mapa de google %>
 
 <section class="travellers">
@@ -43,7 +44,78 @@
 
 <section class="graphs">
   <h1 class="secondary-heading">Graphs</h1>
-  <%# TODO: graphs %>
+  <div id="by_destination"></div>
+  <div id="by_budget"></div>
+  <% content_for :javascript do %>
+  var chart1;
+  $(document).ready(function() {
+      chart1 = new Highcharts.Chart({
+         credits: {
+            enabled: false
+         },
+         colors: [
+           '#556270',
+           '#4ECDC4',
+           '#C7F464',
+           '#FF6B6B',
+           '#C44D58',
+           '#CE1836',
+           '#F85931',
+           '#EDB92E',
+           '#A3A948'
+        ], 
+         chart: {
+            renderTo: 'by_budget',
+            type: 'pie',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+
+         },
+         title: {
+            text: 'Per Budget'
+         },
+         series: [{
+            data: <%= @trip.totals_per_category.to_json.html_safe %>
+         }]
+      });
+   });
+
+
+  var chart2;
+  $(document).ready(function() {
+      chart2 = new Highcharts.Chart({
+         credits: {
+            enabled: false
+         },
+         colors: [
+           '#556270',
+           '#4ECDC4',
+           '#C7F464',
+           '#FF6B6B',
+           '#C44D58',
+           '#CE1836',
+           '#F85931',
+           '#EDB92E',
+           '#A3A948'
+        ], 
+         chart: {
+            renderTo: 'by_destination',
+            type: 'pie',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+
+         },
+         title: {
+            text: 'Per Destination'
+         },
+         series: [{
+            data: <%= @trip.totals_per_destination.to_json.html_safe %>
+         }]
+      });
+   });
+  <% end %>
 </section>
 
 <div class="summary-actions">
