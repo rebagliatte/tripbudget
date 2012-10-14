@@ -77,6 +77,12 @@ TripBudget.Views.DestinationsHandler = (function () {
       this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
     }.bind(this));
 
+    // Remove expense on X click
+    expenseContent.find('.remove-expense').click(function (event) {
+      event.preventDefault();
+      expenseContent.remove();
+    });
+
     expense.alternatives.forEach(function (alternative) {
       this.appendAlternative(alternativesList, alternative);
     }.bind(this));

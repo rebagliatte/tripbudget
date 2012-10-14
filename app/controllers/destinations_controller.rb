@@ -14,17 +14,20 @@ class DestinationsController < ApplicationController
   def update
     @destination.transaction do
       @expenses = expenses_params.map do |expense_params|
-        expense = @destination.expenses.find_by_id(expense_params[:id]) || @destination.expenses.new
+        expense = @destination.expenses.find_by_id(expense_params[:id]) || Expense.new
         expense.name = expense_params[:name].blank? ? 'Unknown' : expense_params[:name]
+        expense.destination = @destination
 
         expense.alternatives = expense_params[:alternatives].map do |alternative_params|
           alternative = expense.alternatives.find_by_id(alternative_params[:id]) || expense.alternatives.new
           alternative.assign_attributes(alternative_params)
+          alternative.cost = 0 if alternative.cost.blank?
           alternative
         end
         expense
       end
       @expenses.each(&:save!)
+      @destination.expenses = @expenses
     end
     render json: @expenses
   end
