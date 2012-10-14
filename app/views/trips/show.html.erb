@@ -3,10 +3,9 @@
 
 <ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
-    <li>
-      <%#= link_to traveller_path(traveller) do %>
-      <%= link_to '#' do %>
-        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.name %>
+    <li class="included">
+      <%= link_to '#', class: 'traveller-disabling', data: { id: traveller.id }, rel: 'tooltip', title: traveller.display_name do %>
+        <%= image_tag traveller.image.blank? ? 'default_traveller.png' : traveller.image, alt: traveller.display_name %>
       <% end %>
     </li>
   <% end %>
