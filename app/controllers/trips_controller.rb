@@ -25,10 +25,8 @@ class TripsController < ApplicationController
   end
 
   def create_or_update_trip
-    @trip.destinations.clear
-
     destinations = trip_params[:destinations].map do |destination_params|
-      @trip.destinations.new(destination_params)
+      Destination.new(destination_params.merge(trip: @trip))
     end
 
     any_destination = destinations.any?
@@ -36,8 +34,11 @@ class TripsController < ApplicationController
     trip_valid = @trip.valid?
 
     if any_destination && destinations_valid && trip_valid
-      @trip.save!
-      notify_new_invitees
+      @trip.transaction do
+        @trip.destinations = destinations
+        @trip.save!
+        notify_new_invitees
+      end
 
       # Success!
       redirect_to edit_trip_destination_path(@trip, destinations.first), flash: { success: 'Trip saved successfully. Now edit your destinations!' }
@@ -70,11 +71,11 @@ class TripsController < ApplicationController
 
     (new_invitees - old_invitees).each do |email|
       invitee = if user = Traveller.find_by_email(email)
-        UserMailer.notice_trip_invitation_email(user, @trip).deliver!
+        UserMailer.notice_trip_invitation_email(user, @trip).deliver
         user
       else
         user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
-        UserMailer.invite_email(user, @trip).deliver!
+        UserMailer.invite_email(user, @trip).deliver
         user
       end
       @trip.travellers << invitee
