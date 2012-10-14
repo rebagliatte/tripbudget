@@ -128,6 +128,12 @@ TripBudget.Views.DestinationsHandler = (function () {
       }
     });
 
+    expenseContent.find('.toggle-comments').click(function (event) {
+      event.preventDefault();
+
+      expenseContent.find('.comments').fadeToggle();
+    });
+
     // Display alternatives
     expense.alternatives.forEach(function (alternative) {
       this.appendAlternative(alternativesList, alternative);
@@ -145,6 +151,7 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Appending to container
     this.$mainContainer.append(expenseContent);
+    expenseContent.find('.comments').fadeToggle();
   };
 
   /**
