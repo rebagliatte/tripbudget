@@ -2,8 +2,6 @@
 <%= @trip.destinations.map(&:name).to_sentence %>
 
 
-<%# TODO: mapa de google %>
-
 <ul id="travellers-list">
   <% @trip.travellers.each do |traveller| %>
     <li class="included">
