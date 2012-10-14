@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
         invitee.destroy
 
-        redirect_to trip_destinations_path(current_user.trips.last), flash: { success: "Invitation received successfully." }
+        redirect_to trip_path(current_user.trips.last), flash: { success: "Invitation received successfully." }
       else
         redirect_to root_url, notice: "Signed in!"
       end
