@@ -3,10 +3,7 @@ class DestinationsController < ApplicationController
   load_and_authorize_resource :trip
   load_and_authorize_resource through: :trip
 
-  respond_to :json, only: %w(update minor_update)
-
-  def index
-  end
+  respond_to :json, only: %w(update minor_update create_comment)
 
   def edit
   end
@@ -20,6 +17,9 @@ class DestinationsController < ApplicationController
         expense = @destination.expenses.find_by_id(expense_params[:id]) || Expense.new
         expense.name = expense_params[:name].blank? ? 'Unknown' : expense_params[:name]
         expense.destination = @destination
+        if expense_params[:new_comment]
+          expense.comments.new(expense_params[:new_comment].slice(:body).merge(traveller: current_user))
+        end
 
         expense.alternatives = expense_params[:alternatives].map do |alternative_params|
           alternative = expense.alternatives.find_by_id(alternative_params[:id]) || expense.alternatives.new
@@ -44,7 +44,13 @@ class DestinationsController < ApplicationController
     render json: @destination
   end
 
-  def destroy
+  def create_comment
+    @comment = Comment.new
+    if params[:comment] && !params[:comment][:body].blank? && !params[:comment][:expense_id].blank?
+      expense = @destination.expenses.find_by_id(params[:comment][:expense_id])
+      @comment = expense.comments.create({ body: params[:comment][:body] }.merge(traveller: current_user))
+    end
+    render json: @comment
   end
 
   private
@@ -58,7 +64,9 @@ class DestinationsController < ApplicationController
       alternative_params = (expense[:alternatives] || {}).values.map do |alternative|
         alternative.slice(:id, :cost, :person_gap, :time_gap, :link, :is_checked)
       end
-      expense.slice(:id, :name).merge(alternatives: alternative_params)
+      e_params = expense.slice(:id, :name).merge(alternatives: alternative_params)
+      e_params[:new_comment] = expense[:new_comment] if expense[:new_comment] && !expense[:new_comment][:body].blank?
+      e_params
     end
   end
 end

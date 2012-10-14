@@ -16,7 +16,7 @@ class Ability
       can :update, Destination do |destination|
         user.trips.include?(destination.trip)
       end
-      can :minor_update, Destination do |destination|
+      can [:minor_update, :create_comment], Destination do |destination|
         user.trips.include?(destination.trip)
       end
     end

@@ -46,20 +46,30 @@
   </p>
 <% end %>
 
-<script type="text/x-jquery-tmpl" id="expense-template">
+<script type="text/template" id="expense-template">
   <div class="expense">
-    <h1><%%= name %></h1>
+    <h1><%%= expense.name %></h1>
 
-    <input type="hidden" name="expense[id]" value="<%%= id %>" class="expense-id" />
+    <input type="hidden" name="expense[id]" value="<%%= expense.id %>" class="expense-id" />
 
     <ul class="alternatives"></ul>
+
+    <section class="comments">
+      <div class="add-comment">
+        <textarea name="expense[<%%= expense.id %>][comments][][body]" class="comment-body" />
+        <%% if (is_new_expense === false) { %>
+          <button class="btn">Comment!</button>
+        <%% } %>
+      </div>
+      <ul class="comment-list"></ul>
+    </section>
 
     <a href="#" class="add-alternative">Add an alternative</a>
     <a href="#" class="remove-expense">Remove expense X</a>
   </div>
 </script>
 
-<script type="text/x-jquery-tmpl" id="alternative-template">
+<script type="text/template" id="alternative-template">
   <li>
     <input type="hidden" name="alternative[id]" value="<%%= alternative.id %>" class="alternative-id" />
     <span class="is_checked">
@@ -81,15 +91,20 @@
   </li>
 </script>
 
+<script type="text/template" id="comment-template">
+  <p><%%= comment.body %></p>
+</script>
+
 <%= content_for :javascript do %>
   $(function () {
     var view = new TripBudget.Views.DestinationsHandler(<%= {
       travellers: @destination.travellers,
       destination: @destination,
-      expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives) },
+      expenses: @destination.expenses.map {|e| e.attributes.merge(alternatives: e.alternatives, comments: e.comments) },
       totalDays: @destination.total_days,
       travellersNumber: @destination.travellers.count,
-      minorUpdatePath: minor_update_trip_destination_path(@trip, @destination, format: :json)
+      minorUpdatePath: minor_update_trip_destination_path(@trip, @destination, format: :json),
+      commentSubmitPath: create_comment_trip_destination_path(@trip, @destination, format: :json)
     }.to_json.html_safe %>);
 
     view.appendAll();
