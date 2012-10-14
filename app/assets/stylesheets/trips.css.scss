@@ -20,3 +20,24 @@ body.trips.form {
     }
   }
 }
+body.trips.summary {
+  .main-wrapper {
+    position: relative;
+  }
+  // Travellers
+  #travellers-list {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: 0;
+    li {
+      list-style: none;
+      float: left;
+      margin-right: 10px;
+      img {
+        width: 40px;
+        @include border-radius(5px);
+      }
+    }
+  }
+}
