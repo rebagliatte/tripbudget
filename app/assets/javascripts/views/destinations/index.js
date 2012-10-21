@@ -37,7 +37,7 @@ TripBudget.Views.DestinationsHandler = (function () {
   var DestinationsHandler = function (settings) {
     this.expenses = settings.expenses || [];
     this.myImage = settings.myImage;
-    this.alternativeIndex = 0;
+    this.expenseIndex = 0;
     this.commentSubmitPath = settings.commentSubmitPath;
     this.$mainContainer = $('#expenses-form-inner-wrapper');
     this.templates = {
@@ -151,6 +151,8 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Appending to container
     this.$mainContainer.append(expenseContent);
+
+    this.expenseIndex += 1;
   };
 
   /**
@@ -159,7 +161,7 @@ TripBudget.Views.DestinationsHandler = (function () {
   DestinationsHandler.prototype.appendAlternative = function (container, alternative, options) {
     var options = options || {}
       , $alternative = $(this.templates.alternative({
-        index: this.alternativeIndex,
+        index: this.expenseIndex,
         alternative: alternative
       }))
       , $alternativesList = container;
@@ -194,7 +196,6 @@ TripBudget.Views.DestinationsHandler = (function () {
       $alternative.find('.is_checked > input').attr('checked', 'checked');
     }
 
-    this.alternativeIndex += 1;
     container.append($alternative);
   };
 
