@@ -7,7 +7,7 @@ class Trip < ActiveRecord::Base
 
   validates :name, presence: true
 
-  default_scope order('trips.id ASC')
+  default_scope order('trips.id DESC')
   scope :active, where(is_active: true)
 
   def invitees
