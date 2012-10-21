@@ -1,7 +1,7 @@
 Hi,
 
-<%= @trip.owner.name %> has invited you to collaborate on your trip budget planning <%#= @trip.destinations.first.from_date.to_s(:short) %>.
+<%= @inviter.name %> has invited you to collaborate on your trip budget planning.
 
 Visit the following URL to join the trip:
 
-<%= invitation_url(@traveller.invitation_url) %>
+<%= invitation_url(@invitee.invitation_url) %>

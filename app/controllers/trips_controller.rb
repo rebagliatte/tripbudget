@@ -109,11 +109,19 @@ class TripsController < ApplicationController
 
     (new_invitees - old_invitees).each do |email|
       invitee = if user = Traveller.find_by_email(email)
-        UserMailer.notice_trip_invitation_email(user, @trip).deliver
+        UserMailer.notice_trip_invitation_email({
+          inviter: @trip.owner, # TODO
+          invitee: user,
+          trip: @trip
+        }).deliver
         user
       else
         user = Traveller.create!(email: email, invitation_url: Trip.get_random_invitation_code)
-        UserMailer.invite_email(user, @trip).deliver
+        UserMailer.invite_email({
+          inviter: @trip.owner, # TODO
+          invitee: user,
+          trip: @trip
+        }).deliver
         user
       end
       @trip.travellers << invitee
