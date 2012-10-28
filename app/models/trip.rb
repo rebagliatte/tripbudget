@@ -53,7 +53,7 @@ class Trip < ActiveRecord::Base
   end
 
   def self.popular(n)
-    popular_picks_ids = select('trips.id, COUNT(*) as travellers_count')
+    popular_picks_ids = Trip.select('trips.id, COUNT(*) as travellers_count')
                             .joins(:travellers)
                             .where(is_public: true).active
                             .group('trips.id')
