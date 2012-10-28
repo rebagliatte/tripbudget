@@ -52,7 +52,7 @@
                       </div>
                       <span class="link-url">
                         <% unless alternative.link.blank? %>
-                          <a href="<%= alternative.link %>" target="_blank"><%= alternative.link %></a>
+                          <%= link_to alternative.link, alternative.sanitized_url, target: '_blank' %>
                         <% end %>
                       </span>
                     </li>

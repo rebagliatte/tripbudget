@@ -23,4 +23,11 @@ class Alternative < ActiveRecord::Base
   def per_stay?
     time_gap == 'per_stay'
   end
+
+  def sanitized_url
+    uri = URI.parse(link)
+    uri.scheme.blank? ? "http://#{link}" : link
+  rescue URI::InvalidURIError => e
+    nil
+  end
 end
