@@ -79,13 +79,14 @@ TripBudget.Views.DestinationsHandler = (function () {
     var self = this
       , expenseContent = $(this.templates.expense({ expense: expense, is_new_expense: expense.id == null }))
       , alternativesList = expenseContent.find('ul.alternatives')
-      , commentList = expenseContent.find('ul.comment-list');
+      , commentList = expenseContent.find('ul.comment-list')
+      , expenseIndex = this.expenseIndex;
 
     // Binding expense content
     expenseContent.find('.add-alternative').click(function (event) {
       event.preventDefault();
 
-      this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
+      this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { expenseIndex: expenseIndex, isNew: true });
     }.bind(this));
 
     // Remove expense on X click
@@ -136,7 +137,7 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Display alternatives
     expense.alternatives.forEach(function (alternative) {
-      this.appendAlternative(alternativesList, alternative);
+      this.appendAlternative(alternativesList, alternative, { expenseIndex: expenseIndex });
     }.bind(this));
 
     // Display comments
@@ -146,7 +147,7 @@ TripBudget.Views.DestinationsHandler = (function () {
 
     // Appending default blank alternative
     if (expense.alternatives.length === 0) {
-      this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true });
+      this.appendAlternative(alternativesList, DEFAULT_ALTERNATIVE, { isNew: true, expenseIndex: expenseIndex });
     }
 
     // Appending to container
@@ -161,7 +162,7 @@ TripBudget.Views.DestinationsHandler = (function () {
   DestinationsHandler.prototype.appendAlternative = function (container, alternative, options) {
     var options = options || {}
       , $alternative = $(this.templates.alternative({
-        index: this.expenseIndex,
+        index: options.expenseIndex,
         alternative: alternative
       }))
       , $alternativesList = container;
