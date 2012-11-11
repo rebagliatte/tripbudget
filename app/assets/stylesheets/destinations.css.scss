@@ -58,12 +58,23 @@ body.trips.show {
     right: 20px;
     margin: 0;
     li {
+      cursor: pointer;
       list-style: none;
       float: left;
       margin-right: 10px;
+      overflow: auto;
       img {
         width: 40px;
         @include border-radius(5px);
+      }
+      &.excluded {
+        &::before {
+          content: '';
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          background-color: rgba(255, 255, 255, 0.5);
+        }
       }
     }
   }

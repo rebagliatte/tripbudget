@@ -12,19 +12,11 @@ TripBudget.Helpers.DestinationTravellers = (function () {
   DestinationTravellers.prototype.bindTravellerEnabledEvents = function () {
     var self = this;
 
-    $('#travellers-list li a').click(function (event) {
+    $('#travellers-list li').click(function (event) {
       var $element = $(this)
-        , $li = $element.parent()
         , destinationTravellerIds = [];
 
-      event.preventDefault();
-
-      if ($li.is('.included')) {
-        $li.attr('class', 'excluded');
-      }
-      else {
-        $li.attr('class', 'included');
-      }
+      $element.toggleClass('included').toggleClass('excluded')
 
       $('#travellers-list li.included').each(function (index, element) {
         destinationTravellerIds.push($(element).find('a').data('id'));
