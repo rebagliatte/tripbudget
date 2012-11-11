@@ -23,15 +23,26 @@ body.trips.form {
 body.trips.show {
   .alternatives {
     .cost {
-      width: 4%;
+      width: 6%;
       display: inline-block;
     }
     .provider {
       width: 20%;
       display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 30px;
     }
     .inactive {
       opacity: 0.6;
+    }
+    .link-url a {
+      width: 496px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      white-space: nowrap;
     }
   }
 }
