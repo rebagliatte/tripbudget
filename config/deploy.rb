@@ -28,7 +28,7 @@ require 'bundler/capistrano'
 ##                                         ##
 #############################################
 
-GITHUB_REPOSITORY_NAME = 'r12-team-209'
+GITHUB_REPOSITORY_PATH = 'rebagliatte/tripbudget'
 LINODE_SERVER_HOSTNAME = '69.164.196.246'
 
 #############################################
@@ -60,7 +60,7 @@ set :admin_runner,               "www-data"
 
 # SCM Options
 set :scm,        :git
-set :repository, "git@github.com:railsrumble/#{GITHUB_REPOSITORY_NAME}.git"
+set :repository, "git@github.com:#{GITHUB_REPOSITORY_PATH}.git"
 set :branch,     "master"
 
 # Roles
