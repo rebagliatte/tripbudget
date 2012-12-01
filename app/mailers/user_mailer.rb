@@ -4,12 +4,12 @@ class UserMailer < ActionMailer::Base
 
   def invite_email(options = {})
     load_mail_resources(options)
-    mail(to: traveller.email, subject: 'You were invited to TripBudget!')
+    mail(to: @invitee.email, subject: 'You were invited to TripBudget!')
   end
 
   def notice_trip_invitation_email(options = {})
     load_mail_resources(options)
-    mail(to: traveller.email, subject: 'You were invited to a new trip!')
+    mail(to: @invitee.email, subject: 'You were invited to a new trip!')
   end
 
   private

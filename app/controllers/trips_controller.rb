@@ -10,7 +10,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = current_user.trips.active
+    @trips = current_user ? current_user.trips.active : Trip.public.all
   end
 
   def popular
