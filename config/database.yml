@@ -1,8 +1,0 @@
-development:
-  adapter: mysql2
-  database: tripbudget_development
-
-production:
-  adapter: mysql2
-  database: tripbudget_production
-  password: 123root
