@@ -25,4 +25,5 @@ public/assets
 .DS_Store
 
 # Sensitive data
-config/settings.rb
+/config/settings.rb
+/config/database.yml
