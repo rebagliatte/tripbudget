@@ -27,3 +27,4 @@ public/assets
 # Sensitive data
 /config/settings.rb
 /config/database.yml
+/config/omniauth.json
