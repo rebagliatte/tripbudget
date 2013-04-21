@@ -74,10 +74,8 @@ class TripsController < ApplicationController
       # Success!
       redirect_to edit_trip_destination_path(@trip, destinations.first), flash: { success: 'Trip saved successfully. Now edit your destinations!' }
     else
-      errors = []
-      errors << 'Invalid destinations' unless destinations_valid
-      errors << 'You must pick at least one destination' unless any_destination
-      flash.now[:error] = errors if errors.any?
+      @trip.errors.add(:destinations, 'is invalid') unless destinations_valid
+      @trip.errors.add(:destinations, 'has to be at least one') unless any_destination
 
       render @trip.new_record? ? :new : :edit
     end
