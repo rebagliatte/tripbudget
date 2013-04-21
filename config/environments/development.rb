@@ -40,10 +40,11 @@ config.action_mailer.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
   :domain               => 'gmail',
-  :user_name            => ENV['GMAIL_USER'],
-  :password             => ENV['GMAIL_PASSWORD'],
+  :user_name            => config.app_config.gmail_username,
+  :password             => config.app_config.gmail_password,
   :authentication       => 'plain',
-  :enable_starttls_auto => true  }
+  :enable_starttls_auto => true
+}
 
 # Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 

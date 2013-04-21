@@ -55,5 +55,8 @@ module Tripbudget
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.app_config = ActiveSupport::OrderedOptions.new(JSON.parse(File.open(File.join(Rails.root, 'config/omniauth.json')).read))
+
   end
 end

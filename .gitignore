@@ -28,3 +28,4 @@ public/assets
 /config/settings.rb
 /config/database.yml
 /config/omniauth.json
+/config/config.json
