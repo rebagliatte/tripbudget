@@ -69,12 +69,12 @@ Tripbudget::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'gmail',
-    :user_name            => config.app_config.gmail_username,
-    :password             => config.app_config.gmail_password,
+    :user_name            => config.app_config[:gmail_user],
+    :password             => config.app_config[:gmail_password],
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
 
- config.action_mailer.asset_host = "http://codepath.r12.railsrumble.com"
- config.action_mailer.default_url_options = { :host => 'codepath.r12.railsrumble.com' }
+  config.action_mailer.asset_host = 'http://tripbudget.us'
+  config.action_mailer.default_url_options = { :host => 'tripbudget.us' }
 end
